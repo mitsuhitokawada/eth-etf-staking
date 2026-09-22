@@ -93,6 +93,10 @@ def main() -> None:
         for d, e, s in merged.itertuples(index=False)
     ]
     (DOCS / "data.json").write_text(json.dumps(records, ensure_ascii=False, indent=1), encoding="utf-8")
+    # index.html をダブルクリックで開いても動くように、JSファイルとしても書き出す
+    (DOCS / "data.js").write_text(
+        "window.ETF_STAKING_DATA = " + json.dumps(records, ensure_ascii=False) + ";\n", encoding="utf-8"
+    )
     print(f"{len(records)} 日分を docs/data.json に書き出しました（{records[0]['date']} 〜 {records[-1]['date']}）")
 
 
