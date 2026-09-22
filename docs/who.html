@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>誰がETHを預けている？</title>
+<meta name="description" content="Lido、Binance、Coinbase…誰がどれだけEthereumをステーキングしているかを、2020年からの時間の道を飛びながら見る3Dページ">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0b0a1f; --text: #ffffff; --muted: #a9a3c9; --accent: #9d7bff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); overflow: hidden;
+    font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif; }
+  canvas { display: block; }
+  .hud { position: fixed; left: 16px; right: 16px; top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; justify-content: space-between; pointer-events: none; }
+  .date { font-weight: 800; font-size: clamp(1.4rem, 4vw, 2.2rem); line-height: 1.2; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+  .date small { display: block; font-size: .85rem; color: var(--muted); font-weight: 700; }
+  .top { background: rgba(20, 18, 50, .78); border-radius: 18px; padding: 10px 14px; min-width: 260px; backdrop-filter: blur(6px); font-size: .95rem; }
+  .top .t { font-size: .8rem; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+  .top .row { display: flex; justify-content: space-between; gap: 14px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.5; }
+  .top .row i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
+  .top .row span:last-child { color: var(--muted); font-weight: 700; }
+  .top .mover { margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,.15); font-weight: 700; }
+  .bar { position: fixed; left: 16px; right: 16px; bottom: 14px; background: rgba(11,10,31,.72); border-radius: 22px; padding: 10px 14px; backdrop-filter: blur(6px); display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: center; }
+  .bar button, .bar a { border: 0; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-weight: 800; padding: 8px 16px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+  .bar button[aria-pressed="true"] { background: var(--accent); }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: .85rem; color: var(--muted); font-weight: 700; flex-basis: 100%; justify-content: center; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; vertical-align: -1px; margin-right: 4px; }
+  input[type=range] { width: min(50vw, 360px); accent-color: var(--accent); }
+  .hint { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(20,18,50,.9); border-radius: 22px; padding: 22px 26px; max-width: 460px; text-align: center; font-size: 1rem; line-height: 1.7; }
+  .hint b { display: block; font-size: 1.3rem; margin-bottom: 6px; }
+  .hint button { margin-top: 10px; border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 800; padding: 10px 22px; border-radius: 999px; cursor: pointer; font-size: 1rem; }
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="date" id="date">—<small>誰がETHを預けているか、2020年から飛びます</small></div>
+  <div class="top" id="top"></div>
+</div>
+<div class="bar">
+  <div class="legend" id="legend"></div>
+  <button id="play" aria-pressed="true">⏸ 止める</button>
+  <span style="color:var(--muted);font-weight:700">速さ</span><input type="range" id="speed" min="0.2" max="4" step="0.1" value="1">
+  <input type="range" id="pos" min="0" max="1000" value="0" title="位置">
+  <a href="fly.html">🚀 ETF×ステーキングの道へ</a>
+  <a href="index.html">📊 2Dの解説ページへ</a>
+</div>
+<div class="hint" id="hint">
+  <b>🏙️ 誰がETHを預けている？</b>
+  1本の道が1つの会社・サービス。左から大きい順に並んでいます。<br>ビルの高さが、その週に預けられていたETHの量。色は「どういう種類の会社か」。<br>2020年12月のスタートから、今日まで飛びます。ドラッグで見回せます。
+  <br><button id="go">出発</button>
+</div>
+
+<script src="who.js"></script>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+<script type="module">
+import * as THREE from "three";
+
+const D = window.STAKERS_WEEKLY;
+if (!D) document.getElementById("hint").innerHTML = "who.js が見つかりません。python3 build.py を実行してください。";
+const weeks = D.weeks, W = weeks.length;
+// 上位の主体は1本ずつ、残りは「その他」にまとめる（初心者が読める本数に）
+const TOP = 14;
+const main = D.entities.filter(e => e.name !== "Unidentified" && e.name !== "Others");
+const lanes = main.slice(0, TOP).map(e => ({ ...e }));
+const rest = [...main.slice(TOP), ...D.entities.filter(e => e.name === "Others")];
+lanes.push({ name: "その他", category: "Others", category_ja: "その他（小さい主体）", series: weeks.map((_, i) => rest.reduce((a, e) => a + e.series[i], 0)) });
+const unid = D.entities.find(e => e.name === "Unidentified");
+if (unid) lanes.push({ name: "未特定", category: "Unidentified", category_ja: "未特定（個人など）", series: unid.series });
+
+// 分類ごとの色（種類が違えば色が違う、同じ種類は同じ色）
+const CAT = {
+  "Liquid Staking":   { c: 0x4da3ff, ja: "リキッドステーキング（Lidoなど）" },
+  "CEXs":             { c: 0xffb020, ja: "取引所（Binance、Coinbaseなど）" },
+  "Staking Pools":    { c: 0x3ee0c3, ja: "ステーキング業者（Figment、Kilnなど）" },
+  "Liquid Restaking": { c: 0xff6fa3, ja: "リキッドリステーキング（ether.fiなど）" },
+  "Solo Stakers":     { c: 0xc4ff5e, ja: "個人" },
+  "Others":           { c: 0x9d7bff, ja: "その他" },
+  "Unidentified":     { c: 0x6e6a8a, ja: "未特定（個人や無名の運営者）" },
+};
+const catOf = e => CAT[e.category] ? e.category : "Others";
+const fmt = n => n >= 1e6 ? (n / 1e4).toLocaleString("ja-JP", { maximumFractionDigits: 0 }) + "万ETH" : n >= 1e4 ? (n / 1e4).toLocaleString("ja-JP", { maximumFractionDigits: 1 }) + "万ETH" : Math.round(n).toLocaleString("ja-JP") + " ETH";
+const jpDate = s => `${s.slice(0, 4)}年${Number(s.slice(5, 7))}月${Number(s.slice(8, 10))}日の週`;
+
+// 凡例（画面に出ている分類だけ）
+const usedCats = [...new Set(lanes.map(catOf))];
+document.getElementById("legend").innerHTML = usedCats.map(k => `<span><i style="background:#${CAT[k].c.toString(16).padStart(6, "0")}"></i>${CAT[k].ja}</span>`).join("");
+
+// ---- シーン ----
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+document.body.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b0a1f);
+scene.fog = new THREE.Fog(0x0b0a1f, 60, 220);
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 500);
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+const sun = new THREE.DirectionalLight(0xffffff, 1.3); sun.position.set(-8, 30, 12); scene.add(sun);
+
+const STEP = 2.2;             // 1週の長さ
+const LANE_W = 2.4;           // 道1本の幅
+const L = lanes.length;
+const xOf = i => (i - (L - 1) / 2) * LANE_W;
+const maxV = Math.max(...lanes.flatMap(l => l.series));
+// 高さは平方根（Lidoが極端に大きいので、小さい主体も見えるように）
+const hOf = v => Math.sqrt(v / maxV) * 16;
+
+// 床とグリッド
+const floorW = L * LANE_W + 8, floorL = W * STEP + 60;
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(floorW, floorL), new THREE.MeshStandardMaterial({ color: 0x1a1740, roughness: 0.95 }));
+floor.rotation.x = -Math.PI / 2; floor.position.z = -(W * STEP) / 2; scene.add(floor);
+const grid = new THREE.GridHelper(floorL, Math.round(floorL / STEP), 0x3a3470, 0x2a2556);
+grid.scale.x = floorW / floorL; grid.position.set(0, 0.01, -(W * STEP) / 2); scene.add(grid);
+
+// ビル: 主体ごとに1つの InstancedMesh（週ごとに1本）
+const box = new THREE.BoxGeometry(LANE_W * 0.72, 1, STEP * 0.9);
+const mats = {};
+for (const k of Object.keys(CAT)) mats[k] = new THREE.MeshStandardMaterial({ color: CAT[k].c, emissive: CAT[k].c, emissiveIntensity: 0.25, roughness: 0.45 });
+lanes.forEach((lane, li) => {
+  const mesh = new THREE.InstancedMesh(box, mats[catOf(lane)], W);
+  const m = new THREE.Matrix4();
+  lane.series.forEach((v, wi) => { const h = Math.max(0.03, hOf(v)); m.makeScale(1, h, 1); m.setPosition(xOf(li), h / 2, -wi * STEP); mesh.setMatrixAt(wi, m); });
+  scene.add(mesh);
+});
+
+// 看板（Canvasに文字を描いてスプライトに）
+function label(text, color = "#ffffff", w = 512, size = 56) {
+  const c = document.createElement("canvas"); c.width = w; c.height = 128;
+  const g = c.getContext("2d");
+  g.fillStyle = "rgba(20,18,50,.88)"; g.beginPath(); g.roundRect(6, 8, w - 12, 112, 32); g.fill();
+  g.fillStyle = color; g.font = `800 ${size}px 'M PLUS Rounded 1c', sans-serif`; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(text, w / 2, 66);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, transparent: true, depthTest: false }));
+  s.scale.set(w / 64, 2, 1); return s;
+}
+// 主体名の看板は、カメラの少し先に浮かべて一緒に動かす
+const nameSprites = lanes.map((lane, li) => { const s = label(lane.name, "#ffffff", 384, 60); s.scale.set(3.6, 1.2, 1); s.position.x = xOf(li); scene.add(s); return s; });
+// 年の看板
+let lastY = "";
+weeks.forEach((w, i) => { const y = w.slice(0, 4); if (y !== lastY && (lastY !== "" || i === 0)) { lastY = y; const s = label(y + "年", "#ffffff"); s.scale.set(10, 2.5, 1); s.position.set(0, 22, -i * STEP); scene.add(s); } });
+// 出来事の看板
+const events = [["2020-12-07", "🌱 ステーキングが始まった（ビーコンチェーン）", "#ffd166"], ["2022-09-12", "🔀 The Merge（PoSに移行）", "#ffd166"], ["2023-04-10", "🔓 Shapella（引き出しができるように）", "#ffd166"], ["2024-07-22", "🏦 ETHのETFが始まった", "#ffd166"], ["2025-05-05", "⚙️ Pectra（1口の上限が2,048ETHに）", "#ffd166"], ["2026-03-09", "✨ ステーキング付きETF（ETHB）登場", "#3ee0c3"]];
+for (const [d, t, c] of events) { const i = weeks.findIndex(w => w >= d); if (i >= 0) { const s = label(t, c, 1024, 52); s.scale.set(14, 1.8, 1); s.position.set(0, 25.5, -i * STEP); scene.add(s); } }
+// 星
+{ const g = new THREE.BufferGeometry(); const p = new Float32Array(3000 * 3);
+  for (let i = 0; i < p.length; i += 3) { p[i] = (Math.random() - .5) * 400; p[i + 1] = Math.random() * 150 + 10; p[i + 2] = -Math.random() * (W * STEP + 300) + 60; }
+  g.setAttribute("position", new THREE.BufferAttribute(p, 3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xffffff, size: 0.4, transparent: true, opacity: .8 }))); }
+
+// ---- 飛行 ----
+let t = 0, playing = false, speed = 1, yaw = 0, pitch = 0, drag = null;
+const playBtn = document.getElementById("play"), speedEl = document.getElementById("speed"), posEl = document.getElementById("pos");
+document.getElementById("go").onclick = () => { document.getElementById("hint").style.display = "none"; playing = true; };
+const toggle = () => { playing = !playing; playBtn.setAttribute("aria-pressed", playing); playBtn.textContent = playing ? "⏸ 止める" : "▶ 進む"; };
+playBtn.onclick = toggle;
+speedEl.oninput = () => speed = Number(speedEl.value);
+posEl.oninput = () => { t = Number(posEl.value) / 1000 * (W - 1); };
+renderer.domElement.addEventListener("pointerdown", e => drag = { x: e.clientX, y: e.clientY, yaw, pitch });
+addEventListener("pointermove", e => { if (!drag) return; yaw = drag.yaw - (e.clientX - drag.x) * 0.004; pitch = Math.max(-0.6, Math.min(0.5, drag.pitch + (e.clientY - drag.y) * 0.003)); });
+addEventListener("pointerup", () => drag = null);
+addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+
+const dateEl = document.getElementById("date"), topEl = document.getElementById("top");
+let shown = -1;
+function hud(i) {
+  if (i === shown) return; shown = i;
+  const total = lanes.reduce((a, l) => a + l.series[i], 0);
+  const ranked = lanes.map(l => ({ l, v: l.series[i] })).filter(x => x.l.category !== "Unidentified").sort((a, b) => b.v - a.v).slice(0, 3);
+  const prev = Math.max(0, i - 4);
+  const mover = lanes.map(l => ({ l, d: l.series[i] - l.series[prev] })).filter(x => x.l.category !== "Unidentified").sort((a, b) => b.d - a.d)[0];
+  dateEl.innerHTML = `${jpDate(weeks[i])}<small>預けられているETH ぜんぶで ${fmt(total)}</small>`;
+  topEl.innerHTML = `<div class="t">この週の上位3つ</div>` + ranked.map(x => `<div class="row"><span><i style="background:#${CAT[catOf(x.l)].c.toString(16).padStart(6, "0")}"></i>${x.l.name}</span><span>${fmt(x.v)}（${total ? Math.round(x.v / total * 100) : 0}%）</span></div>`).join("")
+    + (mover && mover.d > 0 ? `<div class="mover">📈 ここ1ヶ月でいちばん増えた: ${mover.l.name}（+${fmt(mover.d)}）</div>` : "");
+}
+
+let prev = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - prev) / 1000); prev = now;
+  if (playing) { t += dt * 3.2 * speed; if (t >= W - 1) { t = W - 1; playing = false; playBtn.textContent = "🔁 もう一度"; playBtn.onclick = () => { t = 0; playing = true; playBtn.textContent = "⏸ 止める"; playBtn.onclick = toggle; }; } }
+  if (!drag) { yaw *= 0.97; pitch *= 0.97; }
+  const z = -t * STEP;
+  camera.position.set(Math.sin(yaw) * 4, 24 + Math.sin(now / 1500) * 0.3, z + 34);
+  camera.lookAt(Math.sin(yaw) * 40, 2 + pitch * 40, z - 40);
+  const i = Math.round(t);
+  nameSprites.forEach((s, li) => { s.position.z = z - 6; s.position.y = Math.max(0.03, hOf(lanes[li].series[i])) + 1.4 + (li % 2) * 1.6; });
+  hud(i);
+  if (!posEl.matches(":active")) posEl.value = Math.round(t / (W - 1) * 1000);
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

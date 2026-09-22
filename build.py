@@ -162,5 +162,58 @@ def main() -> None:
     print(f"{len(records)} 日分を docs/data.json に書き出しました（{records[0]['date']} 〜 {records[-1]['date']}）")
 
 
+# 分類の日本語名（Duneの entity_category → 画面に出す言葉）
+CATEGORY_JA = {
+    "Liquid Staking": "リキッドステーキング",
+    "Liquid Restaking": "リキッドリステーキング",
+    "CEXs": "取引所",
+    "Staking Pools": "ステーキング業者",
+    "Solo Stakers": "個人（ソロ）",
+    "Unidentified": "未特定",
+    "Others": "その他",
+}
+
+
+def build_stakers() -> None:
+    """主体（Lido、Binance…）ごとの週次残高を docs/who.js に書き出す"""
+    ts_path = DATA / "eth_staked_by_entity.csv"
+    snap_path = DATA / "eth_stakers_snapshot.csv"
+    if not ts_path.exists():
+        print("data/eth_staked_by_entity.csv が無いので who.js は作りません")
+        return
+    ts = pd.read_csv(ts_path)
+    ts["time"] = pd.to_datetime(ts["time"]).dt.normalize()
+    # 主体 → 分類（スナップショットから引く。無ければ「その他」）
+    cat = {}
+    if snap_path.exists():
+        snap = pd.read_csv(snap_path)
+        cat = dict(zip(snap["entity_just_name"], snap["entity_category"]))
+    cat.setdefault("Unidentified", "Unidentified")
+    cat.setdefault("Others", "Others")
+    cat.setdefault("Solo Stakers", "Solo Stakers")
+
+    weeks = sorted(ts["time"].unique())
+    wide = ts.pivot_table(index="time", columns="depositor_entity", values="cum_deposited_eth", aggfunc="max").reindex(weeks)
+    wide = wide.ffill().fillna(0.0)
+    order = wide.iloc[-1].sort_values(ascending=False).index.tolist()
+    entities = []
+    for name in order:
+        entities.append({
+            "name": name,
+            "category": cat.get(name, "Others"),
+            "category_ja": CATEGORY_JA.get(cat.get(name, "Others"), "その他"),
+            "series": [round(float(v)) for v in wide[name].tolist()],
+        })
+    out = {
+        "weeks": [pd.Timestamp(w).strftime("%Y-%m-%d") for w in weeks],
+        "entities": entities,
+        "generated": pd.Timestamp.now("UTC").strftime("%Y-%m-%d"),
+        "source": {"name": "Dune / hildobby「ETH Staked by Entity」", "url": "https://dune.com/hildobby/eth2-staking"},
+    }
+    (DOCS / "who.js").write_text("window.STAKERS_WEEKLY = " + json.dumps(out, ensure_ascii=False) + ";\n", encoding="utf-8")
+    print(f"{len(weeks)} 週 × {len(entities)} 主体を docs/who.js に書き出しました")
+
+
 if __name__ == "__main__":
     main()
+    build_stakers()
