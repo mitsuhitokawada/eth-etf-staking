@@ -22,6 +22,11 @@ BASE = Path(__file__).resolve().parent
 DATA = BASE / "data"
 DOCS = BASE / "docs"
 
+# ETFデータの出どころ（Farsideのファイルがあればそちらを優先する）
+ETF_UNIT = "ETH"
+ETF_SOURCE_NAME = "Dune / hildobby「Ethereum ETF」"
+ETF_SOURCE_URL = "https://dune.com/hildobby/eth-etfs"
+
 
 def find_column(df: pd.DataFrame, candidates: list[str]) -> str:
     """列名の候補リストから、実際にある列を1つ探す（大文字小文字は無視）。"""
@@ -62,14 +67,54 @@ def load_staking(path: Path) -> pd.DataFrame:
     return out.dropna(subset=["date"]).groupby("date", as_index=False)["staking_flow"].sum()
 
 
+FARSIDE_COLS = ["ETHA", "ETHB", "FETH", "ETHW", "TETH", "ETHV", "QETH", "EZET", "MSSE", "ETHE", "ETH", "Total"]
+
+
+def load_farside(path: Path) -> pd.DataFrame:
+    """Farsideの表をコピーしたテキスト（日付|値,値,...）を、1日1行の表にする。単位は百万ドル。"""
+
+    def num(s: str):
+        s = s.strip()
+        if s == "-":
+            return None
+        neg = s.startswith("(")            # 括弧はマイナス
+        v = float(s.strip("()").replace(",", ""))
+        return -v if neg else v
+
+    rows = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        d, vals = line.split("|")
+        rows.append([pd.to_datetime(d, format="%d %b %Y")] + [num(v) for v in vals.split(",")])
+    df = pd.DataFrame(rows, columns=["date"] + FARSIDE_COLS)
+    return pd.DataFrame({
+        "date": df["date"],
+        "etf_flow": df["Total"],       # 全ETFの合計（百万ドル）
+        "etf_etha": df["ETHA"],        # BlackRock ETHA（ステーキングなし）
+        "etf_ethb": df["ETHB"],        # ステーキング型（2026-03-11 から）
+    })
+
+
 def main() -> None:
     # DuneのETF CSVは「日付 × 発行体」の縦長。tvl列がその日・その発行体のフロー(ETH)なので、
     # 日ごとに全発行体を合計すると、その日のETF全体の純流入(ETH)になる
-    etf = load_daily(
-        DATA / "etf_flows.csv",
-        value_candidates=["tvl", "net_flow", "netflow", "net flow", "flow", "daily_net_flow", "total"],
-        out_name="etf_flow",
-    )
+    global ETF_UNIT, ETF_SOURCE_NAME, ETF_SOURCE_URL
+    farside_path = DATA / "farside_eth_etf_flows.txt"
+    if farside_path.exists():
+        etf = load_farside(farside_path)
+        ETF_UNIT = "百万ドル"
+        ETF_SOURCE_NAME = "Farside Investors「Ethereum ETF Flow – All Data」"
+        ETF_SOURCE_URL = "https://farside.co.uk/ethereum-etf-flow-all-data/"
+    else:
+        etf = load_daily(
+            DATA / "etf_flows.csv",
+            value_candidates=["tvl", "net_flow", "netflow", "net flow", "flow", "daily_net_flow", "total"],
+            out_name="etf_flow",
+        )
+        etf["etf_etha"] = float("nan")
+        etf["etf_ethb"] = float("nan")
 
     staking_path = DATA / "staking_flows.csv"
     if staking_path.exists():
@@ -84,18 +129,35 @@ def main() -> None:
     merged = merged[merged["date"] >= "2024-07-23"]
 
     DOCS.mkdir(exist_ok=True)
+    def clean(v):
+        return None if pd.isna(v) else round(float(v), 2)
+
     records = [
         {
-            "date": d.strftime("%Y-%m-%d"),
-            "etf_flow": None if pd.isna(e) else round(float(e), 2),
-            "staking_flow": None if pd.isna(s) else round(float(s), 2),
+            "date": r.date.strftime("%Y-%m-%d"),
+            "etf_flow": clean(r.etf_flow),
+            "etf_etha": clean(r.etf_etha),
+            "etf_ethb": clean(r.etf_ethb),
+            "staking_flow": clean(r.staking_flow),
         }
-        for d, e, s in merged.itertuples(index=False)
+        for r in merged.itertuples(index=False)
     ]
     (DOCS / "data.json").write_text(json.dumps(records, ensure_ascii=False, indent=1), encoding="utf-8")
     # index.html をダブルクリックで開いても動くように、JSファイルとしても書き出す
+    meta = {
+        "etf_unit": ETF_UNIT,
+        "stk_unit": "ETH",
+        "generated": pd.Timestamp.now("UTC").strftime("%Y-%m-%d"),
+        "sources": [
+            {"name": "Ethereum ETF: " + ETF_SOURCE_NAME, "url": ETF_SOURCE_URL,
+             "range": f"{etf['date'].min():%Y-%m-%d}〜{etf['date'].max():%Y-%m-%d}"},
+            {"name": "ステーキング: Dune / hildobby「Ethereum Staking Flows」", "url": "https://dune.com/hildobby/eth2-staking",
+             "range": f"{merged.dropna(subset=['staking_flow'])['date'].min():%Y-%m-%d}〜{merged.dropna(subset=['staking_flow'])['date'].max():%Y-%m-%d}"},
+        ],
+    }
     (DOCS / "data.js").write_text(
-        "window.ETF_STAKING_DATA = " + json.dumps(records, ensure_ascii=False) + ";\n", encoding="utf-8"
+        "window.ETF_STAKING_DATA = " + json.dumps(records, ensure_ascii=False) + ";\n"
+        + "window.ETF_STAKING_META = " + json.dumps(meta, ensure_ascii=False) + ";\n", encoding="utf-8"
     )
     print(f"{len(records)} 日分を docs/data.json に書き出しました（{records[0]['date']} 〜 {records[-1]['date']}）")
 

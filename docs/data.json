@@ -1,3962 +1,5546 @@
 [
  {
   "date": "2024-07-23",
-  "etf_flow": null,
+  "etf_flow": 106.6,
+  "etf_etha": 266.5,
+  "etf_ethb": null,
   "staking_flow": 44784.65
  },
  {
   "date": "2024-07-24",
-  "etf_flow": 30666.44,
+  "etf_flow": -133.3,
+  "etf_etha": 17.4,
+  "etf_ethb": null,
   "staking_flow": 38842.22
  },
  {
   "date": "2024-07-25",
-  "etf_flow": -42777.27,
+  "etf_flow": -152.4,
+  "etf_etha": 70.9,
+  "etf_ethb": null,
   "staking_flow": 25324.28
  },
  {
   "date": "2024-07-26",
-  "etf_flow": -43461.72,
+  "etf_flow": -162.7,
+  "etf_etha": 87.2,
+  "etf_ethb": null,
   "staking_flow": 7218.8
  },
  {
   "date": "2024-07-27",
-  "etf_flow": 10926.9,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 29163.45
  },
  {
   "date": "2024-07-28",
-  "etf_flow": 1119.97,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 3623.9
  },
  {
   "date": "2024-07-29",
-  "etf_flow": -47510.8,
+  "etf_flow": -98.3,
+  "etf_etha": 58.2,
+  "etf_ethb": null,
   "staking_flow": 93142.9
  },
  {
   "date": "2024-07-30",
-  "etf_flow": -36628.84,
+  "etf_flow": 33.7,
+  "etf_etha": 118.0,
+  "etf_ethb": null,
   "staking_flow": 119946.91
  },
  {
   "date": "2024-07-31",
-  "etf_flow": 11616.51,
+  "etf_flow": -77.2,
+  "etf_etha": 5.0,
+  "etf_ethb": null,
   "staking_flow": 50598.16
  },
  {
   "date": "2024-08-01",
-  "etf_flow": -26544.99,
+  "etf_flow": 26.7,
+  "etf_etha": 89.6,
+  "etf_ethb": null,
   "staking_flow": 1837.79
  },
  {
   "date": "2024-08-02",
-  "etf_flow": 16928.74,
+  "etf_flow": -54.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -12583.89
  },
  {
   "date": "2024-08-03",
-  "etf_flow": -4809.47,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -6490.79
  },
  {
   "date": "2024-08-04",
-  "etf_flow": 2256.68,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -8041.86
  },
  {
   "date": "2024-08-05",
-  "etf_flow": -3346.81,
+  "etf_flow": 48.8,
+  "etf_etha": 47.1,
+  "etf_ethb": null,
   "staking_flow": 7235.82
  },
  {
   "date": "2024-08-06",
-  "etf_flow": 15969.93,
+  "etf_flow": 98.4,
+  "etf_etha": 109.9,
+  "etf_ethb": null,
   "staking_flow": 14463.41
  },
  {
   "date": "2024-08-07",
-  "etf_flow": 34834.9,
+  "etf_flow": -23.7,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 15112.55
  },
  {
   "date": "2024-08-08",
-  "etf_flow": -8846.36,
+  "etf_flow": -2.9,
+  "etf_etha": 11.7,
+  "etf_ethb": null,
   "staking_flow": -91112.15
  },
  {
   "date": "2024-08-09",
-  "etf_flow": -1224.07,
+  "etf_flow": -15.8,
+  "etf_etha": 19.6,
+  "etf_ethb": null,
   "staking_flow": -36.44
  },
  {
   "date": "2024-08-10",
-  "etf_flow": 1683.51,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -23037.38
  },
  {
   "date": "2024-08-11",
-  "etf_flow": 28.12,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -45530.38
  },
  {
   "date": "2024-08-12",
-  "etf_flow": -9390.17,
+  "etf_flow": 5.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 16560.97
  },
  {
   "date": "2024-08-13",
-  "etf_flow": 4882.81,
+  "etf_flow": 24.3,
+  "etf_etha": 49.1,
+  "etf_ethb": null,
   "staking_flow": 63628.21
  },
  {
   "date": "2024-08-14",
-  "etf_flow": 5138.31,
+  "etf_flow": 10.8,
+  "etf_etha": 16.1,
+  "etf_ethb": null,
   "staking_flow": 15103.38
  },
  {
   "date": "2024-08-15",
-  "etf_flow": 5436.42,
+  "etf_flow": -39.2,
+  "etf_etha": 0.8,
+  "etf_ethb": null,
   "staking_flow": 86637.87
  },
  {
   "date": "2024-08-16",
-  "etf_flow": -16776.54,
+  "etf_flow": -15.0,
+  "etf_etha": 10.3,
+  "etf_ethb": null,
   "staking_flow": 32487.64
  },
  {
   "date": "2024-08-17",
-  "etf_flow": -2163.42,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -41490.45
  },
  {
   "date": "2024-08-18",
-  "etf_flow": 3313.98,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -33655.54
  },
  {
   "date": "2024-08-19",
-  "etf_flow": -6402.5,
+  "etf_flow": -13.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 54629.28
  },
  {
   "date": "2024-08-20",
-  "etf_flow": -8056.19,
+  "etf_flow": -6.5,
+  "etf_etha": 26.8,
+  "etf_ethb": null,
   "staking_flow": 1651.39
  },
  {
   "date": "2024-08-21",
-  "etf_flow": 2419.59,
+  "etf_flow": -18.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 1767.7
  },
  {
   "date": "2024-08-22",
-  "etf_flow": -11439.1,
+  "etf_flow": -0.8,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -5313.35
  },
  {
   "date": "2024-08-23",
-  "etf_flow": -2505.5,
+  "etf_flow": -5.7,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 362.36
  },
  {
   "date": "2024-08-24",
-  "etf_flow": -851.01,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 3736.4
  },
  {
   "date": "2024-08-25",
-  "etf_flow": 97.48,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 2617.63
  },
  {
   "date": "2024-08-26",
-  "etf_flow": -2828.33,
+  "etf_flow": -13.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 12809.38
  },
  {
   "date": "2024-08-27",
-  "etf_flow": -6380.28,
+  "etf_flow": -3.4,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 431.37
  },
  {
   "date": "2024-08-28",
-  "etf_flow": 3711.48,
+  "etf_flow": 5.9,
+  "etf_etha": 8.4,
+  "etf_ethb": null,
   "staking_flow": 67723.5
  },
  {
   "date": "2024-08-29",
-  "etf_flow": 700.33,
+  "etf_flow": -1.7,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 3957.54
  },
  {
   "date": "2024-08-30",
-  "etf_flow": -2482.37,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 36497.13
  },
  {
   "date": "2024-08-31",
-  "etf_flow": -707.12,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -1754.31
  },
  {
   "date": "2024-09-01",
-  "etf_flow": 1720.79,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -7285.83
  },
  {
   "date": "2024-09-02",
-  "etf_flow": -894.79,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 1384.5
  },
  {
   "date": "2024-09-03",
-  "etf_flow": -14816.61,
+  "etf_flow": -47.4,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 78607.88
  },
  {
   "date": "2024-09-04",
-  "etf_flow": -5516.68,
+  "etf_flow": -37.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 19887.99
  },
  {
   "date": "2024-09-05",
-  "etf_flow": -18654.93,
+  "etf_flow": -0.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -19842.15
  },
  {
   "date": "2024-09-06",
-  "etf_flow": 3675.95,
+  "etf_flow": -6.0,
+  "etf_etha": 4.7,
+  "etf_ethb": null,
   "staking_flow": -25966.95
  },
  {
   "date": "2024-09-07",
-  "etf_flow": 1483.93,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -882.16
  },
  {
   "date": "2024-09-08",
-  "etf_flow": -126.98,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -5295.08
  },
  {
   "date": "2024-09-09",
-  "etf_flow": -2063.22,
+  "etf_flow": -5.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 5543.25
  },
  {
   "date": "2024-09-10",
-  "etf_flow": -457.15,
+  "etf_flow": 11.4,
+  "etf_etha": 4.3,
+  "etf_ethb": null,
   "staking_flow": -24876.19
  },
  {
   "date": "2024-09-11",
-  "etf_flow": 2350.7,
+  "etf_flow": -0.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 92708.81
  },
  {
   "date": "2024-09-12",
-  "etf_flow": 3594.4,
+  "etf_flow": -20.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 3609.71
  },
  {
   "date": "2024-09-13",
-  "etf_flow": -12846.01,
+  "etf_flow": 1.5,
+  "etf_etha": 3.7,
+  "etf_ethb": null,
   "staking_flow": 82657.3
  },
  {
   "date": "2024-09-14",
-  "etf_flow": -1961.24,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -29911.58
  },
  {
   "date": "2024-09-15",
-  "etf_flow": -1074.66,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -9076.25
  },
  {
   "date": "2024-09-16",
-  "etf_flow": 3375.56,
+  "etf_flow": -9.4,
+  "etf_etha": 4.2,
+  "etf_ethb": null,
   "staking_flow": -116.71
  },
  {
   "date": "2024-09-17",
-  "etf_flow": -4017.99,
+  "etf_flow": -15.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -2210.2
  },
  {
   "date": "2024-09-18",
-  "etf_flow": -3566.45,
+  "etf_flow": -9.8,
+  "etf_etha": 4.9,
+  "etf_ethb": null,
   "staking_flow": -3144.17
  },
  {
   "date": "2024-09-19",
-  "etf_flow": -6706.86,
+  "etf_flow": 5.2,
+  "etf_etha": 5.2,
+  "etf_ethb": null,
   "staking_flow": -14131.89
  },
  {
   "date": "2024-09-20",
-  "etf_flow": -8460.3,
+  "etf_flow": 2.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -9179.69
  },
  {
   "date": "2024-09-21",
-  "etf_flow": 10624.88,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 4139.35
  },
  {
   "date": "2024-09-22",
-  "etf_flow": -3430.28,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -3267.31
  },
  {
   "date": "2024-09-23",
-  "etf_flow": 2033.41,
+  "etf_flow": -79.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -3130.79
  },
  {
   "date": "2024-09-24",
-  "etf_flow": -28507.49,
+  "etf_flow": 62.5,
+  "etf_etha": 59.3,
+  "etf_ethb": null,
   "staking_flow": 40834.61
  },
  {
   "date": "2024-09-25",
-  "etf_flow": 20205.94,
+  "etf_flow": 43.2,
+  "etf_etha": 9.4,
+  "etf_ethb": null,
   "staking_flow": 7632.46
  },
  {
   "date": "2024-09-26",
-  "etf_flow": 19224.51,
+  "etf_flow": -0.1,
+  "etf_etha": 15.3,
+  "etf_ethb": null,
   "staking_flow": 14066.1
  },
  {
   "date": "2024-09-27",
-  "etf_flow": 189.04,
+  "etf_flow": 58.7,
+  "etf_etha": 11.5,
+  "etf_ethb": null,
   "staking_flow": 51479.19
  },
  {
   "date": "2024-09-28",
-  "etf_flow": -2282.19,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -8503.96
  },
  {
   "date": "2024-09-29",
-  "etf_flow": -1502.19,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -16340.34
  },
  {
   "date": "2024-09-30",
-  "etf_flow": 22942.55,
+  "etf_flow": -0.8,
+  "etf_etha": 11.0,
+  "etf_ethb": null,
   "staking_flow": 25170.52
  },
  {
   "date": "2024-10-01",
-  "etf_flow": -11688.85,
+  "etf_flow": -48.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 40073.06
  },
  {
   "date": "2024-10-02",
-  "etf_flow": -9979.31,
+  "etf_flow": 14.4,
+  "etf_etha": 18.0,
+  "etf_ethb": null,
   "staking_flow": 59073.26
  },
  {
   "date": "2024-10-03",
-  "etf_flow": 11435.36,
+  "etf_flow": -3.2,
+  "etf_etha": 12.1,
+  "etf_ethb": null,
   "staking_flow": 6923.26
  },
  {
   "date": "2024-10-04",
-  "etf_flow": -2187.79,
+  "etf_flow": 7.4,
+  "etf_etha": 14.7,
+  "etf_ethb": null,
   "staking_flow": 36818.59
  },
  {
   "date": "2024-10-05",
-  "etf_flow": -75.72,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 23631.78
  },
  {
   "date": "2024-10-06",
-  "etf_flow": -2018.34,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -32207.64
  },
  {
   "date": "2024-10-07",
-  "etf_flow": 4472.84,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -1294.6
  },
  {
   "date": "2024-10-08",
-  "etf_flow": -17233.85,
+  "etf_flow": -8.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -35122.12
  },
  {
   "date": "2024-10-09",
-  "etf_flow": 7091.15,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -42100.93
  },
  {
   "date": "2024-10-10",
-  "etf_flow": 3726.1,
+  "etf_flow": 3.1,
+  "etf_etha": 17.8,
+  "etf_ethb": null,
   "staking_flow": 2482.57
  },
  {
   "date": "2024-10-11",
-  "etf_flow": 1438.82,
+  "etf_flow": -0.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -9447.42
  },
  {
   "date": "2024-10-12",
-  "etf_flow": -122.15,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -73978.65
  },
  {
   "date": "2024-10-13",
-  "etf_flow": -2782.12,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -95461.82
  },
  {
   "date": "2024-10-14",
-  "etf_flow": -2582.98,
+  "etf_flow": 17.0,
+  "etf_etha": 14.3,
+  "etf_ethb": null,
   "staking_flow": 27783.51
  },
  {
   "date": "2024-10-15",
-  "etf_flow": 8186.59,
+  "etf_flow": -12.7,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 12981.04
  },
  {
   "date": "2024-10-16",
-  "etf_flow": -1033.01,
+  "etf_flow": 24.2,
+  "etf_etha": 11.9,
+  "etf_ethb": null,
   "staking_flow": 1668.8
  },
  {
   "date": "2024-10-17",
-  "etf_flow": 9492.95,
+  "etf_flow": 48.4,
+  "etf_etha": 23.6,
+  "etf_ethb": null,
   "staking_flow": 35316.51
  },
  {
   "date": "2024-10-18",
-  "etf_flow": 9451.88,
+  "etf_flow": 1.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -1695.96
  },
  {
   "date": "2024-10-19",
-  "etf_flow": 8638.78,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -53666.39
  },
  {
   "date": "2024-10-20",
-  "etf_flow": -3188.71,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -2611.79
  },
  {
   "date": "2024-10-21",
-  "etf_flow": 3333.76,
+  "etf_flow": -20.8,
+  "etf_etha": 4.9,
+  "etf_ethb": null,
   "staking_flow": 1003.66
  },
  {
   "date": "2024-10-22",
-  "etf_flow": -13852.51,
+  "etf_flow": 11.9,
+  "etf_etha": 11.9,
+  "etf_ethb": null,
   "staking_flow": 65284.48
  },
  {
   "date": "2024-10-23",
-  "etf_flow": 14125.96,
+  "etf_flow": 1.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 35047.66
  },
  {
   "date": "2024-10-24",
-  "etf_flow": -10170.76,
+  "etf_flow": 2.3,
+  "etf_etha": 2.3,
+  "etf_ethb": null,
   "staking_flow": 1928.87
  },
  {
   "date": "2024-10-25",
-  "etf_flow": 333.94,
+  "etf_flow": -19.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -13689.28
  },
  {
   "date": "2024-10-26",
-  "etf_flow": 6413.85,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 33198.02
  },
  {
   "date": "2024-10-27",
-  "etf_flow": 667.06,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -28775.9
  },
  {
   "date": "2024-10-28",
-  "etf_flow": -8835.6,
+  "etf_flow": -1.1,
+  "etf_etha": 2.3,
+  "etf_ethb": null,
   "staking_flow": 21825.76
  },
  {
   "date": "2024-10-29",
-  "etf_flow": 3048.43,
+  "etf_flow": 7.6,
+  "etf_etha": 13.6,
+  "etf_ethb": null,
   "staking_flow": 18226.2
  },
  {
   "date": "2024-10-30",
-  "etf_flow": -14488.01,
+  "etf_flow": 4.4,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 138143.15
  },
  {
   "date": "2024-10-31",
-  "etf_flow": 10236.48,
+  "etf_flow": 13.0,
+  "etf_etha": 49.6,
+  "etf_ethb": null,
   "staking_flow": 6560.84
  },
  {
   "date": "2024-11-01",
-  "etf_flow": 9929.26,
+  "etf_flow": -10.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 23212.01
  },
  {
   "date": "2024-11-02",
-  "etf_flow": 1236.29,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -20827.54
  },
  {
   "date": "2024-11-03",
-  "etf_flow": -2979.41,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -65106.31
  },
  {
   "date": "2024-11-04",
-  "etf_flow": -13210.44,
+  "etf_flow": -63.2,
+  "etf_etha": 11.0,
+  "etf_ethb": null,
   "staking_flow": -8020.48
  },
  {
   "date": "2024-11-05",
-  "etf_flow": -14937.8,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 25760.14
  },
  {
   "date": "2024-11-06",
-  "etf_flow": 1149.16,
+  "etf_flow": 52.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 3948.97
  },
  {
   "date": "2024-11-07",
-  "etf_flow": 21606.43,
+  "etf_flow": 79.7,
+  "etf_etha": 23.7,
+  "etf_ethb": null,
   "staking_flow": 81104.38
  },
  {
   "date": "2024-11-08",
-  "etf_flow": 6021.29,
+  "etf_flow": 85.9,
+  "etf_etha": 59.8,
+  "etf_ethb": null,
   "staking_flow": 9391.4
  },
  {
   "date": "2024-11-09",
-  "etf_flow": 17618.38,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -5568.54
  },
  {
   "date": "2024-11-10",
-  "etf_flow": 242.95,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -18335.92
  },
  {
   "date": "2024-11-11",
-  "etf_flow": -206.74,
+  "etf_flow": 295.5,
+  "etf_etha": 101.1,
+  "etf_ethb": null,
   "staking_flow": -24115.71
  },
  {
   "date": "2024-11-12",
-  "etf_flow": 95735.62,
+  "etf_flow": 135.9,
+  "etf_etha": 131.4,
+  "etf_ethb": null,
   "staking_flow": -53584.27
  },
  {
   "date": "2024-11-13",
-  "etf_flow": 37653.0,
+  "etf_flow": 146.9,
+  "etf_etha": 35.6,
+  "etf_ethb": null,
   "staking_flow": -46041.72
  },
  {
   "date": "2024-11-14",
-  "etf_flow": 40978.21,
+  "etf_flow": -3.2,
+  "etf_etha": 18.9,
+  "etf_ethb": null,
   "staking_flow": 42680.73
  },
  {
   "date": "2024-11-15",
-  "etf_flow": -17247.88,
+  "etf_flow": -59.8,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -21211.39
  },
  {
   "date": "2024-11-16",
-  "etf_flow": 11426.18,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -36924.97
  },
  {
   "date": "2024-11-17",
-  "etf_flow": -270.96,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -73267.99
  },
  {
   "date": "2024-11-18",
-  "etf_flow": -14794.47,
+  "etf_flow": -39.1,
+  "etf_etha": -23.9,
+  "etf_ethb": null,
   "staking_flow": -17929.19
  },
  {
   "date": "2024-11-19",
-  "etf_flow": -20512.84,
+  "etf_flow": -81.3,
+  "etf_etha": -14.2,
+  "etf_ethb": null,
   "staking_flow": 10192.59
  },
  {
   "date": "2024-11-20",
-  "etf_flow": -25920.9,
+  "etf_flow": -30.3,
+  "etf_etha": 16.7,
+  "etf_ethb": null,
   "staking_flow": -14343.01
  },
  {
   "date": "2024-11-21",
-  "etf_flow": -9386.34,
+  "etf_flow": -9.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -60024.15
  },
  {
   "date": "2024-11-22",
-  "etf_flow": -7148.68,
+  "etf_flow": 91.3,
+  "etf_etha": 99.7,
+  "etf_ethb": null,
   "staking_flow": 21470.54
  },
  {
   "date": "2024-11-23",
-  "etf_flow": 16383.26,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 7425.45
  },
  {
   "date": "2024-11-24",
-  "etf_flow": -72.74,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 22657.25
  },
  {
   "date": "2024-11-25",
-  "etf_flow": 20145.46,
+  "etf_flow": 2.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -41820.04
  },
  {
   "date": "2024-11-26",
-  "etf_flow": 2514.42,
+  "etf_flow": 40.6,
+  "etf_etha": 50.1,
+  "etf_ethb": null,
   "staking_flow": -11841.28
  },
  {
   "date": "2024-11-27",
-  "etf_flow": 10212.21,
+  "etf_flow": 90.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -30567.94
  },
  {
   "date": "2024-11-28",
-  "etf_flow": 5746.39,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -41741.26
  },
  {
   "date": "2024-11-29",
-  "etf_flow": 16225.95,
+  "etf_flow": 332.9,
+  "etf_etha": 250.4,
+  "etf_ethb": null,
   "staking_flow": -5877.29
  },
  {
   "date": "2024-11-30",
-  "etf_flow": 480.67,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 25068.69
  },
  {
   "date": "2024-12-01",
-  "etf_flow": 465.87,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 1804.86
  },
  {
   "date": "2024-12-02",
-  "etf_flow": 89668.15,
+  "etf_flow": 24.2,
+  "etf_etha": 55.9,
+  "etf_ethb": null,
   "staking_flow": -1792.01
  },
  {
   "date": "2024-12-03",
-  "etf_flow": 15272.66,
+  "etf_flow": 132.6,
+  "etf_etha": 65.3,
+  "etf_ethb": null,
   "staking_flow": 30099.64
  },
  {
   "date": "2024-12-04",
-  "etf_flow": 27784.6,
+  "etf_flow": 167.7,
+  "etf_etha": 124.4,
+  "etf_ethb": null,
   "staking_flow": 77642.96
  },
  {
   "date": "2024-12-05",
-  "etf_flow": 34465.16,
+  "etf_flow": 428.5,
+  "etf_etha": 292.7,
+  "etf_ethb": null,
   "staking_flow": -31876.45
  },
  {
   "date": "2024-12-06",
-  "etf_flow": 125794.76,
+  "etf_flow": 83.8,
+  "etf_etha": 34.6,
+  "etf_ethb": null,
   "staking_flow": -7021.07
  },
  {
   "date": "2024-12-07",
-  "etf_flow": -5051.1,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -46164.33
  },
  {
   "date": "2024-12-08",
-  "etf_flow": -7293.2,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -46525.87
  },
  {
   "date": "2024-12-09",
-  "etf_flow": 33645.97,
+  "etf_flow": 149.8,
+  "etf_etha": 155.4,
+  "etf_ethb": null,
   "staking_flow": -25035.33
  },
  {
   "date": "2024-12-10",
-  "etf_flow": 32334.56,
+  "etf_flow": 305.7,
+  "etf_etha": 81.7,
+  "etf_ethb": null,
   "staking_flow": -25204.91
  },
  {
   "date": "2024-12-11",
-  "etf_flow": 88646.67,
+  "etf_flow": 102.0,
+  "etf_etha": 74.2,
+  "etf_ethb": null,
   "staking_flow": -22661.81
  },
  {
   "date": "2024-12-12",
-  "etf_flow": 27788.58,
+  "etf_flow": 273.7,
+  "etf_etha": 202.3,
+  "etf_ethb": null,
   "staking_flow": -59728.26
  },
  {
   "date": "2024-12-13",
-  "etf_flow": 63234.23,
+  "etf_flow": 23.6,
+  "etf_etha": 9.5,
+  "etf_ethb": null,
   "staking_flow": -6741.48
  },
  {
   "date": "2024-12-14",
-  "etf_flow": -3400.95,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -32999.77
  },
  {
   "date": "2024-12-15",
-  "etf_flow": 15859.32,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -68426.86
  },
  {
   "date": "2024-12-16",
-  "etf_flow": -1994.75,
+  "etf_flow": 51.1,
+  "etf_etha": 30.7,
+  "etf_ethb": null,
   "staking_flow": -37107.57
  },
  {
   "date": "2024-12-17",
-  "etf_flow": 11359.03,
+  "etf_flow": 144.7,
+  "etf_etha": 134.8,
+  "etf_ethb": null,
   "staking_flow": -13108.38
  },
  {
   "date": "2024-12-18",
-  "etf_flow": 40709.03,
+  "etf_flow": 2.5,
+  "etf_etha": 81.9,
+  "etf_ethb": null,
   "staking_flow": 34295.72
  },
  {
   "date": "2024-12-19",
-  "etf_flow": -2124.59,
+  "etf_flow": -60.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -11717.21
  },
  {
   "date": "2024-12-20",
-  "etf_flow": -14266.36,
+  "etf_flow": -75.1,
+  "etf_etha": -103.7,
+  "etf_ethb": null,
   "staking_flow": -9902.96
  },
  {
   "date": "2024-12-21",
-  "etf_flow": -1942.19,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -152833.05
  },
  {
   "date": "2024-12-22",
-  "etf_flow": 1336.99,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -60424.48
  },
  {
   "date": "2024-12-23",
-  "etf_flow": -21803.91,
+  "etf_flow": 130.8,
+  "etf_etha": 89.5,
+  "etf_ethb": null,
   "staking_flow": 13764.22
  },
  {
   "date": "2024-12-24",
-  "etf_flow": 38646.58,
+  "etf_flow": 53.6,
+  "etf_etha": 43.9,
+  "etf_ethb": null,
   "staking_flow": 6930.94
  },
  {
   "date": "2024-12-25",
-  "etf_flow": -4595.69,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 9088.74
  },
  {
   "date": "2024-12-26",
-  "etf_flow": 19094.63,
+  "etf_flow": 117.2,
+  "etf_etha": 28.2,
+  "etf_ethb": null,
   "staking_flow": -12967.82
  },
  {
   "date": "2024-12-27",
-  "etf_flow": 36156.53,
+  "etf_flow": 47.7,
+  "etf_etha": 20.2,
+  "etf_ethb": null,
   "staking_flow": -20503.26
  },
  {
   "date": "2024-12-28",
-  "etf_flow": 37.72,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -26560.21
  },
  {
   "date": "2024-12-29",
-  "etf_flow": -8583.01,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 4160.26
  },
  {
   "date": "2024-12-30",
-  "etf_flow": 14488.51,
+  "etf_flow": -55.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -24129.04
  },
  {
   "date": "2024-12-31",
-  "etf_flow": -26012.61,
+  "etf_flow": 36.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 33566.65
  },
  {
   "date": "2025-01-01",
-  "etf_flow": 8511.23,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 6846.09
  },
  {
   "date": "2025-01-02",
-  "etf_flow": 11031.48,
+  "etf_flow": -77.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 12711.36
  },
  {
   "date": "2025-01-03",
-  "etf_flow": -13304.66,
+  "etf_flow": 58.9,
+  "etf_etha": 33.9,
+  "etf_ethb": null,
   "staking_flow": -3502.33
  },
  {
   "date": "2025-01-04",
-  "etf_flow": -2045.33,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -40262.85
  },
  {
   "date": "2025-01-05",
-  "etf_flow": -703.08,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -7348.75
  },
  {
   "date": "2025-01-06",
-  "etf_flow": 13427.21,
+  "etf_flow": 128.7,
+  "etf_etha": 124.1,
+  "etf_ethb": null,
   "staking_flow": 9380.84
  },
  {
   "date": "2025-01-07",
-  "etf_flow": 18614.57,
+  "etf_flow": -86.8,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 27001.76
  },
  {
   "date": "2025-01-08",
-  "etf_flow": -51798.09,
+  "etf_flow": -159.4,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 26762.76
  },
  {
   "date": "2025-01-09",
-  "etf_flow": 5229.72,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 27116.88
  },
  {
   "date": "2025-01-10",
-  "etf_flow": -24897.6,
+  "etf_flow": -68.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -1434.67
  },
  {
   "date": "2025-01-11",
-  "etf_flow": 659.32,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -104785.75
  },
  {
   "date": "2025-01-12",
-  "etf_flow": -353.9,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -10672.25
  },
  {
   "date": "2025-01-13",
-  "etf_flow": -78.81,
+  "etf_flow": -39.4,
+  "etf_etha": 12.9,
+  "etf_ethb": null,
   "staking_flow": 29472.16
  },
  {
   "date": "2025-01-14",
-  "etf_flow": -13290.56,
+  "etf_flow": 1.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -49498.27
  },
  {
   "date": "2025-01-15",
-  "etf_flow": 824.87,
+  "etf_flow": 59.7,
+  "etf_etha": 19.8,
+  "etf_ethb": null,
   "staking_flow": 11792.2
  },
  {
   "date": "2025-01-16",
-  "etf_flow": 13367.67,
+  "etf_flow": 166.6,
+  "etf_etha": 111.2,
+  "etf_ethb": null,
   "staking_flow": -10276.97
  },
  {
   "date": "2025-01-17",
-  "etf_flow": 50603.44,
+  "etf_flow": 23.9,
+  "etf_etha": 7.4,
+  "etf_ethb": null,
   "staking_flow": 8952.01
  },
  {
   "date": "2025-01-18",
-  "etf_flow": -5090.29,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -15445.52
  },
  {
   "date": "2025-01-19",
-  "etf_flow": 7692.96,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -12954.33
  },
  {
   "date": "2025-01-20",
-  "etf_flow": -13257.1,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 6702.47
  },
  {
   "date": "2025-01-21",
-  "etf_flow": 18869.01,
+  "etf_flow": 74.4,
+  "etf_etha": 56.3,
+  "etf_ethb": null,
   "staking_flow": 70930.83
  },
  {
   "date": "2025-01-22",
-  "etf_flow": 21774.59,
+  "etf_flow": 70.7,
+  "etf_etha": 79.1,
+  "etf_ethb": null,
   "staking_flow": -50828.35
  },
  {
   "date": "2025-01-23",
-  "etf_flow": 21667.17,
+  "etf_flow": -14.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -86396.08
  },
  {
   "date": "2025-01-24",
-  "etf_flow": -6388.09,
+  "etf_flow": 9.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -6410.67
  },
  {
   "date": "2025-01-25",
-  "etf_flow": 1605.97,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 467.43
  },
  {
   "date": "2025-01-26",
-  "etf_flow": -1347.24,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -38053.72
  },
  {
   "date": "2025-01-27",
-  "etf_flow": -15253.13,
+  "etf_flow": -136.2,
+  "etf_etha": 20.7,
+  "etf_ethb": null,
   "staking_flow": 15770.85
  },
  {
   "date": "2025-01-28",
-  "etf_flow": -23273.48,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -22562.78
  },
  {
   "date": "2025-01-29",
-  "etf_flow": -1004.84,
+  "etf_flow": -4.7,
+  "etf_etha": 9.5,
+  "etf_ethb": null,
   "staking_flow": -94018.89
  },
  {
   "date": "2025-01-30",
-  "etf_flow": -972.54,
+  "etf_flow": 67.8,
+  "etf_etha": 79.9,
+  "etf_ethb": null,
   "staking_flow": -8075.28
  },
  {
   "date": "2025-01-31",
-  "etf_flow": 17159.12,
+  "etf_flow": 27.8,
+  "etf_etha": 57.3,
+  "etf_ethb": null,
   "staking_flow": 14411.56
  },
  {
   "date": "2025-02-01",
-  "etf_flow": 2420.08,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 11700.86
  },
  {
   "date": "2025-02-02",
-  "etf_flow": 2103.02,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -20248.08
  },
  {
   "date": "2025-02-03",
-  "etf_flow": 2836.23,
+  "etf_flow": 83.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 32606.82
  },
  {
   "date": "2025-02-04",
-  "etf_flow": 31959.48,
+  "etf_flow": 307.8,
+  "etf_etha": 276.2,
+  "etf_ethb": null,
   "staking_flow": 52377.68
  },
  {
   "date": "2025-02-05",
-  "etf_flow": 119257.8,
+  "etf_flow": 18.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -15402.73
  },
  {
   "date": "2025-02-06",
-  "etf_flow": 5.93,
+  "etf_flow": 10.7,
+  "etf_etha": 10.7,
+  "etf_ethb": null,
   "staking_flow": -25322.85
  },
  {
   "date": "2025-02-07",
-  "etf_flow": 5661.82,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -55317.75
  },
  {
   "date": "2025-02-08",
-  "etf_flow": 1992.59,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -8581.03
  },
  {
   "date": "2025-02-09",
-  "etf_flow": 715.34,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -97639.49
  },
  {
   "date": "2025-02-10",
-  "etf_flow": -826.98,
+  "etf_flow": -22.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -18923.74
  },
  {
   "date": "2025-02-11",
-  "etf_flow": -9402.08,
+  "etf_flow": 12.6,
+  "etf_etha": 12.6,
+  "etf_ethb": null,
   "staking_flow": 3229.8
  },
  {
   "date": "2025-02-12",
-  "etf_flow": 2643.12,
+  "etf_flow": -40.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -23539.02
  },
  {
   "date": "2025-02-13",
-  "etf_flow": -18865.34,
+  "etf_flow": 12.8,
+  "etf_etha": 12.0,
+  "etf_ethb": null,
   "staking_flow": 7186.43
  },
  {
   "date": "2025-02-14",
-  "etf_flow": 11616.06,
+  "etf_flow": 11.7,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 24882.11
  },
  {
   "date": "2025-02-15",
-  "etf_flow": -1092.58,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -60465.17
  },
  {
   "date": "2025-02-16",
-  "etf_flow": -11562.91,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -95453.58
  },
  {
   "date": "2025-02-17",
-  "etf_flow": 8129.3,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 21486.91
  },
  {
   "date": "2025-02-18",
-  "etf_flow": 8905.36,
+  "etf_flow": 4.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 34629.25
  },
  {
   "date": "2025-02-19",
-  "etf_flow": -653.39,
+  "etf_flow": 19.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 4129.01
  },
  {
   "date": "2025-02-20",
-  "etf_flow": 9226.54,
+  "etf_flow": -13.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 6455.51
  },
  {
   "date": "2025-02-21",
-  "etf_flow": -24268.13,
+  "etf_flow": -8.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -20733.16
  },
  {
   "date": "2025-02-22",
-  "etf_flow": 17240.5,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 30159.73
  },
  {
   "date": "2025-02-23",
-  "etf_flow": -2060.57,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 13790.53
  },
  {
   "date": "2025-02-24",
-  "etf_flow": -1542.28,
+  "etf_flow": -78.0,
+  "etf_etha": -48.2,
+  "etf_ethb": null,
   "staking_flow": -17188.07
  },
  {
   "date": "2025-02-25",
-  "etf_flow": -33314.93,
+  "etf_flow": -50.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -7622.22
  },
  {
   "date": "2025-02-26",
-  "etf_flow": -19934.96,
+  "etf_flow": -94.3,
+  "etf_etha": -69.8,
+  "etf_ethb": null,
   "staking_flow": 20280.45
  },
  {
   "date": "2025-02-27",
-  "etf_flow": -54479.33,
+  "etf_flow": -71.2,
+  "etf_etha": -26.1,
+  "etf_ethb": null,
   "staking_flow": -16395.87
  },
  {
   "date": "2025-02-28",
-  "etf_flow": -9608.46,
+  "etf_flow": -41.9,
+  "etf_etha": -30.2,
+  "etf_ethb": null,
   "staking_flow": 18723.69
  },
  {
   "date": "2025-03-01",
-  "etf_flow": -4561.89,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -8837.5
  },
  {
   "date": "2025-03-02",
-  "etf_flow": 4570.92,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -12954.14
  },
  {
   "date": "2025-03-03",
-  "etf_flow": -20392.86,
+  "etf_flow": -12.1,
+  "etf_etha": -16.1,
+  "etf_ethb": null,
   "staking_flow": 27901.02
  },
  {
   "date": "2025-03-04",
-  "etf_flow": -15377.14,
+  "etf_flow": 14.6,
+  "etf_etha": -26.3,
+  "etf_ethb": null,
   "staking_flow": 101944.58
  },
  {
   "date": "2025-03-05",
-  "etf_flow": 15237.91,
+  "etf_flow": -63.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -1665.76
  },
  {
   "date": "2025-03-06",
-  "etf_flow": -35159.64,
+  "etf_flow": -10.0,
+  "etf_etha": -10.0,
+  "etf_ethb": null,
   "staking_flow": 20247.51
  },
  {
   "date": "2025-03-07",
-  "etf_flow": -10098.07,
+  "etf_flow": -23.1,
+  "etf_etha": -11.2,
+  "etf_ethb": null,
   "staking_flow": -32552.59
  },
  {
   "date": "2025-03-08",
-  "etf_flow": -6396.22,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -24349.34
  },
  {
   "date": "2025-03-09",
-  "etf_flow": 3782.74,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -81205.78
  },
  {
   "date": "2025-03-10",
-  "etf_flow": -12093.98,
+  "etf_flow": -37.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 16278.69
  },
  {
   "date": "2025-03-11",
-  "etf_flow": -10282.75,
+  "etf_flow": -21.6,
+  "etf_etha": -11.8,
+  "etf_ethb": null,
   "staking_flow": 29201.87
  },
  {
   "date": "2025-03-12",
-  "etf_flow": -1121.29,
+  "etf_flow": -10.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 27981.59
  },
  {
   "date": "2025-03-13",
-  "etf_flow": -17670.34,
+  "etf_flow": -73.6,
+  "etf_etha": -15.1,
+  "etf_ethb": null,
   "staking_flow": 78434.54
  },
  {
   "date": "2025-03-14",
-  "etf_flow": -34867.73,
+  "etf_flow": -46.9,
+  "etf_etha": -36.4,
+  "etf_ethb": null,
   "staking_flow": 6258.05
  },
  {
   "date": "2025-03-15",
-  "etf_flow": -1445.91,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -31270.61
  },
  {
   "date": "2025-03-16",
-  "etf_flow": -2886.14,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -9656.62
  },
  {
   "date": "2025-03-17",
-  "etf_flow": -23324.16,
+  "etf_flow": -7.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 55495.83
  },
  {
   "date": "2025-03-18",
-  "etf_flow": -13706.28,
+  "etf_flow": -52.8,
+  "etf_etha": -40.2,
+  "etf_ethb": null,
   "staking_flow": 26912.84
  },
  {
   "date": "2025-03-19",
-  "etf_flow": -29723.06,
+  "etf_flow": -11.7,
+  "etf_etha": -12.9,
+  "etf_ethb": null,
   "staking_flow": 11311.37
  },
  {
   "date": "2025-03-20",
-  "etf_flow": 3630.62,
+  "etf_flow": -12.5,
+  "etf_etha": -9.0,
+  "etf_ethb": null,
   "staking_flow": 36386.37
  },
  {
   "date": "2025-03-21",
-  "etf_flow": -5968.6,
+  "etf_flow": -18.6,
+  "etf_etha": -11.9,
+  "etf_ethb": null,
   "staking_flow": 20125.9
  },
  {
   "date": "2025-03-22",
-  "etf_flow": 3024.71,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 16833.14
  },
  {
   "date": "2025-03-23",
-  "etf_flow": -2057.47,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 22508.62
  },
  {
   "date": "2025-03-24",
-  "etf_flow": -12724.38,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 50867.71
  },
  {
   "date": "2025-03-25",
-  "etf_flow": 4072.61,
+  "etf_flow": -3.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 52855.43
  },
  {
   "date": "2025-03-26",
-  "etf_flow": -14896.5,
+  "etf_flow": -5.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 31153.27
  },
  {
   "date": "2025-03-27",
-  "etf_flow": 9620.15,
+  "etf_flow": -4.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 1174.59
  },
  {
   "date": "2025-03-28",
-  "etf_flow": -1600.33,
+  "etf_flow": 4.7,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 7418.18
  },
  {
   "date": "2025-03-29",
-  "etf_flow": -3203.85,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 11891.13
  },
  {
   "date": "2025-03-30",
-  "etf_flow": 6492.18,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -6237.3
  },
  {
   "date": "2025-03-31",
-  "etf_flow": -4918.02,
+  "etf_flow": 6.4,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 12376.72
  },
  {
   "date": "2025-04-01",
-  "etf_flow": 7355.46,
+  "etf_flow": -3.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 15236.88
  },
  {
   "date": "2025-04-02",
-  "etf_flow": -12331.21,
+  "etf_flow": -51.3,
+  "etf_etha": -20.2,
+  "etf_ethb": null,
   "staking_flow": 31629.15
  },
  {
   "date": "2025-04-03",
-  "etf_flow": -14099.37,
+  "etf_flow": -3.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 5993.82
  },
  {
   "date": "2025-04-04",
-  "etf_flow": -8480.72,
+  "etf_flow": 2.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 8851.38
  },
  {
   "date": "2025-04-05",
-  "etf_flow": 3529.1,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -25531.59
  },
  {
   "date": "2025-04-06",
-  "etf_flow": 5158.23,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -13368.45
  },
  {
   "date": "2025-04-07",
-  "etf_flow": 3265.56,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 18406.52
  },
  {
   "date": "2025-04-08",
-  "etf_flow": -7480.87,
+  "etf_flow": -3.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 34303.48
  },
  {
   "date": "2025-04-09",
-  "etf_flow": 3158.69,
+  "etf_flow": -11.2,
+  "etf_etha": -5.5,
+  "etf_ethb": null,
   "staking_flow": -35099.64
  },
  {
   "date": "2025-04-10",
-  "etf_flow": -4902.9,
+  "etf_flow": -38.8,
+  "etf_etha": 6.4,
+  "etf_ethb": null,
   "staking_flow": 94000.53
  },
  {
   "date": "2025-04-11",
-  "etf_flow": -18133.56,
+  "etf_flow": -29.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -69237.41
  },
  {
   "date": "2025-04-12",
-  "etf_flow": 1162.97,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -28547.51
  },
  {
   "date": "2025-04-13",
-  "etf_flow": 17541.65,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -11006.6
  },
  {
   "date": "2025-04-14",
-  "etf_flow": -27350.76,
+  "etf_flow": -6.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -14778.01
  },
  {
   "date": "2025-04-15",
-  "etf_flow": -31149.47,
+  "etf_flow": -14.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 7819.05
  },
  {
   "date": "2025-04-16",
-  "etf_flow": -25478.59,
+  "etf_flow": -12.1,
+  "etf_etha": -4.3,
+  "etf_ethb": null,
   "staking_flow": -66400.16
  },
  {
   "date": "2025-04-17",
-  "etf_flow": -1777.83,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -39288.78
  },
  {
   "date": "2025-04-18",
-  "etf_flow": -2062.04,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 6590.42
  },
  {
   "date": "2025-04-19",
-  "etf_flow": -1675.41,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -60467.29
  },
  {
   "date": "2025-04-20",
-  "etf_flow": -10500.65,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -9539.74
  },
  {
   "date": "2025-04-21",
-  "etf_flow": 16416.68,
+  "etf_flow": -25.4,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -3610.41
  },
  {
   "date": "2025-04-22",
-  "etf_flow": -4352.14,
+  "etf_flow": 38.8,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 96586.1
  },
  {
   "date": "2025-04-23",
-  "etf_flow": 2676.04,
+  "etf_flow": -23.9,
+  "etf_etha": -30.3,
+  "etf_ethb": null,
   "staking_flow": -7788.72
  },
  {
   "date": "2025-04-24",
-  "etf_flow": -23851.53,
+  "etf_flow": 63.5,
+  "etf_etha": 40.0,
+  "etf_ethb": null,
   "staking_flow": -32506.99
  },
  {
   "date": "2025-04-25",
-  "etf_flow": 66215.6,
+  "etf_flow": 104.1,
+  "etf_etha": 54.4,
+  "etf_ethb": null,
   "staking_flow": -11314.78
  },
  {
   "date": "2025-04-26",
-  "etf_flow": -1121.92,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -16643.77
  },
  {
   "date": "2025-04-27",
-  "etf_flow": 2357.41,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -32525.0
  },
  {
   "date": "2025-04-28",
-  "etf_flow": 53676.54,
+  "etf_flow": 64.1,
+  "etf_etha": 67.5,
+  "etf_ethb": null,
   "staking_flow": 9983.95
  },
  {
   "date": "2025-04-29",
-  "etf_flow": 36857.64,
+  "etf_flow": 18.4,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -2088.59
  },
  {
   "date": "2025-04-30",
-  "etf_flow": 5045.82,
+  "etf_flow": -2.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -10520.81
  },
  {
   "date": "2025-05-01",
-  "etf_flow": 634.74,
+  "etf_flow": 6.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 21169.53
  },
  {
   "date": "2025-05-02",
-  "etf_flow": 3510.43,
+  "etf_flow": 20.1,
+  "etf_etha": 20.1,
+  "etf_ethb": null,
   "staking_flow": 2821.8
  },
  {
   "date": "2025-05-03",
-  "etf_flow": 4179.82,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -41998.79
  },
  {
   "date": "2025-05-04",
-  "etf_flow": -2548.92,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 303.25
  },
  {
   "date": "2025-05-05",
-  "etf_flow": 11452.01,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 15507.83
  },
  {
   "date": "2025-05-06",
-  "etf_flow": -10383.48,
+  "etf_flow": -17.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 107225.46
  },
  {
   "date": "2025-05-07",
-  "etf_flow": -15.08,
+  "etf_flow": -21.8,
+  "etf_etha": -21.8,
+  "etf_ethb": null,
   "staking_flow": 29485.43
  },
  {
   "date": "2025-05-08",
-  "etf_flow": -21272.55,
+  "etf_flow": -16.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 23586.35
  },
  {
   "date": "2025-05-09",
-  "etf_flow": 527.98,
+  "etf_flow": 17.6,
+  "etf_etha": 17.6,
+  "etf_ethb": null,
   "staking_flow": 14648.08
  },
  {
   "date": "2025-05-10",
-  "etf_flow": -5266.71,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -6137.11
  },
  {
   "date": "2025-05-11",
-  "etf_flow": -1524.82,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 20716.07
  },
  {
   "date": "2025-05-12",
-  "etf_flow": 11531.83,
+  "etf_flow": -17.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 86032.85
  },
  {
   "date": "2025-05-13",
-  "etf_flow": -8000.63,
+  "etf_flow": 13.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 24569.62
  },
  {
   "date": "2025-05-14",
-  "etf_flow": 10984.25,
+  "etf_flow": 63.5,
+  "etf_etha": 57.6,
+  "etf_ethb": null,
   "staking_flow": -3921.45
  },
  {
   "date": "2025-05-15",
-  "etf_flow": 12437.23,
+  "etf_flow": -39.8,
+  "etf_etha": 8.4,
+  "etf_ethb": null,
   "staking_flow": 15101.31
  },
  {
   "date": "2025-05-16",
-  "etf_flow": -15866.6,
+  "etf_flow": 22.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -120346.28
  },
  {
   "date": "2025-05-17",
-  "etf_flow": 1004.73,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -16224.53
  },
  {
   "date": "2025-05-18",
-  "etf_flow": 12721.52,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 20863.49
  },
  {
   "date": "2025-05-19",
-  "etf_flow": -4127.26,
+  "etf_flow": 13.7,
+  "etf_etha": 13.7,
+  "etf_ethb": null,
   "staking_flow": -26668.79
  },
  {
   "date": "2025-05-20",
-  "etf_flow": 4631.91,
+  "etf_flow": 64.8,
+  "etf_etha": 45.0,
+  "etf_ethb": null,
   "staking_flow": 12038.51
  },
  {
   "date": "2025-05-21",
-  "etf_flow": 18650.36,
+  "etf_flow": 0.6,
+  "etf_etha": 24.9,
+  "etf_ethb": null,
   "staking_flow": 46723.43
  },
  {
   "date": "2025-05-22",
-  "etf_flow": 2320.13,
+  "etf_flow": 110.5,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -38822.03
  },
  {
   "date": "2025-05-23",
-  "etf_flow": 55973.56,
+  "etf_flow": 58.6,
+  "etf_etha": 52.8,
+  "etf_ethb": null,
   "staking_flow": 28779.0
  },
  {
   "date": "2025-05-24",
-  "etf_flow": -6408.39,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -21502.94
  },
  {
   "date": "2025-05-25",
-  "etf_flow": -1445.11,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -12585.22
  },
  {
   "date": "2025-05-26",
-  "etf_flow": 7609.29,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -135921.77
  },
  {
   "date": "2025-05-27",
-  "etf_flow": 16516.99,
+  "etf_flow": 38.8,
+  "etf_etha": 32.5,
+  "etf_ethb": null,
   "staking_flow": 8195.35
  },
  {
   "date": "2025-05-28",
-  "etf_flow": 25408.48,
+  "etf_flow": 84.9,
+  "etf_etha": 52.7,
+  "etf_ethb": null,
   "staking_flow": 64866.64
  },
  {
   "date": "2025-05-29",
-  "etf_flow": 16772.53,
+  "etf_flow": 91.9,
+  "etf_etha": 50.4,
+  "etf_ethb": null,
   "staking_flow": 39808.07
  },
  {
   "date": "2025-05-30",
-  "etf_flow": 39931.18,
+  "etf_flow": 70.2,
+  "etf_etha": 70.2,
+  "etf_ethb": null,
   "staking_flow": 26155.4
  },
  {
   "date": "2025-05-31",
-  "etf_flow": -2986.55,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 2915.54
  },
  {
   "date": "2025-06-01",
-  "etf_flow": 766.69,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 13938.58
  },
  {
   "date": "2025-06-02",
-  "etf_flow": 29855.76,
+  "etf_flow": 78.2,
+  "etf_etha": 48.4,
+  "etf_ethb": null,
   "staking_flow": 185771.54
  },
  {
   "date": "2025-06-03",
-  "etf_flow": 28332.29,
+  "etf_flow": 109.5,
+  "etf_etha": 77.1,
+  "etf_ethb": null,
   "staking_flow": 52601.28
  },
  {
   "date": "2025-06-04",
-  "etf_flow": 25944.27,
+  "etf_flow": 57.0,
+  "etf_etha": 73.2,
+  "etf_ethb": null,
   "staking_flow": 85796.25
  },
  {
   "date": "2025-06-05",
-  "etf_flow": 29620.75,
+  "etf_flow": 11.3,
+  "etf_etha": 34.7,
+  "etf_ethb": null,
   "staking_flow": 28404.24
  },
  {
   "date": "2025-06-06",
-  "etf_flow": 15147.84,
+  "etf_flow": 25.3,
+  "etf_etha": 15.9,
+  "etf_ethb": null,
   "staking_flow": -2673.04
  },
  {
   "date": "2025-06-07",
-  "etf_flow": -5645.09,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 51189.49
  },
  {
   "date": "2025-06-08",
-  "etf_flow": -3271.93,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 4337.47
  },
  {
   "date": "2025-06-09",
-  "etf_flow": 20173.93,
+  "etf_flow": 52.7,
+  "etf_etha": 35.2,
+  "etf_ethb": null,
   "staking_flow": 48499.56
  },
  {
   "date": "2025-06-10",
-  "etf_flow": 15099.54,
+  "etf_flow": 125.0,
+  "etf_etha": 80.6,
+  "etf_ethb": null,
   "staking_flow": 44183.14
  },
  {
   "date": "2025-06-11",
-  "etf_flow": 30807.75,
+  "etf_flow": 240.3,
+  "etf_etha": 163.6,
+  "etf_ethb": null,
   "staking_flow": 37620.63
  },
  {
   "date": "2025-06-12",
-  "etf_flow": 92718.52,
+  "etf_flow": 112.3,
+  "etf_etha": 101.5,
+  "etf_ethb": null,
   "staking_flow": 9214.02
  },
  {
   "date": "2025-06-13",
-  "etf_flow": 36522.03,
+  "etf_flow": -2.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 114412.22
  },
  {
   "date": "2025-06-14",
-  "etf_flow": -886.82,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -14727.33
  },
  {
   "date": "2025-06-15",
-  "etf_flow": -1199.32,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 3002.79
  },
  {
   "date": "2025-06-16",
-  "etf_flow": 4179.02,
+  "etf_flow": 21.4,
+  "etf_etha": 16.1,
+  "etf_ethb": null,
   "staking_flow": 102170.52
  },
  {
   "date": "2025-06-17",
-  "etf_flow": -6866.17,
+  "etf_flow": 11.1,
+  "etf_etha": 36.7,
+  "etf_ethb": null,
   "staking_flow": 69850.6
  },
  {
   "date": "2025-06-18",
-  "etf_flow": 21516.19,
+  "etf_flow": 19.1,
+  "etf_etha": 15.1,
+  "etf_ethb": null,
   "staking_flow": 9921.52
  },
  {
   "date": "2025-06-19",
-  "etf_flow": -20891.46,
+  "etf_flow": 0.0,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -11460.46
  },
  {
   "date": "2025-06-20",
-  "etf_flow": 17426.78,
+  "etf_flow": -11.3,
+  "etf_etha": -19.7,
+  "etf_ethb": null,
   "staking_flow": 31993.48
  },
  {
   "date": "2025-06-21",
-  "etf_flow": 7071.63,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 89212.24
  },
  {
   "date": "2025-06-22",
-  "etf_flow": 4439.42,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 39083.41
  },
  {
   "date": "2025-06-23",
-  "etf_flow": -3139.69,
+  "etf_flow": 100.7,
+  "etf_etha": 25.8,
+  "etf_ethb": null,
   "staking_flow": 33486.92
  },
  {
   "date": "2025-06-24",
-  "etf_flow": 31837.31,
+  "etf_flow": 71.3,
+  "etf_etha": 98.0,
+  "etf_ethb": null,
   "staking_flow": 17393.67
  },
  {
   "date": "2025-06-25",
-  "etf_flow": 36637.23,
+  "etf_flow": 60.4,
+  "etf_etha": 55.2,
+  "etf_ethb": null,
   "staking_flow": -8401.06
  },
  {
   "date": "2025-06-26",
-  "etf_flow": 26791.77,
+  "etf_flow": -26.4,
+  "etf_etha": 5.9,
+  "etf_ethb": null,
   "staking_flow": -16369.48
  },
  {
   "date": "2025-06-27",
-  "etf_flow": -14957.65,
+  "etf_flow": 77.5,
+  "etf_etha": 48.1,
+  "etf_ethb": null,
   "staking_flow": 8489.11
  },
  {
   "date": "2025-06-28",
-  "etf_flow": -4304.76,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -34583.79
  },
  {
   "date": "2025-06-29",
-  "etf_flow": -7470.74,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 13830.36
  },
  {
   "date": "2025-06-30",
-  "etf_flow": 30730.81,
+  "etf_flow": 31.8,
+  "etf_etha": 6.1,
+  "etf_ethb": null,
   "staking_flow": 3525.71
  },
  {
   "date": "2025-07-01",
-  "etf_flow": 913.29,
+  "etf_flow": 40.7,
+  "etf_etha": 54.8,
+  "etf_ethb": null,
   "staking_flow": 44565.41
  },
  {
   "date": "2025-07-02",
-  "etf_flow": 47022.72,
+  "etf_flow": -1.9,
+  "etf_etha": -46.9,
+  "etf_ethb": null,
   "staking_flow": 27114.04
  },
  {
   "date": "2025-07-03",
-  "etf_flow": -6671.0,
+  "etf_flow": 148.5,
+  "etf_etha": 85.4,
+  "etf_ethb": null,
   "staking_flow": 10890.72
  },
  {
   "date": "2025-07-04",
-  "etf_flow": 1077.9,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 77620.31
  },
  {
   "date": "2025-07-05",
-  "etf_flow": 2665.84,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 13139.71
  },
  {
   "date": "2025-07-06",
-  "etf_flow": -5109.75,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 3854.33
  },
  {
   "date": "2025-07-07",
-  "etf_flow": 53945.76,
+  "etf_flow": 62.1,
+  "etf_etha": 53.2,
+  "etf_ethb": null,
   "staking_flow": 164401.87
  },
  {
   "date": "2025-07-08",
-  "etf_flow": 26236.96,
+  "etf_flow": 46.7,
+  "etf_etha": 25.3,
+  "etf_ethb": null,
   "staking_flow": -871.05
  },
  {
   "date": "2025-07-09",
-  "etf_flow": 26520.04,
+  "etf_flow": 211.3,
+  "etf_etha": 158.6,
+  "etf_ethb": null,
   "staking_flow": 99751.33
  },
  {
   "date": "2025-07-10",
-  "etf_flow": 78418.84,
+  "etf_flow": 383.1,
+  "etf_etha": 300.9,
+  "etf_ethb": null,
   "staking_flow": 38669.91
  },
  {
   "date": "2025-07-11",
-  "etf_flow": 118314.64,
+  "etf_flow": 204.9,
+  "etf_etha": 137.1,
+  "etf_ethb": null,
   "staking_flow": 67358.36
  },
  {
   "date": "2025-07-12",
-  "etf_flow": 6447.07,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 4179.09
  },
  {
   "date": "2025-07-13",
-  "etf_flow": 2319.76,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -3381.77
  },
  {
   "date": "2025-07-14",
-  "etf_flow": 70141.45,
+  "etf_flow": 259.0,
+  "etf_etha": 151.4,
+  "etf_ethb": null,
   "staking_flow": 92130.33
  },
  {
   "date": "2025-07-15",
-  "etf_flow": 84748.86,
+  "etf_flow": 192.3,
+  "etf_etha": 171.5,
+  "etf_ethb": null,
   "staking_flow": 49368.63
  },
  {
   "date": "2025-07-16",
-  "etf_flow": 51804.93,
+  "etf_flow": 726.6,
+  "etf_etha": 499.2,
+  "etf_ethb": null,
   "staking_flow": 67068.35
  },
  {
   "date": "2025-07-17",
-  "etf_flow": 235080.92,
+  "etf_flow": 602.0,
+  "etf_etha": 546.7,
+  "etf_ethb": null,
   "staking_flow": -38008.73
  },
  {
   "date": "2025-07-18",
-  "etf_flow": 143695.92,
+  "etf_flow": 402.5,
+  "etf_etha": 394.9,
+  "etf_ethb": null,
   "staking_flow": 11175.44
  },
  {
   "date": "2025-07-19",
-  "etf_flow": -9075.62,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 1988.54
  },
  {
   "date": "2025-07-20",
-  "etf_flow": 6831.31,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -1192.4
  },
  {
   "date": "2025-07-21",
-  "etf_flow": 126796.29,
+  "etf_flow": 296.5,
+  "etf_etha": 102.0,
+  "etf_ethb": null,
   "staking_flow": 1772.01
  },
  {
   "date": "2025-07-22",
-  "etf_flow": 73641.53,
+  "etf_flow": 533.8,
+  "etf_etha": 426.2,
+  "etf_ethb": null,
   "staking_flow": -24343.95
  },
  {
   "date": "2025-07-23",
-  "etf_flow": 147706.29,
+  "etf_flow": 332.2,
+  "etf_etha": 324.6,
+  "etf_ethb": null,
   "staking_flow": -8891.85
  },
  {
   "date": "2025-07-24",
-  "etf_flow": 88870.58,
+  "etf_flow": 231.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -36713.13
  },
  {
   "date": "2025-07-25",
-  "etf_flow": 65830.38,
+  "etf_flow": 452.8,
+  "etf_etha": 440.1,
+  "etf_ethb": null,
   "staking_flow": -31918.22
  },
  {
   "date": "2025-07-26",
-  "etf_flow": -3809.66,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -29911.4
  },
  {
   "date": "2025-07-27",
-  "etf_flow": -165.51,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 7314.25
  },
  {
   "date": "2025-07-28",
-  "etf_flow": 113534.96,
+  "etf_flow": 65.2,
+  "etf_etha": 132.0,
+  "etf_ethb": null,
   "staking_flow": -35692.24
  },
  {
   "date": "2025-07-29",
-  "etf_flow": 29069.77,
+  "etf_flow": 218.6,
+  "etf_etha": 223.7,
+  "etf_ethb": null,
   "staking_flow": -2702.28
  },
  {
   "date": "2025-07-30",
-  "etf_flow": 52325.76,
+  "etf_flow": 5.8,
+  "etf_etha": 20.3,
+  "etf_ethb": null,
   "staking_flow": -18164.55
  },
  {
   "date": "2025-07-31",
-  "etf_flow": 5422.76,
+  "etf_flow": 17.0,
+  "etf_etha": 18.2,
+  "etf_ethb": null,
   "staking_flow": 12465.67
  },
  {
   "date": "2025-08-01",
-  "etf_flow": -3833.48,
+  "etf_flow": -152.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -2852.64
  },
  {
   "date": "2025-08-02",
-  "etf_flow": 2386.58,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -52380.02
  },
  {
   "date": "2025-08-03",
-  "etf_flow": 5622.8,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -6868.26
  },
  {
   "date": "2025-08-04",
-  "etf_flow": -53278.65,
+  "etf_flow": -465.1,
+  "etf_etha": -375.0,
+  "etf_ethb": null,
   "staking_flow": -1815.5
  },
  {
   "date": "2025-08-05",
-  "etf_flow": -115780.73,
+  "etf_flow": 73.3,
+  "etf_etha": 88.8,
+  "etf_ethb": null,
   "staking_flow": -45410.05
  },
  {
   "date": "2025-08-06",
-  "etf_flow": 22203.32,
+  "etf_flow": 35.1,
+  "etf_etha": 33.4,
+  "etf_ethb": null,
   "staking_flow": -64193.96
  },
  {
   "date": "2025-08-07",
-  "etf_flow": 7854.82,
+  "etf_flow": 222.3,
+  "etf_etha": 103.5,
+  "etf_ethb": null,
   "staking_flow": -27176.87
  },
  {
   "date": "2025-08-08",
-  "etf_flow": 58628.73,
+  "etf_flow": 461.0,
+  "etf_etha": 254.7,
+  "etf_ethb": null,
   "staking_flow": 54867.34
  },
  {
   "date": "2025-08-09",
-  "etf_flow": 21.17,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -27469.89
  },
  {
   "date": "2025-08-10",
-  "etf_flow": -4950.48,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -53294.79
  },
  {
   "date": "2025-08-11",
-  "etf_flow": 116147.08,
+  "etf_flow": 1018.8,
+  "etf_etha": 639.8,
+  "etf_ethb": null,
   "staking_flow": 1389.16
  },
  {
   "date": "2025-08-12",
-  "etf_flow": 243081.68,
+  "etf_flow": 523.9,
+  "etf_etha": 318.7,
+  "etf_ethb": null,
   "staking_flow": 797.82
  },
  {
   "date": "2025-08-13",
-  "etf_flow": 100635.52,
+  "etf_flow": 729.1,
+  "etf_etha": 500.9,
+  "etf_ethb": null,
   "staking_flow": 55231.2
  },
  {
   "date": "2025-08-14",
-  "etf_flow": 160200.96,
+  "etf_flow": 639.6,
+  "etf_etha": 519.7,
+  "etf_ethb": null,
   "staking_flow": 204051.66
  },
  {
   "date": "2025-08-15",
-  "etf_flow": 79353.57,
+  "etf_flow": -59.3,
+  "etf_etha": 338.1,
+  "etf_ethb": null,
   "staking_flow": -12295.4
  },
  {
   "date": "2025-08-16",
-  "etf_flow": 3433.9,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -128960.13
  },
  {
   "date": "2025-08-17",
-  "etf_flow": -2222.98,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -11664.68
  },
  {
   "date": "2025-08-18",
-  "etf_flow": 28049.37,
+  "etf_flow": -196.6,
+  "etf_etha": -87.2,
+  "etf_ethb": null,
   "staking_flow": 44348.89
  },
  {
   "date": "2025-08-19",
-  "etf_flow": -65982.93,
+  "etf_flow": -429.6,
+  "etf_etha": -6.3,
+  "etf_ethb": null,
   "staking_flow": -30139.35
  },
  {
   "date": "2025-08-20",
-  "etf_flow": -60978.46,
+  "etf_flow": -240.2,
+  "etf_etha": -257.8,
+  "etf_ethb": null,
   "staking_flow": -23061.57
  },
  {
   "date": "2025-08-21",
-  "etf_flow": -55669.35,
+  "etf_flow": 287.6,
+  "etf_etha": 233.6,
+  "etf_ethb": null,
   "staking_flow": 24078.57
  },
  {
   "date": "2025-08-22",
-  "etf_flow": 68686.49,
+  "etf_flow": 341.2,
+  "etf_etha": 109.4,
+  "etf_ethb": null,
   "staking_flow": -24570.7
  },
  {
   "date": "2025-08-23",
-  "etf_flow": -5800.59,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -15561.65
  },
  {
   "date": "2025-08-24",
-  "etf_flow": 4139.11,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 243997.68
  },
  {
   "date": "2025-08-25",
-  "etf_flow": 71216.35,
+  "etf_flow": 443.9,
+  "etf_etha": 314.9,
+  "etf_ethb": null,
   "staking_flow": 221714.01
  },
  {
   "date": "2025-08-26",
-  "etf_flow": 95275.29,
+  "etf_flow": 455.0,
+  "etf_etha": 323.1,
+  "etf_ethb": null,
   "staking_flow": -35964.77
  },
  {
   "date": "2025-08-27",
-  "etf_flow": 104673.73,
+  "etf_flow": 309.5,
+  "etf_etha": 262.6,
+  "etf_ethb": null,
   "staking_flow": 147122.85
  },
  {
   "date": "2025-08-28",
-  "etf_flow": 52513.89,
+  "etf_flow": 39.1,
+  "etf_etha": 67.6,
+  "etf_ethb": null,
   "staking_flow": -47321.65
  },
  {
   "date": "2025-08-29",
-  "etf_flow": 19946.68,
+  "etf_flow": -164.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 3877.46
  },
  {
   "date": "2025-08-30",
-  "etf_flow": -787.37,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 45472.6
  },
  {
   "date": "2025-08-31",
-  "etf_flow": 105.36,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -37073.85
  },
  {
   "date": "2025-09-01",
-  "etf_flow": -11165.6,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 124465.31
  },
  {
   "date": "2025-09-02",
-  "etf_flow": -47447.89,
+  "etf_flow": -135.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -27351.87
  },
  {
   "date": "2025-09-03",
-  "etf_flow": -10937.81,
+  "etf_flow": -38.2,
+  "etf_etha": -151.4,
+  "etf_ethb": null,
   "staking_flow": -85163.58
  },
  {
   "date": "2025-09-04",
-  "etf_flow": -58539.45,
+  "etf_flow": -167.3,
+  "etf_etha": 148.8,
+  "etf_ethb": null,
   "staking_flow": 164488.3
  },
  {
   "date": "2025-09-05",
-  "etf_flow": 3935.95,
+  "etf_flow": -446.8,
+  "etf_etha": -309.9,
+  "etf_ethb": null,
   "staking_flow": -24456.31
  },
  {
   "date": "2025-09-06",
-  "etf_flow": 239.38,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -33660.0
  },
  {
   "date": "2025-09-07",
-  "etf_flow": 4469.14,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -39888.16
  },
  {
   "date": "2025-09-08",
-  "etf_flow": -99952.66,
+  "etf_flow": -96.7,
+  "etf_etha": -192.7,
+  "etf_ethb": null,
   "staking_flow": -24900.49
  },
  {
   "date": "2025-09-09",
-  "etf_flow": -29176.51,
+  "etf_flow": 44.2,
+  "etf_etha": 44.2,
+  "etf_ethb": null,
   "staking_flow": 6519.93
  },
  {
   "date": "2025-09-10",
-  "etf_flow": 12104.74,
+  "etf_flow": 171.5,
+  "etf_etha": 74.5,
+  "etf_ethb": null,
   "staking_flow": -66008.76
  },
  {
   "date": "2025-09-11",
-  "etf_flow": 43693.28,
+  "etf_flow": 113.1,
+  "etf_etha": -17.4,
+  "etf_ethb": null,
   "staking_flow": -56872.38
  },
  {
   "date": "2025-09-12",
-  "etf_flow": 22823.51,
+  "etf_flow": 405.5,
+  "etf_etha": 165.6,
+  "etf_ethb": null,
   "staking_flow": -87287.83
  },
  {
   "date": "2025-09-13",
-  "etf_flow": -3268.94,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -95895.24
  },
  {
   "date": "2025-09-14",
-  "etf_flow": 5054.42,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -67080.95
  },
  {
   "date": "2025-09-15",
-  "etf_flow": 92231.49,
+  "etf_flow": 359.7,
+  "etf_etha": 363.2,
+  "etf_ethb": null,
   "staking_flow": -43573.64
  },
  {
   "date": "2025-09-16",
-  "etf_flow": 65677.05,
+  "etf_flow": -61.7,
+  "etf_etha": -20.3,
+  "etf_ethb": null,
   "staking_flow": -26874.02
  },
  {
   "date": "2025-09-17",
-  "etf_flow": -6277.75,
+  "etf_flow": -1.9,
+  "etf_etha": 25.9,
+  "etf_ethb": null,
   "staking_flow": -14796.76
  },
  {
   "date": "2025-09-18",
-  "etf_flow": 5612.86,
+  "etf_flow": 213.1,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -18843.32
  },
  {
   "date": "2025-09-19",
-  "etf_flow": 24483.15,
+  "etf_flow": 47.8,
+  "etf_etha": 144.3,
+  "etf_ethb": null,
   "staking_flow": -43713.17
  },
  {
   "date": "2025-09-20",
-  "etf_flow": 6297.67,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -19189.01
  },
  {
   "date": "2025-09-21",
-  "etf_flow": 2007.61,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 20184.0
  },
  {
   "date": "2025-09-22",
-  "etf_flow": 17639.9,
+  "etf_flow": -76.0,
+  "etf_etha": -15.1,
+  "etf_ethb": null,
   "staking_flow": -49506.21
  },
  {
   "date": "2025-09-23",
-  "etf_flow": -24180.31,
+  "etf_flow": -140.8,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -91750.08
  },
  {
   "date": "2025-09-24",
-  "etf_flow": -34757.86,
+  "etf_flow": -79.4,
+  "etf_etha": -26.5,
+  "etf_ethb": null,
   "staking_flow": 30849.01
  },
  {
   "date": "2025-09-25",
-  "etf_flow": -44128.72,
+  "etf_flow": -251.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -11272.71
  },
  {
   "date": "2025-09-26",
-  "etf_flow": -44431.74,
+  "etf_flow": -248.4,
+  "etf_etha": -199.9,
+  "etf_ethb": null,
   "staking_flow": 25279.0
  },
  {
   "date": "2025-09-27",
-  "etf_flow": 1835.86,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -32068.09
  },
  {
   "date": "2025-09-28",
-  "etf_flow": 3082.12,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -71026.59
  },
  {
   "date": "2025-09-29",
-  "etf_flow": -48054.83,
+  "etf_flow": 546.9,
+  "etf_etha": 154.2,
+  "etf_ethb": null,
   "staking_flow": -32058.85
  },
  {
   "date": "2025-09-30",
-  "etf_flow": 98824.25,
+  "etf_flow": 127.5,
+  "etf_etha": 127.5,
+  "etf_ethb": null,
   "staking_flow": -7106.03
  },
  {
   "date": "2025-10-01",
-  "etf_flow": 32520.01,
+  "etf_flow": 80.9,
+  "etf_etha": 26.2,
+  "etf_ethb": null,
   "staking_flow": 188.78
  },
  {
   "date": "2025-10-02",
-  "etf_flow": 18313.16,
+  "etf_flow": 307.1,
+  "etf_etha": 177.1,
+  "etf_ethb": null,
   "staking_flow": 23731.12
  },
  {
   "date": "2025-10-03",
-  "etf_flow": 67947.81,
+  "etf_flow": 233.5,
+  "etf_etha": 206.7,
+  "etf_ethb": null,
   "staking_flow": 36870.21
  },
  {
   "date": "2025-10-04",
-  "etf_flow": -1399.57,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -94205.48
  },
  {
   "date": "2025-10-05",
-  "etf_flow": 1617.96,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -43718.44
  },
  {
   "date": "2025-10-06",
-  "etf_flow": 40498.36,
+  "etf_flow": 181.8,
+  "etf_etha": 92.6,
+  "etf_ethb": null,
   "staking_flow": 64944.0
  },
  {
   "date": "2025-10-07",
-  "etf_flow": 27573.34,
+  "etf_flow": 420.9,
+  "etf_etha": 437.5,
+  "etf_ethb": null,
   "staking_flow": 357807.31
  },
  {
   "date": "2025-10-08",
-  "etf_flow": 84966.87,
+  "etf_flow": 69.1,
+  "etf_etha": 148.9,
+  "etf_ethb": null,
   "staking_flow": 912689.37
  },
  {
   "date": "2025-10-09",
-  "etf_flow": 20908.67,
+  "etf_flow": -8.7,
+  "etf_etha": 39.3,
+  "etf_ethb": null,
   "staking_flow": -110683.1
  },
  {
   "date": "2025-10-10",
-  "etf_flow": -5781.05,
+  "etf_flow": -174.9,
+  "etf_etha": -80.2,
+  "etf_ethb": null,
   "staking_flow": -17858.45
  },
  {
   "date": "2025-10-11",
-  "etf_flow": 4918.64,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -36595.33
  },
  {
   "date": "2025-10-12",
-  "etf_flow": 3742.18,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 8685.19
  },
  {
   "date": "2025-10-13",
-  "etf_flow": -5261.23,
+  "etf_flow": -428.5,
+  "etf_etha": -310.1,
+  "etf_ethb": null,
   "staking_flow": 33887.85
  },
  {
   "date": "2025-10-14",
-  "etf_flow": -135292.62,
+  "etf_flow": 236.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 17532.88
  },
  {
   "date": "2025-10-15",
-  "etf_flow": 53275.99,
+  "etf_flow": 169.6,
+  "etf_etha": 164.3,
+  "etf_ethb": null,
   "staking_flow": -67433.9
  },
  {
   "date": "2025-10-16",
-  "etf_flow": 7451.84,
+  "etf_flow": -56.8,
+  "etf_etha": 46.9,
+  "etf_ethb": null,
   "staking_flow": 106731.62
  },
  {
   "date": "2025-10-17",
-  "etf_flow": -20787.4,
+  "etf_flow": -232.3,
+  "etf_etha": -146.1,
+  "etf_ethb": null,
   "staking_flow": 39296.66
  },
  {
   "date": "2025-10-18",
-  "etf_flow": -2550.16,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -40772.25
  },
  {
   "date": "2025-10-19",
-  "etf_flow": 1569.1,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -72822.0
  },
  {
   "date": "2025-10-20",
-  "etf_flow": -34288.84,
+  "etf_flow": -145.7,
+  "etf_etha": -117.9,
+  "etf_ethb": null,
   "staking_flow": -5527.46
  },
  {
   "date": "2025-10-21",
-  "etf_flow": -32775.11,
+  "etf_flow": 141.7,
+  "etf_etha": 42.5,
+  "etf_ethb": null,
   "staking_flow": -69248.6
  },
  {
   "date": "2025-10-22",
-  "etf_flow": 14491.24,
+  "etf_flow": -18.9,
+  "etf_etha": 110.7,
+  "etf_ethb": null,
   "staking_flow": -28245.49
  },
  {
   "date": "2025-10-23",
-  "etf_flow": -35941.92,
+  "etf_flow": -127.4,
+  "etf_etha": -23.4,
+  "etf_ethb": null,
   "staking_flow": -31371.23
  },
  {
   "date": "2025-10-24",
-  "etf_flow": -16398.67,
+  "etf_flow": -93.6,
+  "etf_etha": -101.0,
+  "etf_ethb": null,
   "staking_flow": 88591.82
  },
  {
   "date": "2025-10-25",
-  "etf_flow": -3488.95,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 3768.21
  },
  {
   "date": "2025-10-26",
-  "etf_flow": 7934.89,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 4527.38
  },
  {
   "date": "2025-10-27",
-  "etf_flow": -25280.83,
+  "etf_flow": 133.9,
+  "etf_etha": 72.5,
+  "etf_ethb": null,
   "staking_flow": 8748.04
  },
  {
   "date": "2025-10-28",
-  "etf_flow": 28640.4,
+  "etf_flow": 246.0,
+  "etf_etha": 76.4,
+  "etf_ethb": null,
   "staking_flow": -159735.17
  },
  {
   "date": "2025-10-29",
-  "etf_flow": 23788.15,
+  "etf_flow": -81.4,
+  "etf_etha": 21.4,
+  "etf_ethb": null,
   "staking_flow": 84041.51
  },
  {
   "date": "2025-10-30",
-  "etf_flow": 706.89,
+  "etf_flow": -184.2,
+  "etf_etha": -118.0,
+  "etf_ethb": null,
   "staking_flow": 104388.05
  },
  {
   "date": "2025-10-31",
-  "etf_flow": -50620.6,
+  "etf_flow": -98.2,
+  "etf_etha": -38.6,
+  "etf_ethb": null,
   "staking_flow": 114237.95
  },
  {
   "date": "2025-11-01",
-  "etf_flow": -11221.72,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -4911.97
  },
  {
   "date": "2025-11-02",
-  "etf_flow": 2592.1,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -16836.14
  },
  {
   "date": "2025-11-03",
-  "etf_flow": -25109.58,
+  "etf_flow": -135.7,
+  "etf_etha": -81.7,
+  "etf_ethb": null,
   "staking_flow": 15419.77
  },
  {
   "date": "2025-11-04",
-  "etf_flow": -26125.14,
+  "etf_flow": -219.4,
+  "etf_etha": -111.1,
+  "etf_ethb": null,
   "staking_flow": -21334.21
  },
  {
   "date": "2025-11-05",
-  "etf_flow": -63262.28,
+  "etf_flow": -118.5,
+  "etf_etha": -146.6,
+  "etf_ethb": null,
   "staking_flow": -29557.05
  },
  {
   "date": "2025-11-06",
-  "etf_flow": -45531.52,
+  "etf_flow": 12.5,
+  "etf_etha": 8.0,
+  "etf_ethb": null,
   "staking_flow": -15729.39
  },
  {
   "date": "2025-11-07",
-  "etf_flow": -12339.82,
+  "etf_flow": -46.6,
+  "etf_etha": 34.4,
+  "etf_ethb": null,
   "staking_flow": -50204.17
  },
  {
   "date": "2025-11-08",
-  "etf_flow": -2015.59,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -22942.96
  },
  {
   "date": "2025-11-09",
-  "etf_flow": 3526.81,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -58260.39
  },
  {
   "date": "2025-11-10",
-  "etf_flow": 4850.49,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -20516.75
  },
  {
   "date": "2025-11-11",
-  "etf_flow": -2183.27,
+  "etf_flow": -107.1,
+  "etf_etha": -19.8,
+  "etf_ethb": null,
   "staking_flow": -113870.71
  },
  {
   "date": "2025-11-12",
-  "etf_flow": -33445.54,
+  "etf_flow": -183.7,
+  "etf_etha": -91.0,
+  "etf_ethb": null,
   "staking_flow": 2394.04
  },
  {
   "date": "2025-11-13",
-  "etf_flow": -54594.37,
+  "etf_flow": -259.6,
+  "etf_etha": -137.3,
+  "etf_ethb": null,
   "staking_flow": 14336.93
  },
  {
   "date": "2025-11-14",
-  "etf_flow": -86837.93,
+  "etf_flow": -177.9,
+  "etf_etha": -173.3,
+  "etf_ethb": null,
   "staking_flow": 2688.78
  },
  {
   "date": "2025-11-15",
-  "etf_flow": -104.63,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -3723.84
  },
  {
   "date": "2025-11-16",
-  "etf_flow": 15611.21,
+  "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -11511.92
  },
  {
   "date": "2025-11-17",
-  "etf_flow": -59030.12,
+  "etf_flow": -182.7,
+  "etf_etha": -193.0,
+  "etf_ethb": null,
   "staking_flow": 6703.06
  },
  {
   "date": "2025-11-18",
-  "etf_flow": null,
+  "etf_flow": -74.2,
+  "etf_etha": -165.1,
+  "etf_ethb": null,
   "staking_flow": 75523.36
  },
  {
   "date": "2025-11-19",
-  "etf_flow": null,
+  "etf_flow": -37.4,
+  "etf_etha": -24.6,
+  "etf_ethb": null,
   "staking_flow": -407624.65
  },
  {
   "date": "2025-11-20",
-  "etf_flow": null,
+  "etf_flow": -261.6,
+  "etf_etha": -122.6,
+  "etf_ethb": null,
   "staking_flow": 11532.72
  },
  {
   "date": "2025-11-21",
-  "etf_flow": null,
+  "etf_flow": 55.7,
+  "etf_etha": -53.7,
+  "etf_ethb": null,
   "staking_flow": -747.66
  },
  {
   "date": "2025-11-22",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 11356.77
  },
  {
   "date": "2025-11-23",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -42532.8
  },
  {
   "date": "2025-11-24",
-  "etf_flow": null,
+  "etf_flow": 96.6,
+  "etf_etha": 92.6,
+  "etf_ethb": null,
   "staking_flow": -18701.29
  },
  {
   "date": "2025-11-25",
-  "etf_flow": null,
+  "etf_flow": 78.6,
+  "etf_etha": 46.1,
+  "etf_ethb": null,
   "staking_flow": -15082.9
  },
  {
   "date": "2025-11-26",
-  "etf_flow": null,
+  "etf_flow": 60.8,
+  "etf_etha": 50.2,
+  "etf_ethb": null,
   "staking_flow": -47693.68
  },
  {
   "date": "2025-11-27",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -19099.71
  },
  {
   "date": "2025-11-28",
-  "etf_flow": null,
+  "etf_flow": 76.6,
+  "etf_etha": 68.3,
+  "etf_ethb": null,
   "staking_flow": 7119.97
  },
  {
   "date": "2025-11-29",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -9226.23
  },
  {
   "date": "2025-11-30",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -102817.97
  },
  {
   "date": "2025-12-01",
-  "etf_flow": null,
+  "etf_flow": -79.0,
+  "etf_etha": 26.7,
+  "etf_ethb": null,
   "staking_flow": -106460.6
  },
  {
   "date": "2025-12-02",
-  "etf_flow": null,
+  "etf_flow": -9.9,
+  "etf_etha": -88.7,
+  "etf_ethb": null,
   "staking_flow": -4536.53
  },
  {
   "date": "2025-12-03",
-  "etf_flow": null,
+  "etf_flow": 140.2,
+  "etf_etha": 53.0,
+  "etf_ethb": null,
   "staking_flow": -58691.3
  },
  {
   "date": "2025-12-04",
-  "etf_flow": null,
+  "etf_flow": -41.5,
+  "etf_etha": 28.4,
+  "etf_ethb": null,
   "staking_flow": 545.92
  },
  {
   "date": "2025-12-05",
-  "etf_flow": null,
+  "etf_flow": -75.2,
+  "etf_etha": -75.2,
+  "etf_ethb": null,
   "staking_flow": 30636.6
  },
  {
   "date": "2025-12-06",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 29155.78
  },
  {
   "date": "2025-12-07",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -225895.16
  },
  {
   "date": "2025-12-08",
-  "etf_flow": null,
+  "etf_flow": 35.5,
+  "etf_etha": 23.7,
+  "etf_ethb": null,
   "staking_flow": -34699.64
  },
  {
   "date": "2025-12-09",
-  "etf_flow": null,
+  "etf_flow": 177.7,
+  "etf_etha": 35.3,
+  "etf_ethb": null,
   "staking_flow": 62881.58
  },
  {
   "date": "2025-12-10",
-  "etf_flow": null,
+  "etf_flow": 57.6,
+  "etf_etha": 56.5,
+  "etf_ethb": null,
   "staking_flow": -11847.71
  },
  {
   "date": "2025-12-11",
-  "etf_flow": null,
+  "etf_flow": -42.3,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 62041.22
  },
  {
   "date": "2025-12-12",
-  "etf_flow": null,
+  "etf_flow": -19.4,
+  "etf_etha": 23.2,
+  "etf_ethb": null,
   "staking_flow": 27166.97
  },
  {
   "date": "2025-12-13",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -15621.97
  },
  {
   "date": "2025-12-14",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -27540.02
  },
  {
   "date": "2025-12-15",
-  "etf_flow": null,
+  "etf_flow": -224.8,
+  "etf_etha": -139.1,
+  "etf_ethb": null,
   "staking_flow": -13022.93
  },
  {
   "date": "2025-12-16",
-  "etf_flow": null,
+  "etf_flow": -224.2,
+  "etf_etha": -221.3,
+  "etf_ethb": null,
   "staking_flow": 9712.56
  },
  {
   "date": "2025-12-17",
-  "etf_flow": null,
+  "etf_flow": -22.4,
+  "etf_etha": -19.6,
+  "etf_ethb": null,
   "staking_flow": -2865.12
  },
  {
   "date": "2025-12-18",
-  "etf_flow": null,
+  "etf_flow": -96.6,
+  "etf_etha": -102.2,
+  "etf_ethb": null,
   "staking_flow": 80336.47
  },
  {
   "date": "2025-12-19",
-  "etf_flow": null,
+  "etf_flow": -75.9,
+  "etf_etha": -75.9,
+  "etf_ethb": null,
   "staking_flow": -97760.45
  },
  {
   "date": "2025-12-20",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -6130.56
  },
  {
   "date": "2025-12-21",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -15582.63
  },
  {
   "date": "2025-12-22",
-  "etf_flow": null,
+  "etf_flow": 84.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": -4687.19
  },
  {
   "date": "2025-12-23",
-  "etf_flow": null,
+  "etf_flow": -95.5,
+  "etf_etha": -25.0,
+  "etf_ethb": null,
   "staking_flow": -49556.21
  },
  {
   "date": "2025-12-24",
-  "etf_flow": null,
+  "etf_flow": -52.8,
+  "etf_etha": -22.3,
+  "etf_ethb": null,
   "staking_flow": -49396.38
  },
  {
   "date": "2025-12-25",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 9244.95
  },
  {
   "date": "2025-12-26",
-  "etf_flow": null,
+  "etf_flow": -38.7,
+  "etf_etha": -22.1,
+  "etf_ethb": null,
   "staking_flow": 41045.54
  },
  {
   "date": "2025-12-27",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 187022.46
  },
  {
   "date": "2025-12-28",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -146816.35
  },
  {
   "date": "2025-12-29",
-  "etf_flow": null,
+  "etf_flow": -9.6,
+  "etf_etha": -13.3,
+  "etf_ethb": null,
   "staking_flow": 161946.32
  },
  {
   "date": "2025-12-30",
-  "etf_flow": null,
+  "etf_flow": 67.9,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 116608.78
  },
  {
   "date": "2025-12-31",
-  "etf_flow": null,
+  "etf_flow": -72.0,
+  "etf_etha": -21.5,
+  "etf_ethb": null,
   "staking_flow": 5880.18
  },
  {
   "date": "2026-01-01",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 42021.34
  },
  {
   "date": "2026-01-02",
-  "etf_flow": null,
+  "etf_flow": 174.5,
+  "etf_etha": 47.2,
+  "etf_ethb": null,
   "staking_flow": 88022.94
  },
  {
   "date": "2026-01-03",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 46836.46
  },
  {
   "date": "2026-01-04",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 109387.47
  },
  {
   "date": "2026-01-05",
-  "etf_flow": null,
+  "etf_flow": 168.0,
+  "etf_etha": 102.9,
+  "etf_ethb": null,
   "staking_flow": 138193.87
  },
  {
   "date": "2026-01-06",
-  "etf_flow": null,
+  "etf_flow": 114.7,
+  "etf_etha": 198.8,
+  "etf_ethb": null,
   "staking_flow": 64916.06
  },
  {
   "date": "2026-01-07",
-  "etf_flow": null,
+  "etf_flow": -98.3,
+  "etf_etha": -6.6,
+  "etf_ethb": null,
   "staking_flow": 29803.28
  },
  {
   "date": "2026-01-08",
-  "etf_flow": null,
+  "etf_flow": -159.2,
+  "etf_etha": -107.7,
+  "etf_ethb": null,
   "staking_flow": 343671.04
  },
  {
   "date": "2026-01-09",
-  "etf_flow": null,
+  "etf_flow": -93.8,
+  "etf_etha": -83.8,
+  "etf_ethb": null,
   "staking_flow": 12656.55
  },
  {
   "date": "2026-01-10",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 96506.48
  },
  {
   "date": "2026-01-11",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 88711.15
  },
  {
   "date": "2026-01-12",
-  "etf_flow": null,
+  "etf_flow": 5.1,
+  "etf_etha": -79.9,
+  "etf_ethb": null,
   "staking_flow": 337531.55
  },
  {
   "date": "2026-01-13",
-  "etf_flow": null,
+  "etf_flow": 130.0,
+  "etf_etha": 53.3,
+  "etf_ethb": null,
   "staking_flow": 123418.2
  },
  {
   "date": "2026-01-14",
-  "etf_flow": null,
+  "etf_flow": 175.1,
+  "etf_etha": 81.6,
+  "etf_ethb": null,
   "staking_flow": 272256.83
  },
  {
   "date": "2026-01-15",
-  "etf_flow": null,
+  "etf_flow": 164.4,
+  "etf_etha": 149.2,
+  "etf_ethb": null,
   "staking_flow": 33547.23
  },
  {
   "date": "2026-01-16",
-  "etf_flow": null,
+  "etf_flow": 4.7,
+  "etf_etha": 14.9,
+  "etf_ethb": null,
   "staking_flow": 70757.69
  },
  {
   "date": "2026-01-17",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 60805.26
  },
  {
   "date": "2026-01-18",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 19174.33
  },
  {
   "date": "2026-01-19",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 207604.62
  },
  {
   "date": "2026-01-20",
-  "etf_flow": null,
+  "etf_flow": -230.0,
+  "etf_etha": -92.3,
+  "etf_ethb": null,
   "staking_flow": 91272.59
  },
  {
   "date": "2026-01-21",
-  "etf_flow": null,
+  "etf_flow": -287.0,
+  "etf_etha": -250.3,
+  "etf_ethb": null,
   "staking_flow": 83436.59
  },
  {
   "date": "2026-01-22",
-  "etf_flow": null,
+  "etf_flow": -42.0,
+  "etf_etha": -44.4,
+  "etf_ethb": null,
   "staking_flow": 208138.61
  },
  {
   "date": "2026-01-23",
-  "etf_flow": null,
+  "etf_flow": -41.7,
+  "etf_etha": -44.5,
+  "etf_ethb": null,
   "staking_flow": 119382.47
  },
  {
   "date": "2026-01-24",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -15536.47
  },
  {
   "date": "2026-01-25",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 82641.53
  },
  {
   "date": "2026-01-26",
-  "etf_flow": null,
+  "etf_flow": 117.0,
+  "etf_etha": -20.2,
+  "etf_ethb": null,
   "staking_flow": 243933.09
  },
  {
   "date": "2026-01-27",
-  "etf_flow": null,
+  "etf_flow": -63.6,
+  "etf_etha": -59.0,
+  "etf_ethb": null,
   "staking_flow": 74322.92
  },
  {
   "date": "2026-01-28",
-  "etf_flow": null,
+  "etf_flow": 28.1,
+  "etf_etha": 27.3,
+  "etf_ethb": null,
   "staking_flow": 255466.69
  },
  {
   "date": "2026-01-29",
-  "etf_flow": null,
+  "etf_flow": -155.7,
+  "etf_etha": -54.9,
+  "etf_ethb": null,
   "staking_flow": 533955.99
  },
  {
   "date": "2026-01-30",
-  "etf_flow": null,
+  "etf_flow": -252.9,
+  "etf_etha": -157.2,
+  "etf_ethb": null,
   "staking_flow": 31360.15
  },
  {
   "date": "2026-01-31",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -13186.85
  },
  {
   "date": "2026-02-01",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 100306.19
  },
  {
   "date": "2026-02-02",
-  "etf_flow": null,
+  "etf_flow": -2.9,
+  "etf_etha": -82.1,
+  "etf_ethb": null,
   "staking_flow": 16075.83
  },
  {
   "date": "2026-02-03",
-  "etf_flow": null,
+  "etf_flow": 14.0,
+  "etf_etha": 42.9,
+  "etf_ethb": null,
   "staking_flow": 36604.08
  },
  {
   "date": "2026-02-04",
-  "etf_flow": null,
+  "etf_flow": -79.4,
+  "etf_etha": -58.9,
+  "etf_ethb": null,
   "staking_flow": 12345.23
  },
  {
   "date": "2026-02-05",
-  "etf_flow": null,
+  "etf_flow": -80.8,
+  "etf_etha": -8.5,
+  "etf_ethb": null,
   "staking_flow": 36760.9
  },
  {
   "date": "2026-02-06",
-  "etf_flow": null,
+  "etf_flow": -16.7,
+  "etf_etha": -45.4,
+  "etf_ethb": null,
   "staking_flow": 63370.86
  },
  {
   "date": "2026-02-07",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 9766.54
  },
  {
   "date": "2026-02-08",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -69338.67
  },
  {
   "date": "2026-02-09",
-  "etf_flow": null,
+  "etf_flow": 57.0,
+  "etf_etha": -45.0,
+  "etf_ethb": null,
   "staking_flow": -4842.56
  },
  {
   "date": "2026-02-10",
-  "etf_flow": null,
+  "etf_flow": 13.8,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 131767.67
  },
  {
   "date": "2026-02-11",
-  "etf_flow": null,
+  "etf_flow": -129.1,
+  "etf_etha": -29.4,
+  "etf_ethb": null,
   "staking_flow": 52830.25
  },
  {
   "date": "2026-02-12",
-  "etf_flow": null,
+  "etf_flow": -113.1,
+  "etf_etha": -29.0,
+  "etf_ethb": null,
   "staking_flow": 16134.03
  },
  {
   "date": "2026-02-13",
-  "etf_flow": null,
+  "etf_flow": 10.2,
+  "etf_etha": -9.3,
+  "etf_ethb": null,
   "staking_flow": -7766.58
  },
  {
   "date": "2026-02-14",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -58674.55
  },
  {
   "date": "2026-02-15",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -12280.82
  },
  {
   "date": "2026-02-16",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -46304.54
  },
  {
   "date": "2026-02-17",
-  "etf_flow": null,
+  "etf_flow": 48.6,
+  "etf_etha": 22.9,
+  "etf_ethb": null,
   "staking_flow": -20053.55
  },
  {
   "date": "2026-02-18",
-  "etf_flow": null,
+  "etf_flow": -41.8,
+  "etf_etha": -29.9,
+  "etf_ethb": null,
   "staking_flow": -23225.34
  },
  {
   "date": "2026-02-19",
-  "etf_flow": null,
+  "etf_flow": -130.1,
+  "etf_etha": -96.8,
+  "etf_ethb": null,
   "staking_flow": 3093.02
  },
  {
   "date": "2026-02-20",
-  "etf_flow": null,
+  "etf_flow": 0.0,
+  "etf_etha": 1.8,
+  "etf_ethb": null,
   "staking_flow": 11483.9
  },
  {
   "date": "2026-02-21",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -92021.47
  },
  {
   "date": "2026-02-22",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -12561.45
  },
  {
   "date": "2026-02-23",
-  "etf_flow": null,
+  "etf_flow": -49.5,
+  "etf_etha": -45.4,
+  "etf_ethb": null,
   "staking_flow": 9866.33
  },
  {
   "date": "2026-02-24",
-  "etf_flow": null,
+  "etf_flow": 9.2,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 25792.83
  },
  {
   "date": "2026-02-25",
-  "etf_flow": null,
+  "etf_flow": 157.2,
+  "etf_etha": 31.3,
+  "etf_ethb": null,
   "staking_flow": 2948.22
  },
  {
   "date": "2026-02-26",
-  "etf_flow": null,
+  "etf_flow": 6.6,
+  "etf_etha": 15.3,
+  "etf_ethb": null,
   "staking_flow": -8504.24
  },
  {
   "date": "2026-02-27",
-  "etf_flow": null,
+  "etf_flow": -43.0,
+  "etf_etha": -43.0,
+  "etf_ethb": null,
   "staking_flow": -1605.25
  },
  {
   "date": "2026-02-28",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -26097.3
  },
  {
   "date": "2026-03-01",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 3182.66
  },
  {
   "date": "2026-03-02",
-  "etf_flow": null,
+  "etf_flow": 38.7,
+  "etf_etha": 26.5,
+  "etf_ethb": null,
   "staking_flow": -28220.76
  },
  {
   "date": "2026-03-03",
-  "etf_flow": null,
+  "etf_flow": -10.8,
+  "etf_etha": 41.9,
+  "etf_ethb": null,
   "staking_flow": -102678.6
  },
  {
   "date": "2026-03-04",
-  "etf_flow": null,
+  "etf_flow": 169.4,
+  "etf_etha": 39.3,
+  "etf_ethb": null,
   "staking_flow": 27141.95
  },
  {
   "date": "2026-03-05",
-  "etf_flow": null,
+  "etf_flow": -90.9,
+  "etf_etha": 30.3,
+  "etf_ethb": null,
   "staking_flow": -33070.42
  },
  {
   "date": "2026-03-06",
-  "etf_flow": null,
+  "etf_flow": -82.9,
+  "etf_etha": -4.8,
+  "etf_ethb": null,
   "staking_flow": 25655.66
  },
  {
   "date": "2026-03-07",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -88353.95
  },
  {
   "date": "2026-03-08",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -3076.24
  },
  {
   "date": "2026-03-09",
-  "etf_flow": null,
+  "etf_flow": -51.3,
+  "etf_etha": -55.1,
+  "etf_ethb": null,
   "staking_flow": 50086.96
  },
  {
   "date": "2026-03-10",
-  "etf_flow": null,
+  "etf_flow": 12.6,
+  "etf_etha": 0.0,
+  "etf_ethb": null,
   "staking_flow": 16838.34
  },
  {
   "date": "2026-03-11",
-  "etf_flow": null,
+  "etf_flow": 57.0,
+  "etf_etha": 18.8,
+  "etf_ethb": 0.0,
   "staking_flow": -25857.59
  },
  {
   "date": "2026-03-12",
-  "etf_flow": null,
+  "etf_flow": 115.9,
+  "etf_etha": 18.7,
+  "etf_ethb": 43.5,
   "staking_flow": 10043.35
  },
  {
   "date": "2026-03-13",
-  "etf_flow": null,
+  "etf_flow": 26.7,
+  "etf_etha": 32.4,
+  "etf_ethb": 2.2,
   "staking_flow": 70106.05
  },
  {
   "date": "2026-03-14",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -7231.02
  },
  {
   "date": "2026-03-15",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -9871.56
  },
  {
   "date": "2026-03-16",
-  "etf_flow": null,
+  "etf_flow": 35.9,
+  "etf_etha": -16.2,
+  "etf_ethb": 32.4,
   "staking_flow": 48138.01
  },
  {
   "date": "2026-03-17",
-  "etf_flow": null,
+  "etf_flow": 138.2,
+  "etf_etha": 81.7,
+  "etf_ethb": 67.2,
   "staking_flow": 40120.77
  },
  {
   "date": "2026-03-18",
-  "etf_flow": null,
+  "etf_flow": -55.7,
+  "etf_etha": -1.3,
+  "etf_ethb": 1.1,
   "staking_flow": 34230.91
  },
  {
   "date": "2026-03-19",
-  "etf_flow": null,
+  "etf_flow": -136.4,
+  "etf_etha": -102.3,
+  "etf_ethb": 7.7,
   "staking_flow": 6051.33
  },
  {
   "date": "2026-03-20",
-  "etf_flow": null,
+  "etf_flow": -42.0,
+  "etf_etha": -31.5,
+  "etf_ethb": 5.5,
   "staking_flow": 104650.71
  },
  {
   "date": "2026-03-21",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 703.98
  },
  {
   "date": "2026-03-22",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -20012.03
  },
  {
   "date": "2026-03-23",
-  "etf_flow": null,
+  "etf_flow": -16.2,
+  "etf_etha": -15.7,
+  "etf_ethb": 1.1,
   "staking_flow": 3470.58
  },
  {
   "date": "2026-03-24",
-  "etf_flow": null,
+  "etf_flow": -40.7,
+  "etf_etha": -25.0,
+  "etf_ethb": 2.2,
   "staking_flow": -832.24
  },
  {
   "date": "2026-03-25",
-  "etf_flow": null,
+  "etf_flow": -8.5,
+  "etf_etha": -33.4,
+  "etf_ethb": 1.1,
   "staking_flow": -8388.53
  },
  {
   "date": "2026-03-26",
-  "etf_flow": null,
+  "etf_flow": -92.5,
+  "etf_etha": -140.2,
+  "etf_ethb": 96.8,
   "staking_flow": 15400.19
  },
  {
   "date": "2026-03-27",
-  "etf_flow": null,
+  "etf_flow": -48.5,
+  "etf_etha": -70.8,
+  "etf_ethb": 39.9,
   "staking_flow": 63847.53
  },
  {
   "date": "2026-03-28",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -8336.77
  },
  {
   "date": "2026-03-29",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 11855.35
  },
  {
   "date": "2026-03-30",
-  "etf_flow": null,
+  "etf_flow": 5.0,
+  "etf_etha": -9.8,
+  "etf_ethb": 4.2,
   "staking_flow": 208806.31
  },
  {
   "date": "2026-03-31",
-  "etf_flow": null,
+  "etf_flow": 31.2,
+  "etf_etha": 24.7,
+  "etf_ethb": 1.1,
   "staking_flow": 52714.16
  },
  {
   "date": "2026-04-01",
-  "etf_flow": null,
+  "etf_flow": -7.1,
+  "etf_etha": -32.3,
+  "etf_ethb": 5.5,
   "staking_flow": 27550.82
  },
  {
   "date": "2026-04-02",
-  "etf_flow": null,
+  "etf_flow": -71.2,
+  "etf_etha": -46.7,
+  "etf_ethb": 0.0,
   "staking_flow": 26811.65
  },
  {
   "date": "2026-04-03",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 67896.91
  },
  {
   "date": "2026-04-04",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -39731.64
  },
  {
   "date": "2026-04-05",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 20866.78
  },
  {
   "date": "2026-04-06",
-  "etf_flow": null,
+  "etf_flow": 120.2,
+  "etf_etha": 60.8,
+  "etf_ethb": 0.0,
   "staking_flow": 22738.87
  },
  {
   "date": "2026-04-07",
-  "etf_flow": null,
+  "etf_flow": -64.7,
+  "etf_etha": -16.5,
+  "etf_ethb": 0.0,
   "staking_flow": 63567.68
  },
  {
   "date": "2026-04-08",
-  "etf_flow": null,
+  "etf_flow": -18.6,
+  "etf_etha": -20.6,
+  "etf_ethb": 44.2,
   "staking_flow": 25232.61
  },
  {
   "date": "2026-04-09",
-  "etf_flow": null,
+  "etf_flow": 85.2,
+  "etf_etha": 90.9,
+  "etf_ethb": 13.7,
   "staking_flow": 177891.6
  },
  {
   "date": "2026-04-10",
-  "etf_flow": null,
+  "etf_flow": 64.9,
+  "etf_etha": 53.7,
+  "etf_ethb": 8.1,
   "staking_flow": -27280.87
  },
  {
   "date": "2026-04-11",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -3590.33
  },
  {
   "date": "2026-04-12",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 27841.13
  },
  {
   "date": "2026-04-13",
-  "etf_flow": null,
+  "etf_flow": 9.5,
+  "etf_etha": -4.1,
+  "etf_ethb": 5.8,
   "staking_flow": 53610.31
  },
  {
   "date": "2026-04-14",
-  "etf_flow": null,
+  "etf_flow": 53.1,
+  "etf_etha": 10.5,
+  "etf_ethb": 1.2,
   "staking_flow": 20944.49
  },
  {
   "date": "2026-04-15",
-  "etf_flow": null,
+  "etf_flow": 67.9,
+  "etf_etha": 31.5,
+  "etf_ethb": 9.8,
   "staking_flow": 69768.16
  },
  {
   "date": "2026-04-16",
-  "etf_flow": null,
+  "etf_flow": 18.0,
+  "etf_etha": 30.5,
+  "etf_ethb": 0.0,
   "staking_flow": 16975.71
  },
  {
   "date": "2026-04-17",
-  "etf_flow": null,
+  "etf_flow": 127.4,
+  "etf_etha": 30.8,
+  "etf_ethb": 1.2,
   "staking_flow": 7896.88
  },
  {
   "date": "2026-04-18",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -124294.11
  },
  {
   "date": "2026-04-19",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -156356.11
  },
  {
   "date": "2026-04-20",
-  "etf_flow": null,
+  "etf_flow": 67.8,
+  "etf_etha": 76.1,
+  "etf_ethb": 13.2,
   "staking_flow": -28498.81
  },
  {
   "date": "2026-04-21",
-  "etf_flow": null,
+  "etf_flow": 43.4,
+  "etf_etha": 37.0,
+  "etf_ethb": 15.5,
   "staking_flow": 79711.88
  },
  {
   "date": "2026-04-22",
-  "etf_flow": null,
+  "etf_flow": 96.4,
+  "etf_etha": 53.6,
+  "etf_ethb": 0.0,
   "staking_flow": -2745.43
  },
  {
   "date": "2026-04-23",
-  "etf_flow": null,
+  "etf_flow": -75.9,
+  "etf_etha": -21.0,
+  "etf_ethb": 0.0,
   "staking_flow": 172388.71
  },
  {
   "date": "2026-04-24",
-  "etf_flow": null,
+  "etf_flow": 23.4,
+  "etf_etha": -7.7,
+  "etf_ethb": 32.3,
   "staking_flow": 192864.67
  },
  {
   "date": "2026-04-25",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -3495.59
  },
  {
   "date": "2026-04-26",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 1171.75
  },
  {
   "date": "2026-04-27",
-  "etf_flow": null,
+  "etf_flow": -50.4,
+  "etf_etha": -13.8,
+  "etf_ethb": 11.8,
   "staking_flow": 72508.11
  },
  {
   "date": "2026-04-28",
-  "etf_flow": null,
+  "etf_flow": -21.8,
+  "etf_etha": -13.2,
+  "etf_ethb": 0.0,
   "staking_flow": 62878.54
  },
  {
   "date": "2026-04-29",
-  "etf_flow": null,
+  "etf_flow": -87.8,
+  "etf_etha": -37.1,
+  "etf_ethb": -2.3,
   "staking_flow": 79779.27
  },
  {
   "date": "2026-04-30",
-  "etf_flow": null,
+  "etf_flow": -23.7,
+  "etf_etha": -50.6,
+  "etf_ethb": 29.1,
   "staking_flow": 144481.32
  },
  {
   "date": "2026-05-01",
-  "etf_flow": null,
+  "etf_flow": 101.2,
+  "etf_etha": 43.2,
+  "etf_ethb": 5.9,
   "staking_flow": 73077.87
  },
  {
   "date": "2026-05-02",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -98019.67
  },
  {
   "date": "2026-05-03",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -117584.35
  },
  {
   "date": "2026-05-04",
-  "etf_flow": null,
+  "etf_flow": 61.3,
+  "etf_etha": 54.8,
+  "etf_ethb": 0.0,
   "staking_flow": 191104.01
  },
  {
   "date": "2026-05-05",
-  "etf_flow": null,
+  "etf_flow": 97.5,
+  "etf_etha": 69.5,
+  "etf_ethb": 2.4,
   "staking_flow": 165080.29
  },
  {
   "date": "2026-05-06",
-  "etf_flow": null,
+  "etf_flow": 11.5,
+  "etf_etha": 2.1,
+  "etf_ethb": 0.0,
   "staking_flow": -119502.03
  },
  {
   "date": "2026-05-07",
-  "etf_flow": null,
+  "etf_flow": -103.6,
+  "etf_etha": -26.3,
+  "etf_ethb": 0.0,
   "staking_flow": -93574.73
  },
  {
   "date": "2026-05-08",
-  "etf_flow": null,
+  "etf_flow": 3.6,
+  "etf_etha": 0.0,
+  "etf_ethb": 3.6,
   "staking_flow": 25800.95
  },
  {
   "date": "2026-05-09",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -140176.71
  },
  {
   "date": "2026-05-10",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -78786.06
  },
  {
   "date": "2026-05-11",
-  "etf_flow": null,
+  "etf_flow": -17.0,
+  "etf_etha": 2.1,
+  "etf_ethb": -1.2,
   "staking_flow": -30983.2
  },
  {
   "date": "2026-05-12",
-  "etf_flow": null,
+  "etf_flow": -130.6,
+  "etf_etha": -102.0,
+  "etf_ethb": 11.7,
   "staking_flow": 11499.28
  },
  {
   "date": "2026-05-13",
-  "etf_flow": null,
+  "etf_flow": -36.3,
+  "etf_etha": -21.1,
+  "etf_ethb": -1.2,
   "staking_flow": -2457.66
  },
  {
   "date": "2026-05-14",
-  "etf_flow": null,
+  "etf_flow": -5.6,
+  "etf_etha": -13.2,
+  "etf_ethb": -3.6,
   "staking_flow": 22763.62
  },
  {
   "date": "2026-05-15",
-  "etf_flow": null,
+  "etf_flow": -65.7,
+  "etf_etha": -50.4,
+  "etf_ethb": 0.0,
   "staking_flow": 74397.28
  },
  {
   "date": "2026-05-16",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 44961.96
  },
  {
   "date": "2026-05-17",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -5939.1
  },
  {
   "date": "2026-05-18",
-  "etf_flow": null,
+  "etf_flow": -86.4,
+  "etf_etha": -55.4,
+  "etf_ethb": -2.2,
   "staking_flow": -37074.14
  },
  {
   "date": "2026-05-19",
-  "etf_flow": null,
+  "etf_flow": -62.3,
+  "etf_etha": -59.4,
+  "etf_ethb": 0.0,
   "staking_flow": -9285.35
  },
  {
   "date": "2026-05-20",
-  "etf_flow": null,
+  "etf_flow": -28.1,
+  "etf_etha": -30.9,
+  "etf_ethb": 4.4,
   "staking_flow": 634.05
  },
  {
   "date": "2026-05-21",
-  "etf_flow": null,
+  "etf_flow": -32.6,
+  "etf_etha": -38.0,
+  "etf_ethb": 3.3,
   "staking_flow": -11174.8
  },
  {
   "date": "2026-05-22",
-  "etf_flow": null,
+  "etf_flow": -6.6,
+  "etf_etha": -5.6,
+  "etf_ethb": 0.0,
   "staking_flow": 3025.83
  },
  {
   "date": "2026-05-23",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 16599.98
  },
  {
   "date": "2026-05-24",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -44779.27
  },
  {
   "date": "2026-05-25",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 3949.28
  },
  {
   "date": "2026-05-26",
-  "etf_flow": null,
+  "etf_flow": -35.1,
+  "etf_etha": -1.9,
+  "etf_ethb": 0.0,
   "staking_flow": 12512.47
  },
  {
   "date": "2026-05-27",
-  "etf_flow": null,
+  "etf_flow": -67.1,
+  "etf_etha": -65.1,
+  "etf_ethb": 0.0,
   "staking_flow": 2382.26
  },
  {
   "date": "2026-05-28",
-  "etf_flow": null,
+  "etf_flow": -121.4,
+  "etf_etha": -80.4,
+  "etf_ethb": 3.1,
   "staking_flow": 55019.91
  },
  {
   "date": "2026-05-29",
-  "etf_flow": null,
+  "etf_flow": -18.0,
+  "etf_etha": -40.7,
+  "etf_ethb": 9.3,
   "staking_flow": 12452.18
  },
  {
   "date": "2026-05-30",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 3818.03
  },
  {
   "date": "2026-05-31",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 13287.94
  },
  {
   "date": "2026-06-01",
-  "etf_flow": null,
+  "etf_flow": -44.5,
+  "etf_etha": -35.0,
+  "etf_ethb": 0.0,
   "staking_flow": -4216.9
  },
  {
   "date": "2026-06-02",
-  "etf_flow": null,
+  "etf_flow": -90.2,
+  "etf_etha": -44.3,
+  "etf_ethb": -1.0,
   "staking_flow": -9195.47
  },
  {
   "date": "2026-06-03",
-  "etf_flow": null,
+  "etf_flow": -53.0,
+  "etf_etha": -51.6,
+  "etf_ethb": 0.0,
   "staking_flow": -143544.4
  },
  {
   "date": "2026-06-04",
-  "etf_flow": null,
+  "etf_flow": 19.3,
+  "etf_etha": 19.3,
+  "etf_ethb": 0.0,
   "staking_flow": -12382.83
  },
  {
   "date": "2026-06-05",
-  "etf_flow": null,
+  "etf_flow": -6.0,
+  "etf_etha": -13.2,
+  "etf_ethb": 4.0,
   "staking_flow": -15201.65
  },
  {
   "date": "2026-06-06",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 22214.3
  },
  {
   "date": "2026-06-07",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -9508.03
  },
  {
   "date": "2026-06-08",
-  "etf_flow": null,
+  "etf_flow": 82.4,
+  "etf_etha": 17.8,
+  "etf_ethb": 26.9,
   "staking_flow": -37707.26
  },
  {
   "date": "2026-06-09",
-  "etf_flow": null,
+  "etf_flow": -40.9,
+  "etf_etha": -8.5,
+  "etf_ethb": 0.0,
   "staking_flow": -30792.35
  },
  {
   "date": "2026-06-10",
-  "etf_flow": null,
+  "etf_flow": -35.5,
+  "etf_etha": -20.6,
+  "etf_ethb": 1.7,
   "staking_flow": -34747.2
  },
  {
   "date": "2026-06-11",
-  "etf_flow": null,
+  "etf_flow": -15.9,
+  "etf_etha": 8.6,
+  "etf_ethb": 0.0,
   "staking_flow": 5755.92
  },
  {
   "date": "2026-06-12",
-  "etf_flow": null,
+  "etf_flow": -4.9,
+  "etf_etha": -4.5,
+  "etf_ethb": 0.0,
   "staking_flow": -2256.74
  },
  {
   "date": "2026-06-13",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -20055.52
  },
  {
   "date": "2026-06-14",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 82243.11
  },
  {
   "date": "2026-06-15",
-  "etf_flow": null,
+  "etf_flow": 22.5,
+  "etf_etha": 17.6,
+  "etf_ethb": 0.0,
   "staking_flow": 39247.03
  },
  {
   "date": "2026-06-16",
-  "etf_flow": null,
+  "etf_flow": 9.6,
+  "etf_etha": 17.3,
+  "etf_ethb": 0.0,
   "staking_flow": -36340.81
  },
  {
   "date": "2026-06-17",
-  "etf_flow": null,
+  "etf_flow": -29.3,
+  "etf_etha": -9.0,
+  "etf_ethb": 0.0,
   "staking_flow": -427.41
  },
  {
   "date": "2026-06-18",
-  "etf_flow": null,
+  "etf_flow": -12.8,
+  "etf_etha": -12.8,
+  "etf_ethb": 0.0,
   "staking_flow": 6710.49
  },
  {
   "date": "2026-06-19",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 28521.17
  },
  {
   "date": "2026-06-20",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 28297.52
  },
  {
   "date": "2026-06-21",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 9019.47
  },
  {
   "date": "2026-06-22",
-  "etf_flow": null,
+  "etf_flow": -66.1,
+  "etf_etha": -66.4,
+  "etf_ethb": 0.0,
   "staking_flow": 52311.19
  },
  {
   "date": "2026-06-23",
-  "etf_flow": null,
+  "etf_flow": -82.4,
+  "etf_etha": -86.1,
+  "etf_ethb": -1.7,
   "staking_flow": 104216.57
  },
  {
   "date": "2026-06-24",
-  "etf_flow": null,
+  "etf_flow": -30.3,
+  "etf_etha": -8.1,
+  "etf_ethb": 0.0,
   "staking_flow": 87225.51
  },
  {
   "date": "2026-06-25",
-  "etf_flow": null,
+  "etf_flow": -81.9,
+  "etf_etha": -63.0,
+  "etf_ethb": -2.4,
   "staking_flow": 25246.83
  },
  {
   "date": "2026-06-26",
-  "etf_flow": null,
+  "etf_flow": -12.8,
+  "etf_etha": -12.8,
+  "etf_ethb": 0.0,
   "staking_flow": 213329.66
  },
  {
   "date": "2026-06-27",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 12920.14
  },
  {
   "date": "2026-06-28",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -41431.9
  },
  {
   "date": "2026-06-29",
-  "etf_flow": null,
+  "etf_flow": -29.9,
+  "etf_etha": 5.9,
+  "etf_ethb": -37.5,
   "staking_flow": 31101.44
  },
  {
   "date": "2026-06-30",
-  "etf_flow": null,
+  "etf_flow": -27.6,
+  "etf_etha": -27.6,
+  "etf_ethb": 0.0,
   "staking_flow": 43117.11
  },
  {
   "date": "2026-07-01",
-  "etf_flow": null,
+  "etf_flow": 14.8,
+  "etf_etha": 36.6,
+  "etf_ethb": -1.7,
   "staking_flow": 2458.21
  },
  {
   "date": "2026-07-02",
-  "etf_flow": null,
+  "etf_flow": 29.0,
+  "etf_etha": 29.7,
+  "etf_ethb": 0.0,
   "staking_flow": 15694.1
  },
  {
   "date": "2026-07-03",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 14978.76
  },
  {
   "date": "2026-07-04",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -95609.67
  },
  {
   "date": "2026-07-05",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -20691.49
  },
  {
   "date": "2026-07-06",
-  "etf_flow": null,
+  "etf_flow": 20.7,
+  "etf_etha": 23.3,
+  "etf_ethb": 0.0,
   "staking_flow": -19692.12
  },
  {
   "date": "2026-07-07",
-  "etf_flow": null,
+  "etf_flow": 26.9,
+  "etf_etha": 26.9,
+  "etf_ethb": 0.0,
   "staking_flow": 48997.33
  },
  {
   "date": "2026-07-08",
-  "etf_flow": null,
+  "etf_flow": 70.5,
+  "etf_etha": 0.0,
+  "etf_ethb": 0.0,
   "staking_flow": -8913.27
  },
  {
   "date": "2026-07-09",
-  "etf_flow": null,
+  "etf_flow": -52.2,
+  "etf_etha": -12.7,
+  "etf_ethb": -2.7,
   "staking_flow": -22938.69
  },
  {
   "date": "2026-07-10",
-  "etf_flow": null,
+  "etf_flow": 18.4,
+  "etf_etha": 16.2,
+  "etf_ethb": 0.0,
   "staking_flow": 55150.53
  },
  {
   "date": "2026-07-11",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -10968.79
  },
  {
   "date": "2026-07-12",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 27452.76
  },
  {
   "date": "2026-07-13",
-  "etf_flow": null,
+  "etf_flow": -15.4,
+  "etf_etha": 0.0,
+  "etf_ethb": 0.0,
   "staking_flow": 26304.91
  },
  {
   "date": "2026-07-14",
-  "etf_flow": null,
+  "etf_flow": 58.3,
+  "etf_etha": 58.3,
+  "etf_ethb": 0.0,
   "staking_flow": 116185.6
  },
  {
   "date": "2026-07-15",
-  "etf_flow": null,
+  "etf_flow": 53.9,
+  "etf_etha": 45.3,
+  "etf_ethb": 4.0,
   "staking_flow": 18998.14
  },
  {
   "date": "2026-07-16",
-  "etf_flow": null,
+  "etf_flow": -28.0,
+  "etf_etha": 0.0,
+  "etf_ethb": 0.0,
   "staking_flow": -8973.18
  },
  {
   "date": "2026-07-17",
-  "etf_flow": null,
+  "etf_flow": 36.7,
+  "etf_etha": 31.7,
+  "etf_ethb": 0.0,
   "staking_flow": 4460.59
  },
  {
   "date": "2026-07-18",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -19887.61
  },
  {
   "date": "2026-07-19",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -108.64
  },
  {
   "date": "2026-07-20",
-  "etf_flow": null,
+  "etf_flow": 38.0,
+  "etf_etha": 34.3,
+  "etf_ethb": 0.0,
   "staking_flow": 32261.94
  },
  {
   "date": "2026-07-21",
-  "etf_flow": null,
+  "etf_flow": 37.5,
+  "etf_etha": 52.8,
+  "etf_ethb": 0.0,
   "staking_flow": 36866.21
  },
  {
   "date": "2026-07-22",
-  "etf_flow": null,
+  "etf_flow": 72.7,
+  "etf_etha": 53.5,
+  "etf_ethb": 0.0,
   "staking_flow": 75804.69
  },
  {
   "date": "2026-07-23",
-  "etf_flow": null,
+  "etf_flow": 26.3,
+  "etf_etha": 8.5,
+  "etf_ethb": 2.9,
   "staking_flow": 49155.04
  },
  {
   "date": "2026-07-24",
-  "etf_flow": null,
+  "etf_flow": -70.7,
+  "etf_etha": -52.8,
+  "etf_ethb": 0.0,
   "staking_flow": 8161.99
  },
  {
   "date": "2026-07-25",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 7667.59
  },
  {
   "date": "2026-07-26",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 73853.56
  },
  {
   "date": "2026-07-27",
-  "etf_flow": null,
+  "etf_flow": 11.7,
+  "etf_etha": 11.7,
+  "etf_ethb": 0.0,
   "staking_flow": 1795.05
  },
  {
   "date": "2026-07-28",
-  "etf_flow": null,
+  "etf_flow": 14.5,
+  "etf_etha": 3.5,
+  "etf_ethb": 5.9,
   "staking_flow": 28237.94
  },
  {
   "date": "2026-07-29",
-  "etf_flow": null,
+  "etf_flow": -18.6,
+  "etf_etha": 5.2,
+  "etf_ethb": 0.0,
   "staking_flow": 61258.74
  },
  {
   "date": "2026-07-30",
-  "etf_flow": null,
+  "etf_flow": 13.2,
+  "etf_etha": 16.2,
+  "etf_ethb": 0.0,
   "staking_flow": 60267.87
  },
  {
   "date": "2026-07-31",
-  "etf_flow": null,
+  "etf_flow": 9.0,
+  "etf_etha": 0.0,
+  "etf_ethb": 15.4,
   "staking_flow": 1066.46
  },
  {
   "date": "2026-08-01",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -8366.7
  },
  {
   "date": "2026-08-02",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -29293.34
  },
  {
   "date": "2026-08-03",
-  "etf_flow": null,
+  "etf_flow": -11.3,
+  "etf_etha": -9.0,
+  "etf_ethb": 5.8,
   "staking_flow": 156406.76
  },
  {
   "date": "2026-08-04",
-  "etf_flow": null,
+  "etf_flow": 53.7,
+  "etf_etha": 42.5,
+  "etf_ethb": 0.0,
   "staking_flow": 17945.66
  },
  {
   "date": "2026-08-05",
-  "etf_flow": null,
+  "etf_flow": 60.8,
+  "etf_etha": 50.3,
+  "etf_ethb": 4.9,
   "staking_flow": 71224.66
  },
  {
   "date": "2026-08-06",
-  "etf_flow": null,
+  "etf_flow": 92.1,
+  "etf_etha": 81.1,
+  "etf_ethb": 2.0,
   "staking_flow": 12469.34
  },
  {
   "date": "2026-08-07",
-  "etf_flow": null,
+  "etf_flow": 49.6,
+  "etf_etha": 38.1,
+  "etf_ethb": 0.0,
   "staking_flow": 34434.87
  },
  {
   "date": "2026-08-08",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 2269.4
  },
  {
   "date": "2026-08-09",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": 1725.13
  },
  {
   "date": "2026-08-10",
-  "etf_flow": null,
+  "etf_flow": -14.6,
+  "etf_etha": -23.8,
+  "etf_ethb": 3.9,
   "staking_flow": 16030.98
  },
  {
   "date": "2026-08-11",
-  "etf_flow": null,
+  "etf_flow": -1.7,
+  "etf_etha": 0.6,
+  "etf_ethb": 0.0,
   "staking_flow": 68289.3
  },
  {
   "date": "2026-08-12",
-  "etf_flow": null,
+  "etf_flow": 7.4,
+  "etf_etha": 7.4,
+  "etf_ethb": 0.0,
   "staking_flow": 1898.04
  },
  {
   "date": "2026-08-13",
-  "etf_flow": null,
+  "etf_flow": 6.7,
+  "etf_etha": -0.6,
+  "etf_ethb": 0.0,
   "staking_flow": -22677.47
  },
  {
   "date": "2026-08-14",
-  "etf_flow": null,
+  "etf_flow": 0.0,
+  "etf_etha": 0.0,
+  "etf_ethb": 0.0,
   "staking_flow": -6843.23
  },
  {
   "date": "2026-08-15",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -16166.09
  },
  {
   "date": "2026-08-16",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -4984.51
  },
  {
   "date": "2026-08-17",
-  "etf_flow": null,
+  "etf_flow": 30.9,
+  "etf_etha": 25.9,
+  "etf_ethb": 0.0,
   "staking_flow": -5438.93
  },
  {
   "date": "2026-08-18",
-  "etf_flow": null,
+  "etf_flow": 71.4,
+  "etf_etha": 64.7,
+  "etf_ethb": 0.0,
   "staking_flow": -1402.85
  },
  {
   "date": "2026-08-19",
-  "etf_flow": null,
+  "etf_flow": 189.1,
+  "etf_etha": 122.1,
+  "etf_ethb": 9.7,
   "staking_flow": -8804.63
  },
  {
   "date": "2026-08-20",
-  "etf_flow": null,
+  "etf_flow": 220.7,
+  "etf_etha": 173.3,
+  "etf_ethb": 35.9,
   "staking_flow": -6572.31
  },
  {
   "date": "2026-08-21",
-  "etf_flow": null,
+  "etf_flow": 184.8,
+  "etf_etha": 150.8,
+  "etf_ethb": 9.9,
   "staking_flow": 8057.95
  },
  {
   "date": "2026-08-22",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -4511.36
  },
  {
   "date": "2026-08-23",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -34658.91
  },
  {
   "date": "2026-08-24",
-  "etf_flow": null,
+  "etf_flow": 115.6,
+  "etf_etha": 90.9,
+  "etf_ethb": 0.0,
   "staking_flow": -6527.1
  },
  {
   "date": "2026-08-25",
-  "etf_flow": null,
+  "etf_flow": 179.8,
+  "etf_etha": 146.4,
+  "etf_ethb": 7.6,
   "staking_flow": -25699.84
  },
  {
   "date": "2026-08-26",
-  "etf_flow": null,
+  "etf_flow": 192.4,
+  "etf_etha": 115.7,
+  "etf_ethb": 6.4,
   "staking_flow": -37199.31
  },
  {
   "date": "2026-08-27",
-  "etf_flow": null,
+  "etf_flow": 234.4,
+  "etf_etha": 130.2,
+  "etf_ethb": 20.7,
   "staking_flow": -11359.36
  },
  {
   "date": "2026-08-28",
-  "etf_flow": null,
+  "etf_flow": 102.1,
+  "etf_etha": 83.8,
+  "etf_ethb": 42.6,
   "staking_flow": -26309.94
  },
  {
   "date": "2026-08-29",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -9054.65
  },
  {
   "date": "2026-08-30",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -21595.64
  },
  {
   "date": "2026-08-31",
-  "etf_flow": null,
+  "etf_flow": 87.6,
+  "etf_etha": 59.9,
+  "etf_ethb": 0.0,
   "staking_flow": -56044.87
  },
  {
   "date": "2026-09-01",
-  "etf_flow": null,
+  "etf_flow": 10.9,
+  "etf_etha": 0.0,
+  "etf_ethb": 11.2,
   "staking_flow": 15404.19
  },
  {
   "date": "2026-09-02",
-  "etf_flow": null,
+  "etf_flow": -48.2,
+  "etf_etha": -53.4,
+  "etf_ethb": 52.9,
   "staking_flow": -25358.14
  },
  {
   "date": "2026-09-03",
-  "etf_flow": null,
+  "etf_flow": 141.4,
+  "etf_etha": 72.1,
+  "etf_ethb": 1.3,
   "staking_flow": -16004.13
  },
  {
   "date": "2026-09-04",
-  "etf_flow": null,
+  "etf_flow": 26.4,
+  "etf_etha": 57.8,
+  "etf_ethb": 16.4,
   "staking_flow": -9856.6
  },
  {
   "date": "2026-09-05",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -24090.96
  },
  {
   "date": "2026-09-06",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -7610.16
  },
  {
   "date": "2026-09-07",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -5793.12
  },
  {
   "date": "2026-09-08",
-  "etf_flow": null,
+  "etf_flow": -24.3,
+  "etf_etha": 0.0,
+  "etf_ethb": 0.0,
   "staking_flow": -22247.65
  },
  {
   "date": "2026-09-09",
-  "etf_flow": null,
+  "etf_flow": 34.7,
+  "etf_etha": 9.7,
+  "etf_ethb": 22.9,
   "staking_flow": -7457.77
  },
  {
   "date": "2026-09-10",
-  "etf_flow": null,
+  "etf_flow": -29.9,
+  "etf_etha": -18.6,
+  "etf_ethb": 13.9,
   "staking_flow": -56765.17
  },
  {
   "date": "2026-09-11",
-  "etf_flow": null,
+  "etf_flow": 216.4,
+  "etf_etha": 148.8,
+  "etf_ethb": 18.3,
   "staking_flow": -5336.67
  },
  {
   "date": "2026-09-12",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -40493.57
  },
  {
   "date": "2026-09-13",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -17199.96
  },
  {
   "date": "2026-09-14",
-  "etf_flow": null,
+  "etf_flow": 121.1,
+  "etf_etha": 80.5,
+  "etf_ethb": 14.4,
   "staking_flow": 2096.67
  },
  {
   "date": "2026-09-15",
-  "etf_flow": null,
+  "etf_flow": -142.0,
+  "etf_etha": -98.0,
+  "etf_ethb": 12.4,
   "staking_flow": -32444.35
  },
  {
   "date": "2026-09-16",
-  "etf_flow": null,
+  "etf_flow": -224.1,
+  "etf_etha": -110.0,
+  "etf_ethb": -19.8,
   "staking_flow": -6843.99
  },
  {
   "date": "2026-09-17",
-  "etf_flow": null,
+  "etf_flow": -39.3,
+  "etf_etha": -42.9,
+  "etf_ethb": 0.0,
   "staking_flow": -7179.45
  },
  {
   "date": "2026-09-18",
-  "etf_flow": null,
+  "etf_flow": 143.7,
+  "etf_etha": 114.3,
+  "etf_ethb": 0.0,
   "staking_flow": -19803.76
  },
  {
   "date": "2026-09-19",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -10454.42
  },
  {
   "date": "2026-09-20",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -52072.17
  },
  {
   "date": "2026-09-21",
-  "etf_flow": null,
+  "etf_flow": 270.0,
+  "etf_etha": 110.1,
+  "etf_ethb": 12.8,
   "staking_flow": -3187.78
  },
  {
   "date": "2026-09-22",
   "etf_flow": null,
+  "etf_etha": null,
+  "etf_ethb": null,
   "staking_flow": -13570.64
  }
 ]

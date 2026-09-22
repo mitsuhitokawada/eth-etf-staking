@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETH ETFフロー × ステーキング</title>
+<meta name="description" content="Ethereum ETFの日次純流入と、Ethereumステーキングの日次純流入を同じ日付で並べたページ">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #fcfcfb; --surface: #ffffff; --line: #e6e5e0; --grid: #ececea;
+    --text: #0b0b0b; --text-2: #52514e; --muted: #8a8984;
+    --in: #2a78d6; --out: #e34948; --ma: #0b0b0b;
+    --accent: #2a78d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #141413; --surface: #1a1a19; --line: #2c2c2a; --grid: #262624;
+      --text: #ffffff; --text-2: #c3c2b7; --muted: #8f8e88;
+      --in: #3987e5; --out: #e66767; --ma: #ffffff; --accent: #3987e5;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #141413; --surface: #1a1a19; --line: #2c2c2a; --grid: #262624;
+    --text: #ffffff; --text-2: #c3c2b7; --muted: #8f8e88;
+    --in: #3987e5; --out: #e66767; --ma: #ffffff; --accent: #3987e5;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI", sans-serif;
+    line-height: 1.6; }
+  main { max-width: 1040px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  h2 { font-size: 1.1rem; margin: 32px 0 8px; }
+  .lead { color: var(--text-2); margin: 0 0 16px; font-size: .95rem; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 16px 0; }
+  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .tile .k { font-size: .78rem; color: var(--muted); }
+  .tile .v { font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .tile .u { font-size: .75rem; color: var(--text-2); margin-left: 4px; font-weight: 400; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 12px 0 8px; font-size: .9rem; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; background: var(--surface); color: var(--text-2); padding: 5px 12px; cursor: pointer; font: inherit; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 12px 6px; margin: 10px 0; }
+  .card h3 { margin: 0 0 2px; font-size: 1rem; }
+  .card .sub { color: var(--muted); font-size: .8rem; margin-bottom: 4px; }
+  .legend { display: flex; gap: 14px; font-size: .8rem; color: var(--text-2); margin: 4px 0 2px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  .legend .l { width: 14px; height: 2px; border-radius: 0; vertical-align: 3px; }
+  svg { display: block; width: 100%; height: auto; }
+  .grid line { stroke: var(--grid); }
+  .axis text { fill: var(--muted); font-size: 11px; }
+  .axis line, .axis path { stroke: var(--line); }
+  .zero { stroke: var(--text-2); stroke-width: 1; }
+  .tip { position: fixed; pointer-events: none; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 8px; padding: 8px 10px; font-size: .82rem; box-shadow: 0 4px 16px rgba(0,0,0,.12); display: none; z-index: 9; min-width: 190px; }
+  .tip b { font-variant-numeric: tabular-nums; }
+  .tip .row { display: flex; justify-content: space-between; gap: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--text-2); font-weight: 500; }
+  .neg { color: var(--out); } .pos { color: var(--in); }
+  details summary { cursor: pointer; color: var(--text-2); }
+  .note { font-size: .88rem; color: var(--text-2); }
+  .commentary p { margin: 0 0 10px; }
+  .commentary h3 { font-size: .98rem; margin: 18px 0 4px; }
+  footer { margin-top: 40px; font-size: .8rem; color: var(--muted); }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>ETH ETFフロー × ステーキング</h1>
+  <p class="lead" id="lead">Ethereum ETFの日次純流入と、Ethereumステーキングの日次純流入（入金 − 引き出し）を、同じ日付で上下に並べています。因果を言うものではなく、「同じ時期に何が起きていたか」を見るためのページです。</p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="controls">
+    <span>粒度</span>
+    <div class="seg" id="gran">
+      <button data-g="day" aria-pressed="true">日</button>
+      <button data-g="week">週</button>
+      <button data-g="month">月</button>
+    </div>
+    <span>期間</span>
+    <div class="seg" id="range">
+      <button data-r="all" aria-pressed="true">全期間</button>
+      <button data-r="365">直近1年</button>
+      <button data-r="180">直近6ヶ月</button>
+      <button data-r="90">直近3ヶ月</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px">
+      <h3 id="etfTitle">Ethereum ETF 純流入</h3>
+      <div class="seg" id="etfSeries" style="font-size:.82rem">
+        <button data-s="etf" aria-pressed="true">全ETF合計</button>
+        <button data-s="ethb">ETHB（ステーキング型）</button>
+        <button data-s="etha">ETHA（BlackRock）</button>
+      </div>
+    </div>
+    <div class="sub" id="etfSub"></div>
+    <div class="legend"><span><i style="background:var(--in)"></i>流入（＋）</span><span><i style="background:var(--out)"></i>流出（−）</span><span><i class="l" style="background:var(--ma)"></i>7区間移動平均</span></div>
+    <svg id="etfChart" viewBox="0 0 1000 260" role="img" aria-label="Ethereum ETFの純流入の棒グラフ"></svg>
+  </div>
+  <div class="card">
+    <h3>Ethereum ステーキング 純流入</h3>
+    <div class="sub" id="stkSub"></div>
+    <div class="legend"><span><i style="background:var(--in)"></i>流入（＋）</span><span><i style="background:var(--out)"></i>流出（−）</span><span><i class="l" style="background:var(--ma)"></i>7区間移動平均</span></div>
+    <svg id="stkChart" viewBox="0 0 1000 260" role="img" aria-label="Ethereumステーキングの純流入の棒グラフ"></svg>
+  </div>
+
+  <details>
+    <summary>月ごとの表を見る</summary>
+    <div style="overflow:auto; margin-top:8px"><table id="monthTable"></table></div>
+  </details>
+
+  <section class="commentary" id="commentary">
+
+    <h2>この期間に何が起きていたか</h2>
+    <p class="note">数字はこのページのデータから計算したもの（ETFは百万ドル、ステーキングはETH）。出来事は一般に知られている範囲のもので、どちらが原因かは言えません。「同じ時期に、両方がどう動いたか」の並置です。</p>
+
+    <h3>2024年7月〜10月：ETFが始まった。最初の4ヶ月は差し引きで流出</h3>
+    <p>米国の現物ETH ETFは2024年7月23日に取引開始。初日は+106.6Mでしたが、その後はGrayscale ETHE（手数料2.5%）からの解約が続き、7月は−484M。10月末までの累計は−481Mと、始まってから4ヶ月はお金が出ていく側でした。いっぽうステーキングは、7月+41万ETH、8月+17万、9月+24万、10月+18万と、淡々と入り続けています。ETFの出入りとは無関係に、ステーキングは増えていた時期です。</p>
+
+    <h3>2024年11月〜2025年2月：ETFに大きく流入、ステーキングは4ヶ月連続で流出</h3>
+    <p>11月の米大統領選のあと、ETFの流れが変わります。11月+1,057M、12月+2,084M（12月5日の+428.5Mが当時の最大）。この4ヶ月の合計は+3,303M。ところが同じ4ヶ月、ステーキングは−32万、−53万、−29万、−20万ETHと、合計で−135万ETH流出しています。価格が上がった局面で、ETFには買いが入り、ステーキングからは引き出しが増えた。方向が逆だった時期です。</p>
+
+    <h3>2025年3月〜5月：どちらも停滞</h3>
+    <p>ETFは3月−389M、4月+66M、5月+564M。ステーキングは3月+46万、4月−16万、5月+19万ETH。この時期にEthereumのPectraアップグレード（2025年5月7日）があり、バリデータの最大有効残高が32ETHから2,048ETHに引き上げられました。参考にした<a href="https://kirifuda.io/bci/reports/iiyp9x2bf6fc">解説レポート</a>によれば、これによって大口のステーキングが運用しやすくなり、ETFにステーキングを組み込む議論の下地になりました。</p>
+
+    <h3>2025年6月〜8月：両方が同時に過去最大の流入</h3>
+    <p>ここがこのページのいちばんの見どころです。ETFは6月+1,165M、7月+5,431M、8月+3,872Mで、3ヶ月合計+10,468M。全期間累計（+13,549M）の8割近くがこの3ヶ月に集中しています。最大の1日は2025年8月11日の+1,018.8M。同じ3ヶ月、ステーキングも6月+101万、7月+56万、8月+40万ETH、合計+197万ETHの流入でした。「ETFに入るとステーキングが減る」のではなく、この局面では両方に同時にETHが向かっています。</p>
+
+    <h3>2025年9月〜11月：ETFの勢いが止まり、ステーキングは出入りが激しく</h3>
+    <p>ETFは9月+286M、10月+570M、11月−1,424M。11月は全期間で最大の月間流出で、11月13日と20日はそれぞれ−260M前後。ステーキングは9月−70万、10月+123万、11月−89万ETHと振れ幅が大きく、10月8日には1日で+91万ETHという極端な値があります（元データのまま載せていますが、1日でこれだけ動くのは集計上の特殊要因の可能性があるので、そのまま「需要」と読まないほうが安全です）。</p>
+
+    <h3>2025年12月〜2026年2月：ETFは細く流出、ステーキングは1月に大量流入</h3>
+    <p>ETFは−616M、−343M、−370Mと3ヶ月続けて流出。いっぽうステーキングは2026年1月に+388万ETHと、全期間で最大の月間流入になりました。1月29日の+53万ETHが最大ですが、上位3日を除いても+267万ETHあり、特定の1日ではなく月を通して入っています。ETFから資金が抜けている時期に、オンチェーンではステーキングが増えていた、という逆方向の時期です。</p>
+
+    <h3>2026年3月〜9月：ステーキング型ETF（ETHB）の登場</h3>
+    <p>2026年3月11日から、Farsideの表にETHBの列が加わります。これはステーキング報酬を組み込むタイプのETFで、それまでの現物ETF（ETHAなど）にはステーキング機能がありません。3月11日以降の累計は、ETHBが+850.5M、ETHA（BlackRock）が+1,155.1M、全体で+1,929.4M。ETHBは新しい商品としては大きな比率で、ETFの資金がステーキングつきの商品に向かい始めた期間と言えます。同じ期間のステーキングは+222万ETHの流入。8月はETF+1,852Mと今年最大の月間流入で、ステーキングは+5万ETHと横ばい、9月はETF+457Mに対してステーキング−37万ETHでした。</p>
+
+    <h3>全体として</h3>
+    <p>週ごとの数字でETFとステーキングの相関を取ると0.05前後で、統計的にはほぼ無関係です。同じ方向に動いた時期（2025年夏）もあれば、逆に動いた時期（2024年冬、2026年1月）もあります。ETFの流入は「ドルで買われたETHが発行体の保管に入る」動き、ステーキングは「持っているETHをロックする」動きで、動機が違うので当然でもあります。今後、ETHBのようなステーキング型ETFが主流になると、ETFへの流入がそのままステーキングの増加につながる構造になり、この2枚のグラフの関係は変わるかもしれません。それを見るための土台がこのページです。</p>
+  </section>
+
+  <footer id="foot"></footer>
+</main>
+<div class="tip" id="tip"></div>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  const raw = (window.ETF_STAKING_DATA || []).map(r => ({ d: new Date(r.date + "T00:00:00Z"), etf: r.etf_flow, etha: r.etf_etha, ethb: r.etf_ethb, stk: r.staking_flow }));
+  const meta = window.ETF_STAKING_META || { etf_unit: "ETH", stk_unit: "ETH", sources: [] };
+  const etfUnit = meta.etf_unit, stkUnit = meta.stk_unit;
+
+  const fmt = n => n == null ? "—" : (Math.abs(n) >= 1e6 ? (n / 1e6).toFixed(2) + "M" : Math.abs(n) >= 1e4 ? (n / 1e3).toFixed(1) + "k" : n.toFixed(Math.abs(n) < 10 ? 2 : 0));
+  const fmtFull = n => n == null ? "—" : Math.round(n).toLocaleString("ja-JP");
+  const ymd = d => d.toISOString().slice(0, 10);
+  const ym = d => d.toISOString().slice(0, 7);
+
+  // 集計（日/週/月）
+  function aggregate(rows, g) {
+    if (g === "day") return rows.map(r => ({ ...r, label: ymd(r.d) }));
+    const key = g === "week"
+      ? d => { const x = new Date(d); x.setUTCDate(x.getUTCDate() - ((x.getUTCDay() + 6) % 7)); return ymd(x); } // 月曜始まり
+      : d => ym(d) + "-01";
+    const m = new Map();
+    for (const r of rows) {
+      const k = key(r.d);
+      if (!m.has(k)) m.set(k, { d: new Date(k + "T00:00:00Z"), etf: null, etha: null, ethb: null, stk: null, label: g === "week" ? k + " 週" : k.slice(0, 7) });
+      const o = m.get(k);
+      for (const f of ["etf", "etha", "ethb", "stk"]) if (r[f] != null) o[f] = (o[f] || 0) + r[f];
+    }
+    return [...m.values()];
+  }
+  function movingAvg(arr, n) {
+    const out = []; let s = 0, c = 0; const q = [];
+    for (const v of arr) { q.push(v); if (v != null) { s += v; c++; } if (q.length > n) { const x = q.shift(); if (x != null) { s -= x; c--; } } out.push(c >= Math.min(n, 3) ? s / c : null); }
+    return out;
+  }
+
+  let gran = "day", range = "all", etfKey = "etf";
+  const etfNames = { etf: "全ETF合計", ethb: "ETHB（ステーキング型、2026-03-11〜）", etha: "ETHA（BlackRock、ステーキングなし）" };
+  function current() {
+    let rows = raw;
+    if (range !== "all") { const last = raw[raw.length - 1].d; const from = new Date(last); from.setUTCDate(from.getUTCDate() - Number(range)); rows = raw.filter(r => r.d >= from); }
+    return aggregate(rows, gran);
+  }
+
+  // 棒グラフ描画
+  function draw(svgId, rows, key, unit) {
+    const svg = document.getElementById(svgId);
+    const W = 1000, H = 260, m = { t: 12, r: 12, b: 28, l: 64 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const vals = rows.map(r => r[key]);
+    const ma = movingAvg(vals, 7);
+    const maxAbs = Math.max(1, ...vals.filter(v => v != null).map(Math.abs), ...ma.filter(v => v != null).map(Math.abs));
+    const y = v => m.t + ih / 2 - (v / maxAbs) * (ih / 2);
+    const n = rows.length; const step = iw / Math.max(1, n); const bw = Math.max(1, step - (step > 4 ? 2 : 0.5));
+    const x = i => m.l + i * step;
+    let s = "";
+    // グリッドと目盛り
+    const ticks = [maxAbs, maxAbs / 2, 0, -maxAbs / 2, -maxAbs];
+    s += '<g class="grid">' + ticks.map(t => `<line x1="${m.l}" x2="${W - m.r}" y1="${y(t)}" y2="${y(t)}"/>`).join("") + "</g>";
+    s += '<g class="axis">' + ticks.map(t => `<text x="${m.l - 8}" y="${y(t) + 4}" text-anchor="end">${fmt(t)}</text>`).join("") + "</g>";
+    s += `<line class="zero" x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}"/>`;
+    // x軸ラベル（月の変わり目）
+    let lastYm = "", lastX = -1e9;
+    s += '<g class="axis">';
+    rows.forEach((r, i) => { const k = ym(r.d); if (k !== lastYm) { lastYm = k; if (x(i) - lastX >= 72) { s += `<text x="${x(i)}" y="${H - 8}">${k}</text>`; lastX = x(i); } } });
+    s += "</g>";
+    // 棒
+    rows.forEach((r, i) => { const v = r[key]; if (v == null) return; const top = Math.min(y(0), y(v)), h = Math.abs(y(v) - y(0));
+      s += `<rect x="${x(i)}" y="${top}" width="${bw}" height="${Math.max(h, 0.5)}" rx="${bw > 3 ? 1.5 : 0}" fill="${v >= 0 ? "var(--in)" : "var(--out)"}" />`; });
+    // 移動平均
+    let path = ""; ma.forEach((v, i) => { if (v == null) { path += " M"; return; } path += (path.endsWith("M") || path === "" ? (path === "" ? "M" : "") : " L") + `${(x(i) + bw / 2).toFixed(1)},${y(v).toFixed(1)}`; });
+    s += `<path d="${path.replace(/ M(?= M| L|$)/g, "").replace(/M L/g, "M")}" fill="none" stroke="var(--ma)" stroke-width="1.5" opacity=".8"/>`;
+    // ホバー用の透明帯
+    s += '<g class="hit">' + rows.map((r, i) => `<rect data-i="${i}" x="${x(i)}" y="${m.t}" width="${step}" height="${ih}" fill="transparent"/>`).join("") + "</g>";
+    s += `<line id="${svgId}-cross" x1="0" x2="0" y1="${m.t}" y2="${m.t + ih}" stroke="var(--text-2)" stroke-dasharray="3 3" style="display:none"/>`;
+    svg.innerHTML = s;
+    svg.__rows = rows; svg.__x = x; svg.__step = step;
+  }
+
+  const tip = document.getElementById("tip");
+  function bindHover(svg, other) {
+    svg.addEventListener("mousemove", e => {
+      const t = e.target; if (!t.dataset || t.dataset.i == null) return;
+      const i = +t.dataset.i; const r = svg.__rows[i];
+      const cx = svg.__x(i) + svg.__step / 2;
+      for (const s of [svg, other]) { const c = document.getElementById(s.id + "-cross"); c.style.display = ""; c.setAttribute("x1", cx); c.setAttribute("x2", cx); }
+      tip.style.display = "block";
+      tip.innerHTML = `<div style="color:var(--muted);margin-bottom:4px">${r.label}</div>
+        <div class="row"><span>ETF合計</span><b class="${(r.etf||0) < 0 ? "neg" : "pos"}">${fmtFull(r.etf)} <span style="font-weight:400;color:var(--muted)">${etfUnit}</span></b></div>
+        ${r.ethb != null ? `<div class="row"><span>うちETHB</span><b class="${(r.ethb||0) < 0 ? "neg" : "pos"}">${fmtFull(r.ethb)}</b></div>` : ""}
+        <div class="row"><span>ステーキング</span><b class="${(r.stk||0) < 0 ? "neg" : "pos"}">${fmtFull(r.stk)} <span style="font-weight:400;color:var(--muted)">${stkUnit}</span></b></div>`;
+      const tw = tip.offsetWidth; tip.style.left = Math.min(e.clientX + 14, window.innerWidth - tw - 8) + "px"; tip.style.top = (e.clientY + 14) + "px";
+    });
+    svg.addEventListener("mouseleave", () => { tip.style.display = "none"; for (const s of [svg, other]) document.getElementById(s.id + "-cross").style.display = "none"; });
+  }
+
+  function render() {
+    const rows = current();
+    draw("etfChart", rows, etfKey, etfUnit);
+    draw("stkChart", rows, "stk", stkUnit);
+    const first = rows[0], last = rows[rows.length - 1];
+    document.getElementById("etfSub").textContent = `${etfNames[etfKey]}　単位: ${etfUnit}　${first.label} 〜 ${last.label}`;
+    document.getElementById("stkSub").textContent = `単位: ${stkUnit}　${first.label} 〜 ${last.label}`;
+    const sum = k => rows.reduce((a, r) => a + (r[k] || 0), 0);
+    const daysBoth = rows.filter(r => r.etf != null && r.stk != null).length;
+    document.getElementById("tiles").innerHTML = [
+      ["表示期間のETF純流入（" + etfNames[etfKey].split("（")[0] + "）", sum(etfKey), etfUnit],
+      ["表示期間のステーキング純流入", sum("stk"), stkUnit],
+      ["区間数", rows.length, gran === "day" ? "日" : gran === "week" ? "週" : "ヶ月"],
+      ["両方そろっている区間", daysBoth, ""],
+    ].map(([k, v, u]) => `<div class="tile"><div class="k">${k}</div><div class="v ${typeof v === "number" && u && v < 0 ? "neg" : ""}">${typeof v === "number" ? fmtFull(v) : v}<span class="u">${u}</span></div></div>`).join("");
+  }
+
+  // 月次テーブル
+  function monthTable() {
+    const rows = aggregate(raw, "month");
+    let ce = 0, cs = 0;
+    document.getElementById("monthTable").innerHTML = `<tr><th>月</th><th>ETF合計（${etfUnit}）</th><th>うちETHB</th><th>ETF累計</th><th>ステーキング（${stkUnit}）</th><th>ステーキング累計</th></tr>` +
+      rows.map(r => { ce += r.etf || 0; cs += r.stk || 0; return `<tr><td>${r.label}</td><td class="${(r.etf||0)<0?"neg":""}">${fmtFull(r.etf)}</td><td class="${(r.ethb||0)<0?"neg":""}">${fmtFull(r.ethb)}</td><td>${fmtFull(r.etf == null ? null : ce)}</td><td class="${(r.stk||0)<0?"neg":""}">${fmtFull(r.stk)}</td><td>${fmtFull(cs)}</td></tr>`; }).join("");
+  }
+
+  document.getElementById("gran").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; gran = b.dataset.g; [...e.currentTarget.children].forEach(c => c.setAttribute("aria-pressed", c === b)); render(); });
+  document.getElementById("etfSeries").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; etfKey = b.dataset.s; [...e.currentTarget.children].forEach(c => c.setAttribute("aria-pressed", c === b)); render(); });
+  document.getElementById("range").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; range = b.dataset.r; [...e.currentTarget.children].forEach(c => c.setAttribute("aria-pressed", c === b)); render(); });
+
+  if (raw.length) {
+    render(); monthTable();
+    bindHover(document.getElementById("etfChart"), document.getElementById("stkChart"));
+    bindHover(document.getElementById("stkChart"), document.getElementById("etfChart"));
+    document.getElementById("foot").innerHTML = `データ: ${(meta.sources || []).map(s => `<a href="${s.url}">${s.name}</a>（${s.range}）`).join("、")}。最終更新 ${meta.generated || ""}。`;
+  } else {
+    document.getElementById("tiles").textContent = "data.js が見つかりません。python3 build.py を実行してください。";
+  }
+})();
+</script>
+</body>
+</html>
