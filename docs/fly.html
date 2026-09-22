@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETHの流れを3Dで飛ぶ</title>
+<meta name="description" content="Ethereum ETFとステーキングの2年間のお金の流れを、時間の道の上を飛びながら見るWebGL版">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0b0a1f; --text: #ffffff; --muted: #a9a3c9; --in: #4da3ff; --out: #ff6fa3; --accent: #9d7bff; --mint: #3ee0c3; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); overflow: hidden;
+    font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif; }
+  canvas { display: block; }
+  /* 画面の上: 今飛んでいる日付と数字 */
+  .hud { position: fixed; left: 16px; right: 16px; top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; justify-content: space-between; pointer-events: none; }
+  .date { font-weight: 800; font-size: clamp(1.4rem, 4vw, 2.2rem); line-height: 1.2; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+  .date small { display: block; font-size: .85rem; color: var(--muted); font-weight: 700; }
+  .vals { display: flex; gap: 10px; flex-wrap: wrap; }
+  .val { background: rgba(20, 18, 50, .75); border-radius: 16px; padding: 8px 14px; min-width: 150px; backdrop-filter: blur(6px); border: 2px solid transparent; }
+  .val .k { font-size: .8rem; color: var(--muted); font-weight: 700; }
+  .val .v { font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .val.in { border-color: var(--in); } .val.in .v { color: var(--in); }
+  .val.out { border-color: var(--out); } .val.out .v { color: var(--out); }
+  /* 画面の下: 操作 */
+  .bar { position: fixed; left: 16px; right: 16px; bottom: 14px; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: center; }
+  .bar button, .bar a { border: 0; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-weight: 800; padding: 8px 16px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+  .bar button[aria-pressed="true"] { background: var(--accent); }
+  .bar .legend { display: flex; gap: 12px; font-size: .85rem; color: var(--muted); font-weight: 700; flex-basis: 100%; justify-content: center; }
+  .bar .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 4px; }
+  input[type=range] { width: min(50vw, 360px); accent-color: var(--accent); }
+  .hint { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(20,18,50,.85); border-radius: 22px; padding: 22px 26px; max-width: 420px; text-align: center; font-size: 1rem; line-height: 1.7; }
+  .hint b { display: block; font-size: 1.3rem; margin-bottom: 6px; }
+  .hint button { margin-top: 10px; border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 800; padding: 10px 22px; border-radius: 999px; cursor: pointer; font-size: 1rem; }
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="date" id="date">—<small>時間の道を飛んでいます</small></div>
+  <div class="vals">
+    <div class="val" id="vEtf"><div class="k">🏦 ETF（左の棒）</div><div class="v">—</div></div>
+    <div class="val" id="vStk"><div class="k">🔒 ステーキング（右の棒）</div><div class="v">—</div></div>
+  </div>
+</div>
+<div class="bar">
+  <div class="legend"><span><i style="background:var(--in)"></i>上に伸びる青＝入ってきた・預けた</span><span><i style="background:var(--out)"></i>下に伸びるピンク＝出ていった・引き出した</span></div>
+  <button id="play" aria-pressed="true">⏸ 止める</button>
+  <span style="color:var(--muted);font-weight:700">速さ</span><input type="range" id="speed" min="0.2" max="4" step="0.1" value="1">
+  <input type="range" id="pos" min="0" max="1000" value="0" title="位置">
+  <a href="index.html">📊 2Dの解説ページへ</a>
+</div>
+<div class="hint" id="hint">
+  <b>🚀 時間の道を飛びます</b>
+  左の棒がETF、右の棒がステーキング。1日が1組です。<br>上に伸びる青は「入ってきた」、下に伸びるピンクは「出ていった」。<br>ドラッグで見回せます。
+  <br><button id="go">出発</button>
+</div>
+
+<script src="data.js"></script>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+<script type="module">
+import * as THREE from "three";
+
+const rows = (window.ETF_STAKING_DATA || []).map(r => ({ date: r.date, etf: r.etf_flow, stk: r.staking_flow }));
+if (!rows.length) { document.getElementById("hint").innerHTML = "data.js が見つかりません。"; }
+
+// 単位を初心者向けに
+const fmtEtf = n => n == null ? "お休み（取引なし）" : (n >= 0 ? "+" : "") + (n / 100).toLocaleString("ja-JP", { maximumFractionDigits: 1 }) + "億ドル";
+const fmtStk = n => n == null ? "—" : (n >= 0 ? "+" : "") + (n / 1e4).toLocaleString("ja-JP", { maximumFractionDigits: 1 }) + "万ETH";
+const jpDate = s => `${s.slice(0, 4)}年${Number(s.slice(5, 7))}月${Number(s.slice(8, 10))}日`;
+
+// ---- シーン ----
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+document.body.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b0a1f);
+scene.fog = new THREE.Fog(0x0b0a1f, 40, 160);
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 400);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(5, 20, 10); scene.add(sun);
+
+// 道: 1日 = 1.2 の長さ。z軸のマイナス方向へ進む
+const STEP = 1.2, LANE = 3.2;
+const N = rows.length;
+const maxEtf = Math.max(...rows.map(r => Math.abs(r.etf || 0)));
+const maxStk = Math.max(...rows.map(r => Math.abs(r.stk || 0)));
+// 高さは平方根で圧縮（極端な日で他が見えなくならないように）
+const hEtf = v => Math.sign(v) * Math.sqrt(Math.abs(v) / maxEtf) * 9;
+const hStk = v => Math.sign(v) * Math.sqrt(Math.abs(v) / maxStk) * 9;
+
+// 床（道）
+const road = new THREE.Mesh(new THREE.PlaneGeometry(LANE * 2 + 6, N * STEP + 40), new THREE.MeshStandardMaterial({ color: 0x1a1740, roughness: 0.9, transparent: true, opacity: 0.45, depthWrite: false }));
+road.rotation.x = -Math.PI / 2; road.position.z = -(N * STEP) / 2; scene.add(road);
+const grid = new THREE.GridHelper(N * STEP + 40, Math.round((N * STEP + 40) / STEP), 0x3a3470, 0x2a2556);
+grid.position.set(0, 0.01, -(N * STEP) / 2); scene.add(grid);
+// 真ん中の線（0 の基準）
+const mid = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.05, N * STEP + 40), new THREE.MeshBasicMaterial({ color: 0x9d7bff }));
+mid.position.set(0, 0.03, -(N * STEP) / 2); scene.add(mid);
+
+// 棒: InstancedMesh で軽く描く
+const box = new THREE.BoxGeometry(0.8, 1, 0.8);
+const matIn = new THREE.MeshStandardMaterial({ color: 0x4da3ff, emissive: 0x1a4cff, emissiveIntensity: 0.6, roughness: 0.4 });
+const matOut = new THREE.MeshStandardMaterial({ color: 0xff6fa3, emissive: 0xff2a6e, emissiveIntensity: 0.6, roughness: 0.4 });
+function bars(getH, xLane) {
+  const pos = [], neg = [];
+  rows.forEach((r, i) => { const v = getH(r); if (v == null) return; (v >= 0 ? pos : neg).push([i, v]); });
+  for (const [list, mat] of [[pos, matIn], [neg, matOut]]) {
+    if (!list.length) continue;
+    const mesh = new THREE.InstancedMesh(box, mat, list.length);
+    const m = new THREE.Matrix4();
+    list.forEach(([i, v], k) => {
+      const h = Math.max(0.05, Math.abs(v));
+      m.makeScale(1, h, 1); m.setPosition(xLane, (v >= 0 ? h / 2 : -h / 2), -i * STEP);
+      mesh.setMatrixAt(k, m);
+    });
+    scene.add(mesh);
+  }
+}
+bars(r => r.etf == null ? null : hEtf(r.etf), -LANE);
+bars(r => r.stk == null ? null : hStk(r.stk), LANE);
+
+// 月の看板（スプライト）
+function label(text, color) {
+  const c = document.createElement("canvas"); c.width = 512; c.height = 128;
+  const g = c.getContext("2d");
+  g.fillStyle = "rgba(20,18,50,.85)"; g.beginPath(); g.roundRect(8, 8, 496, 112, 32); g.fill();
+  g.fillStyle = color; g.font = "800 56px 'M PLUS Rounded 1c', sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(text, 256, 66);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, transparent: true, depthTest: false }));
+  s.scale.set(8, 2, 1); return s;
+}
+let lastYm = "";
+rows.forEach((r, i) => { const ym = r.date.slice(0, 7); if (ym !== lastYm) { lastYm = ym; const s = label(`${ym.slice(0, 4)}年${Number(ym.slice(5))}月`, "#ffffff"); s.position.set(0, 12, -i * STEP); scene.add(s); } });
+// 出来事の看板
+const events = [["2024-07-23", "🏦 ETFが始まった", "#ffd166"], ["2025-05-07", "⚙️ Pectraアップデート", "#ffd166"], ["2025-08-11", "🔥 ETF 1日で10億ドル", "#ffd166"], ["2026-01-29", "🔒 ステーキング最大の月", "#3ee0c3"], ["2026-03-11", "✨ ETHB（ステーキング付きETF）登場", "#ffd166"]];
+for (const [d, t, c] of events) { const i = rows.findIndex(r => r.date === d); if (i >= 0) { const s = label(t, c); s.scale.set(12, 3, 1); s.position.set(0, 16.5, -i * STEP); scene.add(s); } }
+
+// 星
+{
+  const g = new THREE.BufferGeometry(); const p = new Float32Array(3000 * 3);
+  for (let i = 0; i < p.length; i += 3) { p[i] = (Math.random() - .5) * 300; p[i + 1] = Math.random() * 120 + 5; p[i + 2] = -Math.random() * (N * STEP + 200) + 50; }
+  g.setAttribute("position", new THREE.BufferAttribute(p, 3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xffffff, size: 0.35, transparent: true, opacity: .8 })));
+}
+
+// ---- 飛行 ----
+let t = 0; // 何日目か（小数）
+let playing = false, speed = 1, yaw = 0, pitch = 0, drag = null;
+const playBtn = document.getElementById("play"), speedEl = document.getElementById("speed"), posEl = document.getElementById("pos");
+document.getElementById("go").onclick = () => { document.getElementById("hint").style.display = "none"; playing = true; };
+playBtn.onclick = () => { playing = !playing; playBtn.setAttribute("aria-pressed", playing); playBtn.textContent = playing ? "⏸ 止める" : "▶ 進む"; };
+speedEl.oninput = () => speed = Number(speedEl.value);
+posEl.oninput = () => { t = Number(posEl.value) / 1000 * (N - 1); };
+const cv = renderer.domElement;
+cv.addEventListener("pointerdown", e => drag = { x: e.clientX, y: e.clientY, yaw, pitch });
+addEventListener("pointermove", e => { if (!drag) return; yaw = drag.yaw - (e.clientX - drag.x) * 0.004; pitch = Math.max(-0.6, Math.min(0.4, drag.pitch + (e.clientY - drag.y) * 0.003)); });
+addEventListener("pointerup", () => drag = null);
+addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+
+const dateEl = document.getElementById("date"), vEtf = document.getElementById("vEtf"), vStk = document.getElementById("vStk");
+let shownIdx = -1;
+function hud(i) {
+  if (i === shownIdx) return; shownIdx = i;
+  const r = rows[i];
+  dateEl.innerHTML = `${jpDate(r.date)}<small>${i + 1}日目 / ${N}日</small>`;
+  vEtf.className = "val " + ((r.etf || 0) >= 0 ? "in" : "out"); vEtf.querySelector(".v").textContent = fmtEtf(r.etf) + (r.etf == null ? "" : r.etf >= 0 ? " 入った" : " 出た");
+  vStk.className = "val " + ((r.stk || 0) >= 0 ? "in" : "out"); vStk.querySelector(".v").textContent = fmtStk(r.stk) + (r.stk == null ? "" : r.stk >= 0 ? " 預けた" : " 引き出した");
+}
+
+let prev = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - prev) / 1000); prev = now;
+  if (playing) { t += dt * 6 * speed; if (t >= N - 1) { t = N - 1; playing = false; playBtn.textContent = "🔁 もう一度"; playBtn.onclick = () => { t = 0; playing = true; playBtn.textContent = "⏸ 止める"; playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "⏸ 止める" : "▶ 進む"; }; }; } }
+  if (!drag) { yaw *= 0.97; pitch *= 0.97; } // 手を離すと正面へ戻る
+  const z = -t * STEP;
+  camera.position.set(Math.sin(yaw) * 2, 7 + Math.sin(now / 1500) * 0.3, z + 14);
+  camera.lookAt(Math.sin(yaw) * 30, 3 + pitch * 30, z - 30);
+  hud(Math.round(t));
+  if (!posEl.matches(":active")) posEl.value = Math.round(t / (N - 1) * 1000);
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
