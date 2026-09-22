@@ -48,19 +48,26 @@ def load_daily(path: Path, value_candidates: list[str], out_name: str) -> pd.Dat
 
 
 def main() -> None:
+    # DuneのETF CSVは「日付 × 発行体」の縦長。tvl列がその日・その発行体のフロー(ETH)なので、
+    # 日ごとに全発行体を合計すると、その日のETF全体の純流入(ETH)になる
     etf = load_daily(
         DATA / "etf_flows.csv",
-        value_candidates=["net_flow", "netflow", "net flow", "flow", "daily_net_flow", "total", "net_flow_usd", "net_flow_eth"],
+        value_candidates=["tvl", "net_flow", "netflow", "net flow", "flow", "daily_net_flow", "total"],
         out_name="etf_flow",
     )
-    staking = load_daily(
-        DATA / "staking_flows.csv",
-        value_candidates=["net_flow", "netflow", "net flow", "flow", "net", "deposits_minus_withdrawals"],
-        out_name="staking_flow",
-    )
 
-    # 日付でくっつける（outer: どちらかにしかない日も残す）
-    merged = pd.merge(etf, staking, on="date", how="outer").sort_values("date")
+    staking_path = DATA / "staking_flows.csv"
+    if staking_path.exists():
+        staking = load_daily(
+            staking_path,
+            value_candidates=["net_flow", "netflow", "net flow", "flow", "net", "deposits_minus_withdrawals"],
+            out_name="staking_flow",
+        )
+        # 日付でくっつける（outer: どちらかにしかない日も残す）
+        merged = pd.merge(etf, staking, on="date", how="outer").sort_values("date")
+    else:
+        print("data/staking_flows.csv がまだ無いので、ETFだけで書き出します")
+        merged = etf.assign(staking_flow=float("nan")).sort_values("date")
 
     # ETFが始まった日（2024-07-23）より前は落として、期間をそろえる
     merged = merged[merged["date"] >= "2024-07-23"]
