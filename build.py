@@ -47,6 +47,21 @@ def load_daily(path: Path, value_candidates: list[str], out_name: str) -> pd.Dat
     return out.groupby("date", as_index=False)[out_name].sum()
 
 
+def load_staking(path: Path) -> pd.DataFrame:
+    """Duneの「Ethereum Staking Flows」CSVを、1日1行の純流入(ETH)にする。
+
+    CSVは「日付, flow_type, amount」の縦長で、flow_type は
+    Deposits(入金, +) / Withdrawn Rewards(報酬の引き出し, -) / Withdrawn Principal(元本の引き出し, -) /
+    Net Flow(直近2週間の合計。日次ではないので使わない) の4種類。
+    """
+    df = pd.read_csv(path)
+    df = df[df["flow_type"] != "Net Flow"]
+    date = pd.to_datetime(df["time"], utc=True, errors="coerce").dt.tz_localize(None).dt.normalize()
+    out = pd.DataFrame({"date": date, "staking_flow": pd.to_numeric(df["amount"], errors="coerce")})
+    # 入金と引き出し(マイナス)を同じ日で足すと、その日の純流入になる
+    return out.dropna(subset=["date"]).groupby("date", as_index=False)["staking_flow"].sum()
+
+
 def main() -> None:
     # DuneのETF CSVは「日付 × 発行体」の縦長。tvl列がその日・その発行体のフロー(ETH)なので、
     # 日ごとに全発行体を合計すると、その日のETF全体の純流入(ETH)になる
@@ -58,11 +73,7 @@ def main() -> None:
 
     staking_path = DATA / "staking_flows.csv"
     if staking_path.exists():
-        staking = load_daily(
-            staking_path,
-            value_candidates=["net_flow", "netflow", "net flow", "flow", "net", "deposits_minus_withdrawals"],
-            out_name="staking_flow",
-        )
+        staking = load_staking(staking_path)
         # 日付でくっつける（outer: どちらかにしかない日も残す）
         merged = pd.merge(etf, staking, on="date", how="outer").sort_values("date")
     else:
