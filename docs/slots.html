@@ -120,6 +120,11 @@
       <h2>ブロック一覧<span>直近24</span></h2>
       <div class="tbl"><table id="table"></table></div>
     </div>
+    <div class="panel c12">
+      <h2>リレー接続テスト（実験）<span>ブラウザから入札データを直接読めるリレーを探します</span></h2>
+      <button id="relayTest" style="border:0;background:var(--accent);color:#fff;font:inherit;font-weight:800;padding:8px 16px;border-radius:999px;cursor:pointer">テストする</button>
+      <div id="relayOut" style="margin-top:8px;font-size:.9rem;line-height:1.8"></div>
+    </div>
   </div>
 </main>
 <div class="hint" id="hint"><div>
@@ -268,6 +273,25 @@
     $("slotSub").innerHTML = `<span class="dot ${base && headSlot ? "on" : ""}"></span>` + (base && headSlot ? (headSlot >= slot ? "このスロットのブロックが届きました" : `ブロック待ち（${(SLOT - sec).toFixed(0)}秒で次のスロット）`) : "未接続");
   }
   setInterval(tick, 200); tick();
+
+
+  // ---- リレーの公開APIをブラウザから読めるか（CORS）の確認 ----
+  const RELAYS = [["ultrasound", "https://relay.ultrasound.money"], ["Flashbots", "https://boost-relay.flashbots.net"], ["Titan", "https://titanrelay.xyz"],
+    ["bloXroute max-profit", "https://bloxroute.max-profit.blxrbdn.com"], ["bloXroute regulated", "https://bloxroute.regulated.blxrbdn.com"], ["Aestus", "https://aestus.live"], ["Agnostic", "https://agnostic-relay.net"]];
+  $("relayTest").onclick = async () => {
+    const out = $("relayOut"); const slot = Math.floor((Date.now() / 1000 - GENESIS) / SLOT) - 3;
+    out.innerHTML = `スロット ${slot} の入札を各リレーに聞いています…`;
+    const rows = await Promise.all(RELAYS.map(async ([name, url]) => {
+      const t0 = performance.now();
+      try {
+        const r = await fetch(`${url}/relay/v1/data/bidtraces/builder_blocks_received?slot=${slot}`, { headers: { Accept: "application/json" } });
+        const j = await r.json(); const n = Array.isArray(j) ? j.length : 0;
+        const best = n ? Math.max(...j.map(b => Number(b.value) / 1e18)) : 0;
+        return `✅ ${name}: 読めた（入札 ${n} 件${n ? `、最高 ${best.toFixed(4)} ETH` : ""}、${Math.round(performance.now() - t0)}ms）`;
+      } catch (e) { return `❌ ${name}: 読めない（${e.message}）`; }
+    }));
+    out.innerHTML = rows.join("<br>") + "<br><span style='color:var(--muted)'>この結果をそのまま貼ってください。</span>";
+  };
 
   $("connect").onclick = connect; $("go").onclick = () => { $("hint").style.display = "none"; $("url").focus(); };
   try { const u = localStorage.getItem("beacon_url"); if (u) $("url").value = u; } catch (_) {}
