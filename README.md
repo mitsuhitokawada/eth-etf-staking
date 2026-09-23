@@ -13,7 +13,7 @@ Ethereum ETFの日次純流入と、Ethereumステーキングの日次純流入
 
 ```
 curl -O https://raw.githubusercontent.com/mitsuhitokawada/eth-etf-staking/main/tools/relay_proxy.py
-mkdir -p ~/.config/systemd/user && curl -o ~/.config/systemd/user/relay-proxy.service https://raw.githubusercontent.com/mitsuhitokawada/eth-etf-staking/main/tools/relay-proxy.service
-systemctl --user enable --now relay-proxy
+sudo curl -o /etc/systemd/system/relay-proxy.service https://raw.githubusercontent.com/mitsuhitokawada/eth-etf-staking/main/tools/relay-proxy.service
+sudo systemctl daemon-reload && sudo systemctl enable --now relay-proxy
 tailscale serve --bg --set-path /relay http://127.0.0.1:5090
 ```
