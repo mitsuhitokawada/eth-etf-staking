@@ -96,6 +96,7 @@
     <section class="panel c8">
       <h2>競りの様子（入札が届くたびに順位が入れ替わる）<span id="raceTitle"></span></h2>
       <div class="seg" id="seg"><span>棒の長さ:</span><button data-m="count" class="on">入札回数</button><button data-m="value">値段</button><button data-m="lead">トップだった時間</button><em id="segNote"></em></div>
+      <div class="seg" id="segView"><span>表示:</span><button data-v="top5" class="on">5社＋残り</button><button data-v="all">全部</button><em id="viewNote">Titan・BuilderNet・rsync・Quasar・penguinbuild 以外と、名前がまだ分からない鍵は「残り」にまとめます（次のスロットから）</em></div>
       <div class="race" id="race"><div class="empty" id="empty">「本物の入札で見る」か「デモで見る」を押すと始まります</div></div>
       <div class="axis"><span id="axisMin">0 ETH</span><span id="axisMax"></span></div>
     </section>
@@ -154,6 +155,7 @@
   // ビルダーの色（名前が分かればその色、分からなければ鍵から決める固定色）
   const KNOWN = [["Titan", /titan/i, "#ff6fa3"], ["beaverbuild", /beaver/i, "#ffb020"], ["rsync", /rsync/i, "#3ee0c3"], ["BuilderNet", /buildernet|flashbots/i, "#4da3ff"],
     ["penguinbuild", /penguin/i, "#c4ff5e"], ["Nethermind", /nethermind/i, "#9d7bff"], ["Quasar", /quasar/i, "#ff9f43"], ["Blocksmith", /blocksmith/i, "#ff7f50"], ["Jet", /jet/i, "#7dd3fc"]];
+  KNOWN.push(["残り", /^残り$/, "#8e879b"]);
   const PALETTE = ["#f472b6", "#fb923c", "#a3e635", "#22d3ee", "#c084fc", "#facc15", "#34d399", "#f87171", "#60a5fa", "#e879f9"];
   const hexToText = h => { try { const b = h.replace(/^0x/, ""); let s = ""; for (let i = 0; i < b.length; i += 2) { const c = parseInt(b.slice(i, i + 2), 16); s += c >= 32 && c < 127 ? String.fromCharCode(c) : ""; } return s.trim(); } catch (_) { return ""; } };
   const eth = wei => Number(BigInt(wei) / 1000000000000n) / 1e6; // ETH（小数6桁）
@@ -163,13 +165,16 @@
   const names = load("builder_names", {}); // 鍵 → 名前（ノードの extra_data から学習）
   function shortName(n) { for (const [label, re] of KNOWN) if (re.test(n)) return label; return n.length > 16 ? n.slice(0, 15) + "…" : n; }
   function nameOf(key) { return names[key] ? shortName(names[key]) : key.startsWith("0x") ? key.slice(0, 8) + "…" : shortName(key); }
+  function groupOf(pk) { const n = names[pk] || (pk.startsWith("0x") ? "" : pk); if (!n) return "残り"; const l = shortName(n); return GROUPS.includes(l) ? l : "残り"; }
   function colorOf(pubkey) {
-    const n = names[pubkey]; if (n) for (const [, re, c] of KNOWN) if (re.test(n)) return c;
+    const n = names[pubkey] || pubkey; for (const [, re, c] of KNOWN) if (re.test(n)) return c;
     let h = 0; for (const ch of pubkey) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return PALETTE[h % PALETTE.length];
   }
 
   // ---- 状態 ----
   let mode = null;            // "live" | "demo"
+  let view = load("race_view", "top5");   // top5=5社＋残り / all=全部
+  const GROUPS = ["Titan", "BuilderNet", "rsync", "Quasar", "penguinbuild"];
   let metric = load("race_metric", "count"); // 棒の長さ: count=入札回数 / value=値段 / lead=トップだった時間
   const NOTE = { count: "この競りの中で、何回値段を出し直したか。勝者は金額で決まります", value: "いまの最高値。どのビルダーもほぼ横並びなので差は小さいです", lead: "金額で先頭にいた時間の合計" };
   let cur = null;             // 再生中の競り {slot, bids:[{t, key, v}], delivered, done, shown:Set, rows:Map}
@@ -187,7 +192,10 @@
   }
 
   // ---- 競りの再生 ----
+  function keyFor(pk) { return view === "top5" ? groupOf(pk) : (names[pk] ? names[pk] : pk); }
   function startRace(slot, bids, delivered) {
+    for (const b of bids) { b.pk = b.pk || b.key; b.key = keyFor(b.pk); }
+    if (delivered) { delivered.pk = delivered.pk || delivered.key; delivered.key = keyFor(delivered.pk); }
     bids.sort((a, b) => a.t - b.t);
     // 入札はスロットが始まる前から届くし、データ取得にも数秒かかるので、壁時計と合わせると一気に出て終わってしまう。
     // そこで「最初の入札〜最後の入札」を、このスロットの残り時間（最低6秒）に引き伸ばして再生する。
@@ -215,7 +223,7 @@
     while (cur.i < cur.bids.length && cur.bids[cur.i].rt <= e) {
       const b = cur.bids[cur.i++]; const r = row(b.key); last = b; r.n++; changed = true;
       r.el.classList.remove("hit"); void r.el.offsetWidth; r.el.classList.add("hit");
-      if (b.v > r.v) { r.v = b.v; if (b.v > cur.best) cur.best = b.v; }
+      if (b.v > r.v) { r.v = b.v; r.pk = b.pk; if (b.v > cur.best) cur.best = b.v; }
     }
     // 金額で先頭にいる時間を積む
     const lk = leader(); if (cur.leadKey && cur.rows.has(cur.leadKey)) cur.rows.get(cur.leadKey).lead += e - cur.lastE; cur.leadKey = lk; cur.lastE = e;
@@ -254,7 +262,8 @@
     let key = cur.delivered && cur.rows.has(cur.delivered.key) ? cur.delivered.key : leader();
     if (!key) return;
     const r = row(key); r.el.classList.add("win");
-    log(12000, `締め切り。${nameOf(key)} が ${f4(cur.delivered ? cur.delivered.v : r.v)} ETH で競り勝ち、ブロックになりました 🎉`, colorOf(key));
+    const pk = cur.delivered ? cur.delivered.pk : r.pk; const real = key === "残り" && pk && names[pk] ? `（${nameOf(pk)}）` : "";
+    log(12000, `締め切り。${nameOf(key)}${real} が ${f4(cur.delivered ? cur.delivered.v : r.v)} ETH で競り勝ち、ブロックになりました 🎉`, colorOf(key));
     addWinner({ slot: cur.slot, name: nameOf(key), color: colorOf(key), v: cur.delivered ? cur.delivered.v : r.v, key });
   }
   function log(t, text, color) {
@@ -312,6 +321,10 @@
       if (pk && nm && pk.startsWith("0x") && names[pk] !== nm) { names[pk] = nm; save("builder_names", names); log(0, `ノードのブロックから、${pk.slice(0, 8)}… の名前は「${shortName(nm)}」と分かりました`); }
     } catch (_) {}
   }
+  async function pullNames() {
+    if (activeRelays.length !== 1 || activeRelays[0][0] !== "M5の中継") return;
+    try { const m = await fetchJson(`${activeRelays[0][1]}/names`); let n = 0; for (const [k, v] of Object.entries(m)) if (names[k] !== v) { names[k] = v; n++; } if (n) save("builder_names", names); } catch (_) {}
+  }
   let lastPlayed = 0;
   async function liveLoop() {
     if (mode !== "live") return;
@@ -319,11 +332,9 @@
     if (s !== lastPlayed) {
       lastPlayed = s; $("slotNow").textContent = `スロット ${s.toLocaleString()}`;
       $("msg").textContent = `スロット ${s - 1} の入札をリレーに聞いています…`;
-      const { bids, delivered } = await collect(s - 1);
+      const [{ bids, delivered }] = await Promise.all([collect(s - 1), pullNames()]);
       if (mode !== "live" || slotNow() !== s) return setTimeout(liveLoop, 250);
       $("msg").textContent = liveRelays.length ? "" : "どのリレーも読めませんでした。上の欄にM5の中継URLを入れると読めます。次のスロットでもう一度試します";
-      for (const b of bids) { b.pk = b.key; if (names[b.key]) b.key = names[b.key]; }
-      if (delivered && names[delivered.key]) delivered.key = names[delivered.key];
       startRace(s - 1, bids, delivered);
       learnName(s - 1, bids, delivered).then(() => { if (cur && cur.slot === s - 1) for (const [k, r] of cur.rows) { r.el.querySelector(".name span").textContent = nameOf(k); r.el.style.setProperty("--c", colorOf(k)); } });
     }
@@ -365,6 +376,9 @@
   }
   $("seg").querySelectorAll("button").forEach(b => b.onclick = () => setMetric(b.dataset.m));
   setMetric(metric);
+  function setView(v) { view = v; save("race_view", v); $("segView").querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.v === v)); }
+  $("segView").querySelectorAll("button").forEach(b => b.onclick = () => setView(b.dataset.v));
+  setView(view);
   renderWinners(); requestAnimationFrame(tick);
   if (qs.get("demo") === "1") begin("demo");
 })();
