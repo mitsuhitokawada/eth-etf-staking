@@ -47,6 +47,8 @@
   .row .val small { display: block; color: var(--muted); font-size: .7rem; font-weight: 700; }
   .row.win .bar { box-shadow: 0 0 18px var(--c), 0 0 40px var(--c); animation: pulse 1s ease-in-out infinite alternate; }
   .row.win .name::after { content: "👑 勝ち！"; color: var(--warn); font-size: .8rem; margin-left: 4px; }
+  .row.hit .bar { animation: hit .45s ease-out; }
+  @keyframes hit { from { filter: brightness(1.8); transform: scaleY(1.15); } to { filter: brightness(1); transform: scaleY(1); } }
   @keyframes pulse { from { filter: brightness(1); } to { filter: brightness(1.35); } }
   .axis { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; margin: 6px 0 0 160px; }
   .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); text-align: center; padding: 20px; line-height: 1.7; }
@@ -90,7 +92,7 @@
     <section class="panel c8">
       <h2>競りの様子（入札が届くたびに順位が入れ替わる）<span id="raceTitle"></span></h2>
       <div class="race" id="race"><div class="empty" id="empty">「本物の入札で見る」か「デモで見る」を押すと始まります</div></div>
-      <div class="axis"><span>0 ETH</span><span id="axisMax"></span></div>
+      <div class="axis"><span id="axisMin">0 ETH</span><span id="axisMax"></span></div>
     </section>
 
     <section class="panel c4">
@@ -120,7 +122,7 @@
     </section>
 
     <section class="panel c12 howto">
-      <b>これは何？</b> イーサリアムでは12秒ごとに1つブロックができます。その12秒のあいだ、<b>ビルダー</b>（ブロックを組み立てる専門業者）たちは「私のブロックを採用してくれたら◯ETH払います」と、<b>リレー</b>（仲介役）を通してバリデータに値段を出し続けます。値段はどんどん競り上がり、締め切り時点でいちばん高い値段を出したビルダーのブロックが採用されます。この画面は、リレーが公開している「そのスロットに届いた入札ぜんぶ」を、届いた時刻どおりに再生しています。入札の記録はスロットが終わってから取れるので、<b>1つ前のスロットの競りを、次の12秒で再生</b>する形です。
+      <b>これは何？</b> イーサリアムでは12秒ごとに1つブロックができます。その12秒のあいだ、<b>ビルダー</b>（ブロックを組み立てる専門業者）たちは「私のブロックを採用してくれたら◯ETH払います」と、<b>リレー</b>（仲介役）を通してバリデータに値段を出し続けます。値段はどんどん競り上がり、締め切り時点でいちばん高い値段を出したビルダーのブロックが採用されます。この画面は、リレーが公開している「そのスロットに届いた入札ぜんぶ」を、届いた順に、この12秒に引き伸ばして再生しています（実際の入札はスロットが始まる前から届き始めます）。入札の記録はスロットが終わってから取れるので、<b>1つ前のスロットの競りを、次の12秒で再生</b>する形です。
     </section>
   </div>
 
@@ -172,14 +174,19 @@
   const elapsedMs = () => Date.now() - (GENESIS + slotNow() * SLOT) * 1000;
   function tick() {
     const e = elapsedMs(); $("ring").style.strokeDashoffset = 264 * (1 - e / 12000); $("sec").textContent = (e / 1000).toFixed(1);
-    if (cur && !cur.done) advance(e);
+    if (cur && !cur.done) advance(performance.now() - cur.start);
     requestAnimationFrame(tick);
   }
 
   // ---- 競りの再生 ----
   function startRace(slot, bids, delivered) {
     bids.sort((a, b) => a.t - b.t);
-    cur = { slot, bids, delivered, done: false, i: 0, rows: new Map(), best: 0 };
+    // 入札はスロットが始まる前から届くし、データ取得にも数秒かかるので、壁時計と合わせると一気に出て終わってしまう。
+    // そこで「最初の入札〜最後の入札」を、このスロットの残り時間（最低6秒）に引き伸ばして再生する。
+    const t0 = bids.length ? bids[0].t : 0, t1 = bids.length ? bids[bids.length - 1].t : 1;
+    const playMs = Math.max(6000, 12000 - elapsedMs() - 800);
+    for (const b of bids) b.rt = (b.t - t0) / Math.max(1, t1 - t0) * playMs;
+    cur = { slot, bids, delivered, done: false, i: 0, rows: new Map(), best: 0, start: performance.now(), playMs };
     $("race").querySelectorAll(".row").forEach(r => r.remove()); $("empty").style.display = "none";
     $("feed").innerHTML = ""; $("raceTitle").textContent = `スロット ${slot.toLocaleString()} の競り`;
     const keys = new Set(bids.map(b => b.key));
@@ -189,12 +196,13 @@
   }
   function advance(e) {
     let changed = false, leaderBefore = leader();
-    while (cur.i < cur.bids.length && cur.bids[cur.i].t <= e) {
-      const b = cur.bids[cur.i++]; const r = row(b.key);
-      if (b.v > r.v) { r.v = b.v; r.n++; changed = true; if (b.v > cur.best) cur.best = b.v; }
+    let last = null;
+    while (cur.i < cur.bids.length && cur.bids[cur.i].rt <= e) {
+      const b = cur.bids[cur.i++]; const r = row(b.key); last = b;
+      if (b.v > r.v) { r.v = b.v; r.n++; changed = true; if (b.v > cur.best) cur.best = b.v; r.el.classList.remove("hit"); void r.el.offsetWidth; r.el.classList.add("hit"); }
     }
-    if (changed) { layout(); const l = leader(); if (l && l !== leaderBefore) log(e, `${nameOf(l)} が ${f4(row(l).v)} ETH でトップに！`, colorOf(l)); }
-    if (e >= 11900 || cur.i >= cur.bids.length && e >= 11900) finish();
+    if (changed) { layout(); const l = leader(); if (l && l !== leaderBefore) log(last.t, `${nameOf(l)} が ${f4(row(l).v)} ETH でトップに！`, colorOf(l)); }
+    if (e >= cur.playMs + 300) finish();
   }
   function leader() { let k = null, v = -1; for (const [key, r] of cur.rows) if (r.v > v) { v = r.v; k = key; } return k; }
   function row(key) {
@@ -207,10 +215,12 @@
   }
   function layout() {
     const list = [...cur.rows.entries()].sort((a, b) => b[1].v - a[1].v);
-    const max = list[0][1].v || 1; $("axisMax").textContent = `${f4(max)} ETH`; $("stBest").textContent = f4(max);
+    const max = list[0][1].v || 1; $("stBest").textContent = f4(max);
+    const shown = list.slice(0, 9); const floor = shown.length > 1 ? shown[shown.length - 1][1].v * 0.97 : 0; // 左端（差を見やすくするため0ではない）
+    $("axisMax").textContent = `${f4(max)} ETH`; $("axisMin").textContent = floor > 0 ? `${f4(floor)} ETH（左端。差を見やすくするため0ではありません）` : "0 ETH";
     list.forEach(([key, r], i) => {
       r.el.style.transform = `translateY(${i * 46}px)`; r.el.style.opacity = i < 9 ? 1 : 0;
-      r.el.querySelector(".bar").style.width = `${Math.max(1, r.v / max * 100)}%`;
+      r.el.querySelector(".bar").style.width = `${Math.max(2, (r.v - floor) / Math.max(1e-9, max - floor) * 100)}%`;
       r.el.querySelector(".val span").textContent = `${f4(r.v)} ETH`; r.el.querySelector(".val small").textContent = `${r.n} 回入札`;
     });
   }
@@ -224,7 +234,7 @@
     addWinner({ slot: cur.slot, name: nameOf(key), color: colorOf(key), v: cur.delivered ? cur.delivered.v : r.v, key });
   }
   function log(t, text, color) {
-    const li = document.createElement("li"); li.innerHTML = `<b>${(Math.max(0, t) / 1000).toFixed(1)}秒</b><span style="${color ? `color:${color}` : ""}">${text}</span>`;
+    const li = document.createElement("li"); li.innerHTML = `<b>${t < 0 ? "−" : ""}${(Math.abs(t) / 1000).toFixed(1)}秒</b><span style="${color ? `color:${color}` : ""}">${text}</span>`;
     $("feed").prepend(li);
   }
   function addWinner(w) {
@@ -255,7 +265,7 @@
         for (const b of j) {
           const id = `${b.builder_pubkey}:${b.block_hash}`; if (seen.has(id)) continue; seen.add(id);
           const ts = b.timestamp_ms ? Number(b.timestamp_ms) : Number(b.timestamp) * 1000;
-          bids.push({ t: Math.max(0, ts - start), key: b.builder_pubkey, v: eth(b.value), hash: b.block_hash });
+          bids.push({ t: ts - start, key: b.builder_pubkey, v: eth(b.value), hash: b.block_hash });
         }
       } catch (_) {}
       try {
