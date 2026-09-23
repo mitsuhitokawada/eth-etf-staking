@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>いまのETH、ライブで飛ぶ</title>
+<meta name="description" content="自分のEthereumフルノードにブラウザから直接つないで、12秒ごとの新しいブロックに入っている預け入れと引き出しを3Dで流す">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0b0a1f; --text: #ffffff; --muted: #a9a3c9; --in: #4da3ff; --out: #ff6fa3; --accent: #9d7bff; --mint: #3ee0c3; --warn: #ffd166; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); overflow: hidden;
+    font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif; }
+  canvas { display: block; }
+  .hud { position: fixed; left: 16px; right: 16px; top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; justify-content: space-between; pointer-events: none; }
+  .slot { font-weight: 800; font-size: clamp(1.3rem, 3.6vw, 2rem); line-height: 1.2; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+  .slot small { display: block; font-size: .85rem; color: var(--muted); font-weight: 700; }
+  .slot .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #666; margin-right: 8px; vertical-align: 2px; }
+  .slot .dot.on { background: var(--mint); box-shadow: 0 0 12px var(--mint); }
+  .slot .dot.demo { background: var(--warn); box-shadow: 0 0 12px var(--warn); }
+  .vals { display: flex; gap: 10px; flex-wrap: wrap; }
+  .val { background: rgba(20, 18, 50, .78); border-radius: 16px; padding: 8px 14px; min-width: 150px; backdrop-filter: blur(6px); border: 2px solid transparent; }
+  .val .k { font-size: .78rem; color: var(--muted); font-weight: 700; }
+  .val .v { font-size: 1.2rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .val .s { font-size: .78rem; color: var(--muted); font-weight: 700; }
+  .val.in { border-color: var(--in); } .val.in .v { color: var(--in); }
+  .val.out { border-color: var(--out); } .val.out .v { color: var(--out); }
+  .val.q { border-color: var(--accent); } .val.q .v { color: var(--accent); }
+  .bar { position: fixed; left: 16px; right: 16px; bottom: 14px; background: rgba(11,10,31,.78); border-radius: 22px; padding: 10px 14px; backdrop-filter: blur(6px); display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: center; }
+  .bar input[type=text] { font: inherit; font-weight: 700; padding: 8px 12px; border-radius: 999px; border: 2px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08); color: #fff; width: min(60vw, 320px); }
+  .bar button, .bar a { border: 0; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-weight: 800; padding: 8px 16px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+  .bar button.primary { background: var(--accent); }
+  .bar .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: .85rem; color: var(--muted); font-weight: 700; flex-basis: 100%; justify-content: center; }
+  .bar .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; vertical-align: -1px; margin-right: 4px; }
+  .msg { flex-basis: 100%; text-align: center; font-size: .85rem; color: var(--warn); font-weight: 700; min-height: 1.2em; }
+  .feed { position: fixed; left: 16px; bottom: 120px; width: min(360px, 60vw); pointer-events: none; font-size: .85rem; font-weight: 700; }
+  .feed div { background: rgba(20,18,50,.7); border-radius: 12px; padding: 4px 10px; margin-top: 4px; opacity: .95; animation: fade 14s forwards; }
+  .feed .in { color: var(--in); } .feed .out { color: var(--out); } .feed .exit { color: var(--warn); }
+  @keyframes fade { 0%, 70% { opacity: .95; } 100% { opacity: 0; } }
+  .hint { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(20,18,50,.92); border-radius: 22px; padding: 22px 26px; max-width: 520px; text-align: center; font-size: 1rem; line-height: 1.7; }
+  .hint b { display: block; font-size: 1.3rem; margin-bottom: 6px; }
+  .hint button { margin: 6px 4px 0; border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 800; padding: 10px 22px; border-radius: 999px; cursor: pointer; font-size: 1rem; }
+  .hint button.demo { background: rgba(255,255,255,.14); }
+</style>
+</head>
+<body>
+<div class="hud">
+  <div class="slot" id="slot"><span class="dot" id="dot"></span>未接続<small>ノードにつなぐと、12秒ごとに新しいブロックが飛んできます</small></div>
+  <div class="vals">
+    <div class="val in"><div class="k">🔒 このブロックの預け入れ</div><div class="v" id="vDep">—</div><div class="s" id="sDep">開いてから合計 —</div></div>
+    <div class="val out"><div class="k">🔓 このブロックの引き出し</div><div class="v" id="vWd">—</div><div class="s" id="sWd">開いてから合計 —</div></div>
+    <div class="val q"><div class="k">⏳ 預け入れ待ちの行列</div><div class="v" id="vQ">—</div><div class="s" id="sQ">Pectra以降のノードで取れます</div></div>
+  </div>
+</div>
+<div class="feed" id="feed"></div>
+<div class="bar">
+  <div class="legend"><span><i style="background:var(--in)"></i>青い箱＝預け入れ（大きいほど多い）</span><span><i style="background:var(--out)"></i>ピンクの箱＝引き出し</span><span><i style="background:var(--warn)"></i>黄色＝まるごと引き出し（32ETH以上）</span><span>小さな粒＝報酬の受け取り</span></div>
+  <input type="text" id="url" placeholder="ノードのBeacon API（例: http://192.168.1.50:5052）">
+  <button class="primary" id="connect">つなぐ</button>
+  <button id="demo">デモ再生</button>
+  <a href="index.html">📊 2Dの解説ページへ</a>
+  <a href="who.html">🏙️ 誰が預けている？</a>
+  <div class="msg" id="msg"></div>
+</div>
+<div class="hint" id="hint">
+  <b>📡 いまのETH、ライブで飛ぶ</b>
+  自分のイーサリアムのノードにつないで、12秒ごとに届く新しいブロックの中身をそのまま流します。<br>青い箱が「預け入れ」、ピンクが「引き出し」、黄色が「まるごと引き出し」。箱の大きさがETHの量です。<br>
+  <span style="color:var(--muted);font-size:.9rem">ノードがまだなら「デモ再生」で、最近の平均ペースを使った再現を流せます。</span>
+  <br><button id="goConnect">ノードにつなぐ</button><button class="demo" id="goDemo">デモ再生</button>
+</div>
+
+<script src="data.js"></script>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+<script type="module">
+import * as THREE from "three";
+
+const $ = id => document.getElementById(id);
+const fmt = n => n >= 1e4 ? (n / 1e4).toLocaleString("ja-JP", { maximumFractionDigits: 1 }) + "万ETH" : n.toLocaleString("ja-JP", { maximumFractionDigits: n < 10 ? 2 : 0 }) + " ETH";
+const GWEI = 1e9;
+
+// ---- 3D ----
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(innerWidth, innerHeight);
+document.body.prepend(renderer.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x0b0a1f); scene.fog = new THREE.Fog(0x0b0a1f, 40, 180);
+const camera = new THREE.PerspectiveCamera(62, innerWidth / innerHeight, 0.1, 400);
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(6, 20, 10); scene.add(sun);
+// 道（無限に見えるように、カメラと一緒に動かす）
+const road = new THREE.Mesh(new THREE.PlaneGeometry(30, 400), new THREE.MeshStandardMaterial({ color: 0x1a1740, roughness: 0.95 }));
+road.rotation.x = -Math.PI / 2; scene.add(road);
+const grid = new THREE.GridHelper(400, 200, 0x3a3470, 0x2a2556); grid.scale.x = 30 / 400; scene.add(grid);
+const mid = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.05, 400), new THREE.MeshBasicMaterial({ color: 0x9d7bff })); mid.position.y = 0.03; scene.add(mid);
+{ const g = new THREE.BufferGeometry(); const p = new Float32Array(2000 * 3);
+  for (let i = 0; i < p.length; i += 3) { p[i] = (Math.random() - .5) * 300; p[i + 1] = Math.random() * 100 + 5; p[i + 2] = (Math.random() - .5) * 400; }
+  g.setAttribute("position", new THREE.BufferAttribute(p, 3));
+  const stars = new THREE.Points(g, new THREE.PointsMaterial({ color: 0xffffff, size: 0.35, transparent: true, opacity: .8 })); scene.add(stars); window.__stars = stars; }
+
+const matIn = new THREE.MeshStandardMaterial({ color: 0x4da3ff, emissive: 0x1a4cff, emissiveIntensity: 0.6, roughness: 0.4 });
+const matOut = new THREE.MeshStandardMaterial({ color: 0xff6fa3, emissive: 0xff2a6e, emissiveIntensity: 0.6, roughness: 0.4 });
+const matExit = new THREE.MeshStandardMaterial({ color: 0xffd166, emissive: 0xffa500, emissiveIntensity: 0.6, roughness: 0.4 });
+const matSkim = new THREE.MeshBasicMaterial({ color: 0xff9ec2 });
+const boxGeo = new THREE.BoxGeometry(1, 1, 1);
+const objects = []; // 飛んでいる箱たち
+const ROAD_SPEED = 6; // 1秒に進む距離
+let camZ = 0;
+
+function label(text, color = "#ffffff") {
+  const c = document.createElement("canvas"); c.width = 640; c.height = 128; const g = c.getContext("2d");
+  g.fillStyle = "rgba(20,18,50,.88)"; g.beginPath(); g.roundRect(6, 8, 628, 112, 32); g.fill();
+  g.fillStyle = color; g.font = "800 54px 'M PLUS Rounded 1c', sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(text, 320, 66);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, transparent: true, depthTest: false })); s.scale.set(10, 2, 1); return s;
+}
+
+// 新しいブロックが来たら、カメラの60先に「ゲート」と箱を置く
+function spawnBlock(b) {
+  const z = camZ - 70;
+  const gate = label(`ブロック ${b.slot.toLocaleString("ja-JP")}`, "#ffffff"); gate.position.set(0, 9, z); scene.add(gate); objects.push({ m: gate, born: performance.now() });
+  const place = (amountEth, kind, k, n) => {
+    const s = Math.min(6, 0.6 + Math.cbrt(amountEth / 32) * 1.3);
+    const m = new THREE.Mesh(boxGeo, kind === "in" ? matIn : kind === "exit" ? matExit : matOut);
+    m.scale.set(s, s, s);
+    const side = kind === "in" ? -1 : 1;
+    m.position.set(side * (3 + (k % 3) * 2.2), s / 2 + 0.05, z - Math.floor(k / 3) * 2.6);
+    m.userData.spin = (Math.random() - .5) * 1.5;
+    scene.add(m); objects.push({ m, born: performance.now(), amount: amountEth, kind });
+  };
+  b.deposits.forEach((a, k) => place(a, "in", k, b.deposits.length));
+  b.withdrawals.forEach((a, k) => place(a, a >= 32 ? "exit" : "out", k, b.withdrawals.length));
+  // 報酬の受け取り（小さい引き出し）は粒で
+  if (b.skims > 0) {
+    const g = new THREE.BufferGeometry(); const p = new Float32Array(Math.min(400, b.skims) * 3);
+    for (let i = 0; i < p.length; i += 3) { p[i] = 2 + Math.random() * 8; p[i + 1] = 0.3 + Math.random() * 3; p[i + 2] = z - Math.random() * 6; }
+    g.setAttribute("position", new THREE.BufferAttribute(p, 3));
+    const pts = new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff9ec2, size: 0.25 })); scene.add(pts); objects.push({ m: pts, born: performance.now() });
+  }
+}
+
+// ---- 数字とログ ----
+let totDep = 0, totWd = 0, lastSlot = null;
+function showBlock(b) {
+  const dep = b.deposits.reduce((a, v) => a + v, 0), wd = b.withdrawals.reduce((a, v) => a + v, 0) + b.skimEth;
+  totDep += dep; totWd += wd;
+  $("slot").innerHTML = `<span class="dot ${b.demo ? "demo" : "on"}"></span>ブロック ${b.slot.toLocaleString("ja-JP")}<small>${b.demo ? "デモ再生（最近の平均ペースで再現）" : "ノードから受信中"}　${new Date().toLocaleTimeString("ja-JP")}</small>`;
+  $("vDep").textContent = dep > 0 ? "+" + fmt(dep) + `（${b.deposits.length}件）` : "なし";
+  $("vWd").textContent = wd > 0 ? "−" + fmt(wd) + `（${b.withdrawals.length}件＋報酬${b.skims}件）` : "なし";
+  $("sDep").textContent = "開いてから合計 +" + fmt(totDep); $("sWd").textContent = "開いてから合計 −" + fmt(totWd);
+  const f = $("feed");
+  const lines = [];
+  b.deposits.filter(a => a >= 32).slice(0, 3).forEach(a => lines.push(`<div class="in">🔒 ${fmt(a)} を新しく預け入れ</div>`));
+  b.withdrawals.filter(a => a >= 32).slice(0, 3).forEach(a => lines.push(`<div class="exit">🚪 ${fmt(a)} をまるごと引き出し（退出）</div>`));
+  if (!lines.length && b.skims > 0) lines.push(`<div class="out">✨ ${b.skims}人が報酬 ${fmt(b.skimEth)} を受け取り</div>`);
+  f.insertAdjacentHTML("afterbegin", lines.join("")); while (f.children.length > 8) f.lastChild.remove();
+  spawnBlock(b);
+}
+
+// ---- ノードから読む（Beacon API）----
+let timer = null, demoTimer = null, base = "";
+async function api(path) {
+  const r = await fetch(base + path, { headers: { Accept: "application/json" } });
+  if (!r.ok) throw new Error(`${r.status} ${path}`);
+  return r.json();
+}
+function parseBlock(j) {
+  const body = j.data.message.body;
+  const deposits = [
+    ...(body.deposits || []).map(d => Number(d.data.amount) / GWEI),
+    ...((body.execution_requests && body.execution_requests.deposits) || []).map(d => Number(d.amount) / GWEI),
+  ];
+  const wds = ((body.execution_payload && body.execution_payload.withdrawals) || []).map(w => Number(w.amount) / GWEI);
+  const big = wds.filter(a => a >= 1), skim = wds.filter(a => a < 1); // 1ETH未満は報酬の受け取りとみなす
+  return { slot: Number(j.data.message.slot), deposits, withdrawals: big, skims: skim.length, skimEth: skim.reduce((a, v) => a + v, 0) };
+}
+async function poll() {
+  try {
+    const h = await api("/eth/v1/beacon/headers/head");
+    const slot = Number(h.data.header.message.slot);
+    if (slot !== lastSlot) {
+      lastSlot = slot;
+      const blk = await api(`/eth/v2/beacon/blocks/${slot}`);
+      showBlock(parseBlock(blk));
+      $("msg").textContent = "";
+    }
+  } catch (e) { $("msg").textContent = "ノードから読めませんでした: " + e.message; }
+}
+async function pollQueue() {
+  try {
+    const q = await api("/eth/v1/beacon/states/head/pending_deposits");
+    const eth = (q.data || []).reduce((a, d) => a + Number(d.amount) / GWEI, 0);
+    $("vQ").textContent = fmt(eth) + `（${(q.data || []).length}件）`; $("sQ").textContent = "順番待ちで、まだ有効になっていない預け入れ";
+  } catch (e) { $("vQ").textContent = "取れません"; $("sQ").textContent = "このノードでは pending_deposits が使えません"; }
+}
+function connect() {
+  base = $("url").value.trim().replace(/\/+$/, "");
+  if (!base) { $("msg").textContent = "ノードのURLを入れてください（例: http://192.168.1.50:5052）"; return; }
+  try { localStorage.setItem("beacon_url", base); } catch (_) {}
+  if (location.protocol === "https:" && base.startsWith("http:")) {
+    $("msg").textContent = "このページは https で、ノードは http なのでブラウザがブロックします。このページを http で開いてください（手順は解説ページの下に）。";
+  }
+  stopAll(); $("hint").style.display = "none";
+  $("msg").textContent = "つないでいます…";
+  poll(); pollQueue(); timer = setInterval(poll, 4000); setInterval(pollQueue, 60000);
+}
+// ---- デモ: 最近30日の平均ペースからそれっぽいブロックを作る ----
+function startDemo() {
+  stopAll(); $("hint").style.display = "none";
+  const rows = (window.ETF_STAKING_DATA || []).slice(-30);
+  const perDay = rows.length ? rows.reduce((a, r) => a + Math.abs(r.staking_flow || 0), 0) / rows.length : 20000;
+  const perBlock = perDay / 7200; // 1日 7,200 ブロック
+  let slot = 13_000_000 + Math.floor(Math.random() * 100000);
+  const tick = () => {
+    slot++;
+    const deposits = [], withdrawals = [];
+    let budget = perBlock * (0.5 + Math.random());
+    while (budget > 16 && Math.random() < 0.8) { const a = Math.random() < 0.7 ? 32 : 32 * (1 + Math.floor(Math.random() * 12)); deposits.push(a); budget -= a; }
+    if (Math.random() < 0.35) withdrawals.push(32 + Math.random() * 1.2);
+    if (Math.random() < 0.15) withdrawals.push(1 + Math.random() * 20);
+    const skims = 8 + Math.floor(Math.random() * 12);
+    showBlock({ slot, deposits, withdrawals, skims, skimEth: skims * 0.012, demo: true });
+    $("vQ").textContent = fmt(120000 + Math.random() * 20000); $("sQ").textContent = "デモの値です";
+  };
+  tick(); demoTimer = setInterval(tick, 12000);
+}
+function stopAll() { clearInterval(timer); clearInterval(demoTimer); timer = demoTimer = null; lastSlot = null; }
+
+$("connect").onclick = connect; $("demo").onclick = startDemo; $("goDemo").onclick = startDemo;
+$("goConnect").onclick = () => { $("hint").style.display = "none"; $("url").focus(); };
+try { $("url").value = localStorage.getItem("beacon_url") || ""; } catch (_) {}
+addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+let yaw = 0, drag = null;
+renderer.domElement.addEventListener("pointerdown", e => drag = { x: e.clientX, yaw });
+addEventListener("pointermove", e => { if (drag) yaw = drag.yaw - (e.clientX - drag.x) * 0.004; });
+addEventListener("pointerup", () => drag = null);
+
+let prev = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - prev) / 1000); prev = now;
+  camZ -= ROAD_SPEED * dt;
+  if (!drag) yaw *= 0.97;
+  road.position.z = camZ - 150; grid.position.z = camZ - 150; mid.position.z = camZ - 150; window.__stars.position.z = camZ - 100;
+  camera.position.set(Math.sin(yaw) * 3, 6 + Math.sin(now / 1400) * 0.25, camZ + 10);
+  camera.lookAt(Math.sin(yaw) * 30, 2.5, camZ - 40);
+  for (let i = objects.length - 1; i >= 0; i--) {
+    const o = objects[i];
+    if (o.m.userData && o.m.userData.spin) o.m.rotation.y += o.m.userData.spin * dt;
+    if (o.m.position.z > camZ + 20) { scene.remove(o.m); objects.splice(i, 1); }
+  }
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
