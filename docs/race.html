@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12秒のビルダー競り</title>
+<meta name="description" content="12秒のスロットの間に、ブロックビルダーたちが「このブロックを載せてほしい」と値段を競り上げ、最後に勝った1人がブロックになる様子を、入れ替わる棒グラフで再生する">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0b0a1f; --panel: #171536; --line: #2c2856; --text: #ffffff; --muted: #a9a3c9; --accent: #9d7bff; --mint: #3ee0c3; --warn: #ffd166; --pink: #ff6fa3; --blue: #4da3ff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: radial-gradient(1200px 600px at 20% -10%, #241f5a 0%, var(--bg) 60%); color: var(--text); min-height: 100vh;
+    font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif; font-weight: 700; }
+  main { max-width: 1100px; margin: 0 auto; padding: 16px 16px 40px; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-bottom: 14px; }
+  header h1 { font-size: 1.4rem; margin: 0; font-weight: 800; }
+  header h1 small { display: block; font-size: .8rem; color: var(--muted); font-weight: 700; }
+  .conn { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: auto; }
+  .conn button, .conn a { border: 0; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-weight: 800; padding: 8px 16px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+  .conn button.primary { background: var(--accent); }
+  .msg { width: 100%; font-size: .85rem; color: var(--warn); min-height: 1.2em; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+  .panel { background: var(--panel); border-radius: 20px; padding: 14px 16px; box-shadow: 0 8px 24px rgba(0,0,0,.35); min-width: 0; }
+  .panel h2 { font-size: .95rem; margin: 0 0 8px; color: var(--muted); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .panel h2 span { font-size: .78rem; font-weight: 700; }
+  .c12 { grid-column: span 12; } .c8 { grid-column: span 8; } .c4 { grid-column: span 4; }
+  @media (max-width: 900px) { .c8, .c4 { grid-column: span 12; } }
+  /* 時計とスロット情報 */
+  .clock { display: flex; align-items: center; gap: 16px; }
+  .clock svg { width: 92px; height: 92px; flex: none; }
+  .clock .big { font-size: 1.05rem; font-weight: 800; }
+  .clock .sub { color: var(--muted); font-size: .85rem; }
+  .stat { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 10px; }
+  .stat div { background: rgba(255,255,255,.05); border-radius: 12px; padding: 8px 10px; }
+  .stat b { display: block; font-size: 1.15rem; font-weight: 800; }
+  .stat span { color: var(--muted); font-size: .78rem; }
+  /* 入れ替わる棒グラフ */
+  .race { position: relative; height: 420px; overflow: hidden; }
+  .row { position: absolute; left: 0; right: 0; height: 44px; display: grid; grid-template-columns: 150px 1fr 120px; align-items: center; gap: 10px;
+    transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .4s; will-change: transform; }
+  .row .name { display: flex; align-items: center; gap: 8px; font-size: .92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .name i { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; box-shadow: 0 0 8px var(--c); }
+  .row .bar { height: 26px; border-radius: 0 8px 8px 0; background: var(--c); width: 0; min-width: 4px; transition: width .35s ease-out; position: relative; }
+  .row .bar::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(255,255,255,.25), rgba(0,0,0,.08)); }
+  .row .val { text-align: right; font-variant-numeric: tabular-nums; font-size: .95rem; font-weight: 800; }
+  .row .val small { display: block; color: var(--muted); font-size: .7rem; font-weight: 700; }
+  .row.win .bar { box-shadow: 0 0 18px var(--c), 0 0 40px var(--c); animation: pulse 1s ease-in-out infinite alternate; }
+  .row.win .name::after { content: "👑 勝ち！"; color: var(--warn); font-size: .8rem; margin-left: 4px; }
+  @keyframes pulse { from { filter: brightness(1); } to { filter: brightness(1.35); } }
+  .axis { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; margin: 6px 0 0 160px; }
+  .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); text-align: center; padding: 20px; line-height: 1.7; }
+  /* 実況と歴代の勝者 */
+  .feed { list-style: none; margin: 0; padding: 0; font-size: .88rem; line-height: 1.6; max-height: 230px; overflow: auto; }
+  .feed li { padding: 3px 0; border-bottom: 1px dashed var(--line); }
+  .feed li b { color: var(--mint); font-variant-numeric: tabular-nums; margin-right: 6px; }
+  .winners { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.06); border-radius: 999px; padding: 4px 10px; font-size: .8rem; border: 2px solid var(--c); }
+  .chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+  .chip.miss { border-style: dashed; border-color: var(--line); color: var(--muted); }
+  .share { display: grid; gap: 6px; }
+  .share div { display: grid; grid-template-columns: 120px 1fr 44px; align-items: center; gap: 8px; font-size: .85rem; }
+  .share div b { height: 14px; border-radius: 7px; background: var(--c); min-width: 3px; }
+  .share div span:last-child { text-align: right; color: var(--muted); }
+  .howto { color: var(--muted); font-size: .85rem; line-height: 1.8; }
+  .howto b { color: #fff; }
+  .hint { position: fixed; inset: 0; background: rgba(11,10,31,.86); display: grid; place-items: center; z-index: 10; text-align: center; padding: 20px; }
+  .hint .box { background: var(--panel); border-radius: 24px; padding: 26px 30px; max-width: 560px; line-height: 1.8; }
+  .hint button { margin: 6px 4px 0; border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 800; padding: 10px 22px; border-radius: 999px; cursor: pointer; font-size: 1rem; }
+  .hint button.ghost { background: rgba(255,255,255,.12); }
+  footer { margin-top: 20px; color: var(--muted); font-size: .8rem; line-height: 1.7; }
+  footer a { color: var(--blue); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>12秒のビルダー競り<small>ブロックを作りたいビルダーたちが、12秒のあいだに値段を競り上げる。勝った1人だけがブロックになる</small></h1>
+    <div class="conn">
+      <button id="btnLive" class="primary">本物の入札で見る</button>
+      <button id="btnDemo">デモで見る</button>
+      <a href="slots.html">スロットの画面へ</a>
+      <a href="index.html">解説へ</a>
+    </div>
+    <div class="msg" id="msg"></div>
+  </header>
+
+  <div class="grid">
+    <section class="panel c8">
+      <h2>競りの様子（入札が届くたびに順位が入れ替わる）<span id="raceTitle"></span></h2>
+      <div class="race" id="race"><div class="empty" id="empty">「本物の入札で見る」か「デモで見る」を押すと始まります</div></div>
+      <div class="axis"><span>0 ETH</span><span id="axisMax"></span></div>
+    </section>
+
+    <section class="panel c4">
+      <h2>いまのスロット</h2>
+      <div class="clock">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="10"/><circle id="ring" cx="50" cy="50" r="42" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)"/><text id="sec" x="50" y="57" text-anchor="middle" style="font-size:26px;font-weight:800;fill:#fff">0</text></svg>
+        <div><div class="big" id="slotNow">—</div><div class="sub" id="slotSub">1つ前のスロットの競りを、この12秒で再生します</div></div>
+      </div>
+      <div class="stat">
+        <div><b id="stBids">—</b><span>届いた入札</span></div>
+        <div><b id="stBuilders">—</b><span>参加ビルダー</span></div>
+        <div><b id="stBest">—</b><span>いまの最高値（ETH）</span></div>
+        <div><b id="stRelays">—</b><span>読めたリレー</span></div>
+      </div>
+    </section>
+
+    <section class="panel c8">
+      <h2>実況</h2>
+      <ul class="feed" id="feed"></ul>
+    </section>
+
+    <section class="panel c4">
+      <h2>これまでの勝者<span>新しい順</span></h2>
+      <div class="winners" id="winners"></div>
+      <h2 style="margin-top:14px">勝った回数</h2>
+      <div class="share" id="share"></div>
+    </section>
+
+    <section class="panel c12 howto">
+      <b>これは何？</b> イーサリアムでは12秒ごとに1つブロックができます。その12秒のあいだ、<b>ビルダー</b>（ブロックを組み立てる専門業者）たちは「私のブロックを採用してくれたら◯ETH払います」と、<b>リレー</b>（仲介役）を通してバリデータに値段を出し続けます。値段はどんどん競り上がり、締め切り時点でいちばん高い値段を出したビルダーのブロックが採用されます。この画面は、リレーが公開している「そのスロットに届いた入札ぜんぶ」を、届いた時刻どおりに再生しています。入札の記録はスロットが終わってから取れるので、<b>1つ前のスロットの競りを、次の12秒で再生</b>する形です。
+    </section>
+  </div>
+
+  <div class="hint" id="hint"><div class="box">
+    <div style="font-size:1.2rem;font-weight:800;margin-bottom:8px">12秒のあいだに、誰がいくらで競っている？</div>
+    ビルダーごとの棒が、入札が届くたびに伸びて順位が入れ替わり、12秒の終わりに一番上に残ったビルダーが「勝ち」で光ります。<br>
+    本物の入札はリレーの公開データから読みます。ブラウザから読めないリレーは自動でとばします。
+    <div><button id="go">本物の入札で見る</button><button id="goDemo" class="ghost">デモで見る</button></div>
+  </div></div>
+
+  <footer>入札データ: 各リレーの公開API（builder_blocks_received / proposer_payload_delivered）。ビルダーの名前は、ノードにつないでいれば勝ったブロックの extra_data から覚えていきます（<a href="slots.html">スロットの画面</a>で入れたノードURLを使います）。名前がまだわからないビルダーは鍵の先頭で表示します。</footer>
+</main>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const GENESIS = 1606824023, SLOT = 12;
+  const qs = new URLSearchParams(location.search);
+  // リレー一覧（?relay=URL を付けるとテスト用のリレーを足せる）
+  const RELAYS = [["ultrasound", "https://relay.ultrasound.money"], ["Flashbots", "https://boost-relay.flashbots.net"], ["Titan", "https://titanrelay.xyz"],
+    ["bloXroute max-profit", "https://bloxroute.max-profit.blxrbdn.com"], ["bloXroute regulated", "https://bloxroute.regulated.blxrbdn.com"], ["Aestus", "https://aestus.live"], ["Agnostic", "https://agnostic-relay.net"]];
+  if (qs.get("relay")) RELAYS.unshift(["テスト", qs.get("relay")]);
+  // ビルダーの色（名前が分かればその色、分からなければ鍵から決める固定色）
+  const KNOWN = [["Titan", /titan/i, "#ff6fa3"], ["beaverbuild", /beaver/i, "#ffb020"], ["rsync", /rsync/i, "#3ee0c3"], ["BuilderNet", /buildernet|flashbots/i, "#4da3ff"],
+    ["penguinbuild", /penguin/i, "#c4ff5e"], ["Nethermind", /nethermind/i, "#9d7bff"], ["Quasar", /quasar/i, "#ff9f43"], ["Blocksmith", /blocksmith/i, "#ff7f50"], ["Jet", /jet/i, "#7dd3fc"]];
+  const PALETTE = ["#f472b6", "#fb923c", "#a3e635", "#22d3ee", "#c084fc", "#facc15", "#34d399", "#f87171", "#60a5fa", "#e879f9"];
+  const hexToText = h => { try { const b = h.replace(/^0x/, ""); let s = ""; for (let i = 0; i < b.length; i += 2) { const c = parseInt(b.slice(i, i + 2), 16); s += c >= 32 && c < 127 ? String.fromCharCode(c) : ""; } return s.trim(); } catch (_) { return ""; } };
+  const eth = wei => Number(BigInt(wei) / 1000000000000n) / 1e6; // ETH（小数6桁）
+  const f4 = v => v.toLocaleString("ja-JP", { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+  const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (_) { return d; } };
+  const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (_) {} };
+  const names = load("builder_names", {}); // 鍵 → 名前（ノードの extra_data から学習）
+  function nameOf(pubkey) { return names[pubkey] || (pubkey.slice(0, 8) + "…"); }
+  function colorOf(pubkey) {
+    const n = names[pubkey]; if (n) for (const [, re, c] of KNOWN) if (re.test(n)) return c;
+    let h = 0; for (const ch of pubkey) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return PALETTE[h % PALETTE.length];
+  }
+
+  // ---- 状態 ----
+  let mode = null;            // "live" | "demo"
+  let cur = null;             // 再生中の競り {slot, bids:[{t, key, v}], delivered, done, shown:Set, rows:Map}
+  const winners = load("race_winners", []); // {slot, name, color, v}
+  const winCount = {};
+  let liveRelays = [];
+
+  // ---- 時計 ----
+  const slotNow = () => Math.floor((Date.now() / 1000 - GENESIS) / SLOT);
+  const elapsedMs = () => Date.now() - (GENESIS + slotNow() * SLOT) * 1000;
+  function tick() {
+    const e = elapsedMs(); $("ring").style.strokeDashoffset = 264 * (1 - e / 12000); $("sec").textContent = (e / 1000).toFixed(1);
+    if (cur && !cur.done) advance(e);
+    requestAnimationFrame(tick);
+  }
+
+  // ---- 競りの再生 ----
+  function startRace(slot, bids, delivered) {
+    bids.sort((a, b) => a.t - b.t);
+    cur = { slot, bids, delivered, done: false, i: 0, rows: new Map(), best: 0 };
+    $("race").querySelectorAll(".row").forEach(r => r.remove()); $("empty").style.display = "none";
+    $("feed").innerHTML = ""; $("raceTitle").textContent = `スロット ${slot.toLocaleString()} の競り`;
+    const keys = new Set(bids.map(b => b.key));
+    $("stBids").textContent = bids.length.toLocaleString(); $("stBuilders").textContent = keys.size; $("stBest").textContent = "—";
+    if (!bids.length) { log(0, "このスロットには入札がありませんでした（リレーを使わないブロック、または空き）"); cur.done = true; return; }
+    log(0, `スタート！ ${keys.size} 人のビルダーが ${bids.length} 回入札`);
+  }
+  function advance(e) {
+    let changed = false, leaderBefore = leader();
+    while (cur.i < cur.bids.length && cur.bids[cur.i].t <= e) {
+      const b = cur.bids[cur.i++]; const r = row(b.key);
+      if (b.v > r.v) { r.v = b.v; r.n++; changed = true; if (b.v > cur.best) cur.best = b.v; }
+    }
+    if (changed) { layout(); const l = leader(); if (l && l !== leaderBefore) log(e, `${nameOf(l)} が ${f4(row(l).v)} ETH でトップに！`, colorOf(l)); }
+    if (e >= 11900 || cur.i >= cur.bids.length && e >= 11900) finish();
+  }
+  function leader() { let k = null, v = -1; for (const [key, r] of cur.rows) if (r.v > v) { v = r.v; k = key; } return k; }
+  function row(key) {
+    if (!cur.rows.has(key)) {
+      const el = document.createElement("div"); el.className = "row"; el.style.setProperty("--c", colorOf(key)); el.style.transform = `translateY(${420}px)`;
+      el.innerHTML = `<div class="name"><i></i><span>${nameOf(key)}</span></div><div class="bar"></div><div class="val"><span>0</span><small></small></div>`;
+      $("race").appendChild(el); cur.rows.set(key, { v: 0, n: 0, el });
+    }
+    return cur.rows.get(key);
+  }
+  function layout() {
+    const list = [...cur.rows.entries()].sort((a, b) => b[1].v - a[1].v);
+    const max = list[0][1].v || 1; $("axisMax").textContent = `${f4(max)} ETH`; $("stBest").textContent = f4(max);
+    list.forEach(([key, r], i) => {
+      r.el.style.transform = `translateY(${i * 46}px)`; r.el.style.opacity = i < 9 ? 1 : 0;
+      r.el.querySelector(".bar").style.width = `${Math.max(1, r.v / max * 100)}%`;
+      r.el.querySelector(".val span").textContent = `${f4(r.v)} ETH`; r.el.querySelector(".val small").textContent = `${r.n} 回入札`;
+    });
+  }
+  function finish() {
+    cur.done = true;
+    // 勝者: リレーが「渡した」と言っている入札があればそれ、なければ最高値
+    let key = cur.delivered && cur.rows.has(cur.delivered.key) ? cur.delivered.key : leader();
+    if (!key) return;
+    const r = row(key); r.el.classList.add("win");
+    log(12000, `締め切り。${nameOf(key)} が ${f4(cur.delivered ? cur.delivered.v : r.v)} ETH で競り勝ち、ブロックになりました 🎉`, colorOf(key));
+    addWinner({ slot: cur.slot, name: nameOf(key), color: colorOf(key), v: cur.delivered ? cur.delivered.v : r.v, key });
+  }
+  function log(t, text, color) {
+    const li = document.createElement("li"); li.innerHTML = `<b>${(Math.max(0, t) / 1000).toFixed(1)}秒</b><span style="${color ? `color:${color}` : ""}">${text}</span>`;
+    $("feed").prepend(li);
+  }
+  function addWinner(w) {
+    if (winners.length && winners[0].slot === w.slot) return;
+    winners.unshift(w); winners.splice(30); save("race_winners", winners); renderWinners();
+  }
+  function renderWinners() {
+    $("winners").innerHTML = winners.slice(0, 16).map(w => `<span class="chip${w.name === "空き" ? " miss" : ""}" style="--c:${w.color}"><i></i>${w.name}<span style="color:var(--muted)">${w.v ? f4(w.v) : ""}</span></span>`).join("");
+    const cnt = {}; for (const w of winners) cnt[w.name] = cnt[w.name] || { n: 0, c: w.color }; for (const w of winners) cnt[w.name].n++;
+    const list = Object.entries(cnt).sort((a, b) => b[1].n - a[1].n); const max = list[0]?.[1].n || 1;
+    $("share").innerHTML = list.slice(0, 8).map(([n, o]) => `<div style="--c:${o.c}"><span>${n}</span><b style="width:${o.n / max * 100}%"></b><span>${o.n}回</span></div>`).join("");
+  }
+
+  // ---- 本物: リレーから1つ前のスロットの入札を集める ----
+  async function fetchJson(url, ms = 3500) {
+    const ac = new AbortController(); const id = setTimeout(() => ac.abort(), ms);
+    try { const r = await fetch(url, { signal: ac.signal, headers: { Accept: "application/json" } }); if (!r.ok) throw new Error(r.status); return await r.json(); }
+    finally { clearTimeout(id); }
+  }
+  async function collect(slot) {
+    const start = (GENESIS + slot * SLOT) * 1000;
+    const seen = new Set(); const bids = []; let delivered = null; const ok = [];
+    await Promise.all(RELAYS.map(async ([name, url]) => {
+      try {
+        const j = await fetchJson(`${url}/relay/v1/data/bidtraces/builder_blocks_received?slot=${slot}`);
+        if (!Array.isArray(j)) return; ok.push(name);
+        for (const b of j) {
+          const id = `${b.builder_pubkey}:${b.block_hash}`; if (seen.has(id)) continue; seen.add(id);
+          const ts = b.timestamp_ms ? Number(b.timestamp_ms) : Number(b.timestamp) * 1000;
+          bids.push({ t: Math.max(0, ts - start), key: b.builder_pubkey, v: eth(b.value), hash: b.block_hash });
+        }
+      } catch (_) {}
+      try {
+        const d = await fetchJson(`${url}/relay/v1/data/bidtraces/proposer_payload_delivered?slot=${slot}`);
+        if (Array.isArray(d) && d.length && !delivered) delivered = { key: d[0].builder_pubkey, v: eth(d[0].value), hash: d[0].block_hash };
+      } catch (_) {}
+    }));
+    liveRelays = ok; $("stRelays").textContent = ok.length ? ok.join("、") : "なし";
+    return { bids, delivered };
+  }
+  // ノードにつないでいれば、勝ったブロックの extra_data からビルダーの名前を覚える
+  async function learnName(slot, bids, delivered) {
+    const base = (() => { try { return localStorage.getItem("beacon_url") || ""; } catch (_) { return ""; } })();
+    if (!base) return;
+    try {
+      const j = await fetchJson(`${base.replace(/\/$/, "")}/eth/v2/beacon/blocks/${slot}`);
+      const p = j.data.message.body.execution_payload; const hash = p.block_hash; const nm = hexToText(p.extra_data);
+      const hit = (delivered && delivered.hash === hash) ? delivered : bids.find(b => b.hash === hash);
+      if (hit && nm && names[hit.key] !== nm) { names[hit.key] = nm; save("builder_names", names); log(0, `ノードのブロックから、${hit.key.slice(0, 8)}… の名前は「${nm}」と分かりました`); }
+    } catch (_) {}
+  }
+  let lastPlayed = 0;
+  async function liveLoop() {
+    if (mode !== "live") return;
+    const s = slotNow();
+    if (s !== lastPlayed) {
+      lastPlayed = s; $("slotNow").textContent = `スロット ${s.toLocaleString()}`;
+      $("msg").textContent = `スロット ${s - 1} の入札をリレーに聞いています…`;
+      const { bids, delivered } = await collect(s - 1);
+      if (mode !== "live" || slotNow() !== s) return setTimeout(liveLoop, 250);
+      $("msg").textContent = liveRelays.length ? "" : "どのリレーもブラウザから読めませんでした。次のスロットでもう一度試します";
+      startRace(s - 1, bids, delivered);
+      learnName(s - 1, bids, delivered).then(() => { if (cur && cur.slot === s - 1) for (const [k, r] of cur.rows) { r.el.querySelector(".name span").textContent = nameOf(k); r.el.style.setProperty("--c", colorOf(k)); } });
+    }
+    setTimeout(liveLoop, 250);
+  }
+
+  // ---- デモ: 動きの確認用（本物ではありません） ----
+  const DEMO = [["Titan", "#ff6fa3"], ["beaverbuild", "#ffb020"], ["rsync", "#3ee0c3"], ["BuilderNet", "#4da3ff"], ["penguinbuild", "#c4ff5e"], ["Nethermind", "#9d7bff"], ["Quasar", "#ff9f43"], ["Blocksmith", "#ff7f50"]];
+  function demoBids() {
+    const bids = []; const n = 4 + Math.floor(Math.random() * 4); const pick = [...DEMO].sort(() => Math.random() - .5).slice(0, n);
+    for (const [name] of pick) {
+      let v = 0.005 + Math.random() * 0.02; const speed = 0.4 + Math.random() * 1.2; // 強いビルダーほど伸びが速い
+      for (let t = Math.random() * 1500; t < 12000; t += 300 + Math.random() * 900) { v += Math.random() * 0.004 * speed; bids.push({ t, key: name, v }); }
+    }
+    return bids;
+  }
+  function demoLoop() {
+    if (mode !== "demo") return;
+    const s = slotNow();
+    if (s !== lastPlayed) { lastPlayed = s; $("slotNow").textContent = `スロット ${s.toLocaleString()}（デモ）`; startRace(s - 1, demoBids(), null); }
+    setTimeout(demoLoop, 250);
+  }
+  for (const [n, c] of DEMO) { names[n] = n; KNOWN.push([n, new RegExp(`^${n}$`), c]); }
+
+  function begin(m) {
+    mode = m; lastPlayed = 0; $("hint").style.display = "none"; $("msg").textContent = "";
+    $("stRelays").textContent = m === "demo" ? "デモ（本物ではない）" : "…";
+    m === "live" ? liveLoop() : demoLoop();
+  }
+  $("btnLive").onclick = $("go").onclick = () => begin("live");
+  $("btnDemo").onclick = $("goDemo").onclick = () => begin("demo");
+  renderWinners(); requestAnimationFrame(tick);
+  if (qs.get("demo") === "1") begin("demo");
+})();
+</script>
+</body>
+</html>
