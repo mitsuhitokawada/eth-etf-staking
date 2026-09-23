@@ -50,6 +50,10 @@
   .row.hit .bar { animation: hit .45s ease-out; }
   @keyframes hit { from { filter: brightness(1.8); transform: scaleY(1.15); } to { filter: brightness(1); transform: scaleY(1); } }
   @keyframes pulse { from { filter: brightness(1); } to { filter: brightness(1.35); } }
+  .seg { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 10px; font-size: .8rem; color: var(--muted); }
+  .seg button { border: 0; background: rgba(255,255,255,.08); color: #fff; font: inherit; font-weight: 800; padding: 5px 12px; border-radius: 999px; cursor: pointer; font-size: .8rem; }
+  .seg button.on { background: var(--accent); }
+  .seg em { font-style: normal; margin-left: 6px; }
   .axis { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; margin: 6px 0 0 160px; }
   .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); text-align: center; padding: 20px; line-height: 1.7; }
   /* 実況と歴代の勝者 */
@@ -91,6 +95,7 @@
   <div class="grid">
     <section class="panel c8">
       <h2>競りの様子（入札が届くたびに順位が入れ替わる）<span id="raceTitle"></span></h2>
+      <div class="seg" id="seg"><span>棒の長さ:</span><button data-m="count" class="on">入札回数</button><button data-m="value">値段</button><button data-m="lead">トップだった時間</button><em id="segNote"></em></div>
       <div class="race" id="race"><div class="empty" id="empty">「本物の入札で見る」か「デモで見る」を押すと始まります</div></div>
       <div class="axis"><span id="axisMin">0 ETH</span><span id="axisMax"></span></div>
     </section>
@@ -165,6 +170,8 @@
 
   // ---- 状態 ----
   let mode = null;            // "live" | "demo"
+  let metric = load("race_metric", "count"); // 棒の長さ: count=入札回数 / value=値段 / lead=トップだった時間
+  const NOTE = { count: "この競りの中で、何回値段を出し直したか。勝者は金額で決まります", value: "いまの最高値。どのビルダーもほぼ横並びなので差は小さいです", lead: "金額で先頭にいた時間の合計" };
   let cur = null;             // 再生中の競り {slot, bids:[{t, key, v}], delivered, done, shown:Set, rows:Map}
   const winners = load("race_winners", []); // {slot, name, color, v}
   const winCount = {};
@@ -191,8 +198,9 @@
     const sorted = bids.map(b => b.v).sort((a, b) => a - b);
     const vmin = sorted.length ? sorted[Math.floor(sorted.length * 0.1)] : 0; // 下位10%の値（外れ値よけ）
     const floor = Math.max(0, vmin - (vmax - vmin) * 0.05); // 左端。最初の入札が短い棒で見えるように
-    cur = { slot, bids, delivered, done: false, i: 0, rows: new Map(), best: 0, start: performance.now(), playMs, vmax, floor };
-    $("axisMax").textContent = `${f4(vmax)} ETH`; $("axisMin").textContent = floor > 0 ? `${f4(floor)} ETH（左端。差を見やすくするため0ではありません）` : "0 ETH";
+    const nmax = bids.length ? Math.max(...Object.values(bids.reduce((o, b) => (o[b.key] = (o[b.key] || 0) + 1, o), {}))) : 1;
+    cur = { slot, bids, delivered, done: false, i: 0, rows: new Map(), best: 0, start: performance.now(), playMs, vmax, floor, nmax, lastE: 0, leadKey: null };
+    if (metric === "value") { $("axisMax").textContent = `${f4(vmax)} ETH`; $("axisMin").textContent = floor > 0 ? `${f4(floor)} ETH（左端。差を見やすくするため0ではありません）` : "0 ETH"; }
     $("race").querySelectorAll(".row").forEach(r => r.remove()); $("empty").style.display = "none";
     $("feed").innerHTML = ""; $("raceTitle").textContent = `スロット ${slot.toLocaleString()} の競り`;
     const keys = new Set(bids.map(b => b.key));
@@ -205,10 +213,13 @@
     let changed = false, leaderBefore = leader();
     let last = null;
     while (cur.i < cur.bids.length && cur.bids[cur.i].rt <= e) {
-      const b = cur.bids[cur.i++]; const r = row(b.key); last = b;
-      if (b.v > r.v) { r.v = b.v; r.n++; changed = true; if (b.v > cur.best) cur.best = b.v; r.el.classList.remove("hit"); void r.el.offsetWidth; r.el.classList.add("hit"); }
+      const b = cur.bids[cur.i++]; const r = row(b.key); last = b; r.n++; changed = true;
+      r.el.classList.remove("hit"); void r.el.offsetWidth; r.el.classList.add("hit");
+      if (b.v > r.v) { r.v = b.v; if (b.v > cur.best) cur.best = b.v; }
     }
-    if (changed && e - (cur.lastLayout || -1e9) > 120) { cur.lastLayout = e; layout(); const l = leader(); if (l && l !== leaderBefore) log(last.t, `${nameOf(l)} が ${f4(row(l).v)} ETH でトップに！`, colorOf(l)); }
+    // 金額で先頭にいる時間を積む
+    const lk = leader(); if (cur.leadKey && cur.rows.has(cur.leadKey)) cur.rows.get(cur.leadKey).lead += e - cur.lastE; cur.leadKey = lk; cur.lastE = e;
+    if ((changed || metric === "lead") && e - (cur.lastLayout || -1e9) > 120) { cur.lastLayout = e; layout(); const l = leader(); if (l && l !== leaderBefore) log(last.t, `${nameOf(l)} が ${f4(row(l).v)} ETH でトップに！`, colorOf(l)); }
     if (e >= cur.playMs + 300) finish();
   }
   function leader() { let k = null, v = -1; for (const [key, r] of cur.rows) if (r.v > v) { v = r.v; k = key; } return k; }
@@ -216,17 +227,25 @@
     if (!cur.rows.has(key)) {
       const el = document.createElement("div"); el.className = "row"; el.style.setProperty("--c", colorOf(key)); el.style.transform = `translateY(${420}px)`;
       el.innerHTML = `<div class="name"><i></i><span>${nameOf(key)}</span></div><div class="bar"></div><div class="val"><span>0</span><small></small></div>`;
-      $("race").appendChild(el); cur.rows.set(key, { v: 0, n: 0, el });
+      $("race").appendChild(el); cur.rows.set(key, { v: 0, n: 0, lead: 0, el });
     }
     return cur.rows.get(key);
   }
   function layout() {
-    const list = [...cur.rows.entries()].sort((a, b) => b[1].v - a[1].v);
-    const max = cur.vmax, floor = cur.floor; $("stBest").textContent = f4(list[0][1].v);
+    const m = r => metric === "count" ? r.n : metric === "lead" ? r.lead : r.v;
+    const list = [...cur.rows.entries()].sort((a, b) => m(b[1]) - m(a[1]) || b[1].v - a[1].v);
+    $("stBest").textContent = f4(cur.best);
+    let max, floor;
+    if (metric === "value") { max = cur.vmax; floor = cur.floor; }
+    else if (metric === "count") { max = cur.nmax; floor = 0; $("axisMin").textContent = "0回"; $("axisMax").textContent = `${max}回`; }
+    else { max = Math.max(1, ...list.map(([, r]) => r.lead)); floor = 0; $("axisMin").textContent = "0秒"; $("axisMax").textContent = `${(max / 1000).toFixed(1)}秒`; }
     list.forEach(([key, r], i) => {
       r.el.style.transform = `translateY(${i * 46}px)`; r.el.style.opacity = i < 9 ? 1 : 0;
-      r.el.querySelector(".bar").style.width = `${Math.max(2, (r.v - floor) / Math.max(1e-9, max - floor) * 100)}%`;
-      r.el.querySelector(".val span").textContent = `${f4(r.v)} ETH`; r.el.querySelector(".val small").textContent = `${r.n} 回入札`;
+      r.el.querySelector(".bar").style.width = `${Math.max(2, (m(r) - floor) / Math.max(1e-9, max - floor) * 100)}%`;
+      const big = r.el.querySelector(".val span"), sm = r.el.querySelector(".val small");
+      if (metric === "count") { big.textContent = `${r.n} 回`; sm.textContent = `${f4(r.v)} ETH`; }
+      else if (metric === "lead") { big.textContent = `${(r.lead / 1000).toFixed(1)} 秒`; sm.textContent = `${f4(r.v)} ETH`; }
+      else { big.textContent = `${f4(r.v)} ETH`; sm.textContent = `${r.n} 回入札`; }
     });
   }
   function finish() {
@@ -339,6 +358,13 @@
   $("btnLive").onclick = $("go").onclick = () => begin("live");
   $("btnDemo").onclick = $("goDemo").onclick = () => begin("demo");
   $("proxy").value = load("relay_proxy", "") || "";
+  function setMetric(mt) {
+    metric = mt; save("race_metric", mt); $("segNote").textContent = NOTE[mt];
+    $("seg").querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.m === mt));
+    if (cur) { if (mt === "value") { $("axisMax").textContent = `${f4(cur.vmax)} ETH`; $("axisMin").textContent = cur.floor > 0 ? `${f4(cur.floor)} ETH（左端。差を見やすくするため0ではありません）` : "0 ETH"; } layout(); }
+  }
+  $("seg").querySelectorAll("button").forEach(b => b.onclick = () => setMetric(b.dataset.m));
+  setMetric(metric);
   renderWinners(); requestAnimationFrame(tick);
   if (qs.get("demo") === "1") begin("demo");
 })();
