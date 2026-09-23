@@ -21,6 +21,7 @@ RELAYS = [
     ("Agnostic", "https://agnostic-relay.net"),
 ]
 KINDS = ("builder_blocks_received", "proposer_payload_delivered")
+KEEP = ("slot", "builder_pubkey", "block_hash", "value", "timestamp_ms", "timestamp", "num_tx", "block_number")
 cache = {}  # (kind, slot) -> (取得時刻, 結果, 読めたリレー名)
 
 def ask(relay, kind, slot):
@@ -50,7 +51,9 @@ def collect(kind, slot):
             k = (b.get("builder_pubkey"), b.get("block_hash"))
             if k in seen:
                 continue
-            seen.add(k); out.append(b)
+            seen.add(k)
+            # ページで使う項目だけ残して軽くする（生のままだと1スロット数MBになる）
+            out.append({f: b.get(f) for f in KEEP if f in b})
     cache[key] = (now, out, ok)
     for k in [k for k in cache if now - cache[k][0] > 600]:
         del cache[k]
