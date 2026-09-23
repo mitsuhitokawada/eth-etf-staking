@@ -186,7 +186,11 @@
     const t0 = bids.length ? bids[0].t : 0, t1 = bids.length ? bids[bids.length - 1].t : 1;
     const playMs = Math.max(6000, 12000 - elapsedMs() - 800);
     for (const b of bids) b.rt = (b.t - t0) / Math.max(1, t1 - t0) * playMs;
-    cur = { slot, bids, delivered, done: false, i: 0, rows: new Map(), best: 0, start: performance.now(), playMs };
+    const vmax = bids.length ? Math.max(...bids.map(b => b.v)) : 1;
+    const vmin = bids.length ? Math.min(...bids.map(b => b.v)) : 0;
+    const floor = Math.max(0, vmin - (vmax - vmin) * 0.05); // 左端。最初の入札が短い棒で見えるように
+    cur = { slot, bids, delivered, done: false, i: 0, rows: new Map(), best: 0, start: performance.now(), playMs, vmax, floor };
+    $("axisMax").textContent = `${f4(vmax)} ETH`; $("axisMin").textContent = floor > 0 ? `${f4(floor)} ETH（左端。差を見やすくするため0ではありません）` : "0 ETH";
     $("race").querySelectorAll(".row").forEach(r => r.remove()); $("empty").style.display = "none";
     $("feed").innerHTML = ""; $("raceTitle").textContent = `スロット ${slot.toLocaleString()} の競り`;
     const keys = new Set(bids.map(b => b.key));
@@ -215,9 +219,7 @@
   }
   function layout() {
     const list = [...cur.rows.entries()].sort((a, b) => b[1].v - a[1].v);
-    const max = list[0][1].v || 1; $("stBest").textContent = f4(max);
-    const shown = list.slice(0, 9); const floor = shown.length > 1 ? shown[shown.length - 1][1].v * 0.97 : 0; // 左端（差を見やすくするため0ではない）
-    $("axisMax").textContent = `${f4(max)} ETH`; $("axisMin").textContent = floor > 0 ? `${f4(floor)} ETH（左端。差を見やすくするため0ではありません）` : "0 ETH";
+    const max = cur.vmax, floor = cur.floor; $("stBest").textContent = f4(list[0][1].v);
     list.forEach(([key, r], i) => {
       r.el.style.transform = `translateY(${i * 46}px)`; r.el.style.opacity = i < 9 ? 1 : 0;
       r.el.querySelector(".bar").style.width = `${Math.max(2, (r.v - floor) / Math.max(1e-9, max - floor) * 100)}%`;
