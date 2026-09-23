@@ -156,7 +156,8 @@
   const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (_) { return d; } };
   const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (_) {} };
   const names = load("builder_names", {}); // 鍵 → 名前（ノードの extra_data から学習）
-  function nameOf(pubkey) { return names[pubkey] || (pubkey.slice(0, 8) + "…"); }
+  function shortName(n) { for (const [label, re] of KNOWN) if (re.test(n)) return label; return n.length > 16 ? n.slice(0, 15) + "…" : n; }
+  function nameOf(key) { return names[key] ? shortName(names[key]) : key.startsWith("0x") ? key.slice(0, 8) + "…" : shortName(key); }
   function colorOf(pubkey) {
     const n = names[pubkey]; if (n) for (const [, re, c] of KNOWN) if (re.test(n)) return c;
     let h = 0; for (const ch of pubkey) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return PALETTE[h % PALETTE.length];
@@ -187,7 +188,8 @@
     const playMs = Math.max(6000, 12000 - elapsedMs() - 800);
     for (const b of bids) b.rt = (b.t - t0) / Math.max(1, t1 - t0) * playMs;
     const vmax = bids.length ? Math.max(...bids.map(b => b.v)) : 1;
-    const vmin = bids.length ? Math.min(...bids.map(b => b.v)) : 0;
+    const sorted = bids.map(b => b.v).sort((a, b) => a - b);
+    const vmin = sorted.length ? sorted[Math.floor(sorted.length * 0.1)] : 0; // 下位10%の値（外れ値よけ）
     const floor = Math.max(0, vmin - (vmax - vmin) * 0.05); // 左端。最初の入札が短い棒で見えるように
     cur = { slot, bids, delivered, done: false, i: 0, rows: new Map(), best: 0, start: performance.now(), playMs, vmax, floor };
     $("axisMax").textContent = `${f4(vmax)} ETH`; $("axisMin").textContent = floor > 0 ? `${f4(floor)} ETH（左端。差を見やすくするため0ではありません）` : "0 ETH";
@@ -196,7 +198,8 @@
     const keys = new Set(bids.map(b => b.key));
     $("stBids").textContent = bids.length.toLocaleString(); $("stBuilders").textContent = keys.size; $("stBest").textContent = "—";
     if (!bids.length) { log(0, "このスロットには入札がありませんでした（リレーを使わないブロック、または空き）"); cur.done = true; return; }
-    log(0, `スタート！ ${keys.size} 人のビルダーが ${bids.length} 回入札`);
+    const secs = ms => `${ms < 0 ? "−" : "+"}${(Math.abs(ms) / 1000).toFixed(1)}秒`;
+    log(t0, `スタート！ ${keys.size} 人のビルダーが ${bids.length} 回入札。この競りは実際にはスロット開始の ${secs(t0)} から ${secs(t1)} まで（前のブロックが届いた直後に始まり、次のスロットの頭で締め切り）`);
   }
   function advance(e) {
     let changed = false, leaderBefore = leader();
@@ -205,7 +208,7 @@
       const b = cur.bids[cur.i++]; const r = row(b.key); last = b;
       if (b.v > r.v) { r.v = b.v; r.n++; changed = true; if (b.v > cur.best) cur.best = b.v; r.el.classList.remove("hit"); void r.el.offsetWidth; r.el.classList.add("hit"); }
     }
-    if (changed) { layout(); const l = leader(); if (l && l !== leaderBefore) log(last.t, `${nameOf(l)} が ${f4(row(l).v)} ETH でトップに！`, colorOf(l)); }
+    if (changed && e - (cur.lastLayout || -1e9) > 120) { cur.lastLayout = e; layout(); const l = leader(); if (l && l !== leaderBefore) log(last.t, `${nameOf(l)} が ${f4(row(l).v)} ETH でトップに！`, colorOf(l)); }
     if (e >= cur.playMs + 300) finish();
   }
   function leader() { let k = null, v = -1; for (const [key, r] of cur.rows) if (r.v > v) { v = r.v; k = key; } return k; }
@@ -272,7 +275,7 @@
       } catch (_) {}
       try {
         const d = await fetchJson(`${url}/relay/v1/data/bidtraces/proposer_payload_delivered?slot=${slot}`);
-        if (Array.isArray(d) && d.length && !delivered) delivered = { key: d[0].builder_pubkey, v: eth(d[0].value), hash: d[0].block_hash };
+        if (Array.isArray(d) && d.length && !delivered) delivered = { key: d[0].builder_pubkey, pk: d[0].builder_pubkey, v: eth(d[0].value), hash: d[0].block_hash };
       } catch (_) {}
     }));
     liveRelays = ok; $("stRelays").textContent = ok.length ? ok.join("、") : "なし";
@@ -286,7 +289,8 @@
       const j = await fetchJson(`${base.replace(/\/$/, "")}/eth/v2/beacon/blocks/${slot}`);
       const p = j.data.message.body.execution_payload; const hash = p.block_hash; const nm = hexToText(p.extra_data);
       const hit = (delivered && delivered.hash === hash) ? delivered : bids.find(b => b.hash === hash);
-      if (hit && nm && names[hit.key] !== nm) { names[hit.key] = nm; save("builder_names", names); log(0, `ノードのブロックから、${hit.key.slice(0, 8)}… の名前は「${nm}」と分かりました`); }
+      const pk = hit && (hit.pk || hit.key);
+      if (pk && nm && pk.startsWith("0x") && names[pk] !== nm) { names[pk] = nm; save("builder_names", names); log(0, `ノードのブロックから、${pk.slice(0, 8)}… の名前は「${shortName(nm)}」と分かりました`); }
     } catch (_) {}
   }
   let lastPlayed = 0;
@@ -299,6 +303,8 @@
       const { bids, delivered } = await collect(s - 1);
       if (mode !== "live" || slotNow() !== s) return setTimeout(liveLoop, 250);
       $("msg").textContent = liveRelays.length ? "" : "どのリレーも読めませんでした。上の欄にM5の中継URLを入れると読めます。次のスロットでもう一度試します";
+      for (const b of bids) { b.pk = b.key; if (names[b.key]) b.key = names[b.key]; }
+      if (delivered && names[delivered.key]) delivered.key = names[delivered.key];
       startRace(s - 1, bids, delivered);
       learnName(s - 1, bids, delivered).then(() => { if (cur && cur.slot === s - 1) for (const [k, r] of cur.rows) { r.el.querySelector(".name span").textContent = nameOf(k); r.el.style.setProperty("--c", colorOf(k)); } });
     }
