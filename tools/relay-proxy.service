@@ -1,0 +1,11 @@
+[Unit]
+Description=eth-etf-staking relay proxy (bid data for race.html)
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 %h/relay_proxy.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -16,6 +16,7 @@
   header h1 { font-size: 1.4rem; margin: 0; font-weight: 800; }
   header h1 small { display: block; font-size: .8rem; color: var(--muted); font-weight: 700; }
   .conn { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: auto; }
+  .conn input { font: inherit; padding: 8px 12px; border-radius: 999px; border: 2px solid var(--line); background: rgba(255,255,255,.06); color: #fff; width: min(46vw, 300px); }
   .conn button, .conn a { border: 0; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-weight: 800; padding: 8px 16px; border-radius: 999px; cursor: pointer; text-decoration: none; }
   .conn button.primary { background: var(--accent); }
   .msg { width: 100%; font-size: .85rem; color: var(--warn); min-height: 1.2em; }
@@ -76,6 +77,7 @@
   <header>
     <h1>12秒のビルダー競り<small>ブロックを作りたいビルダーたちが、12秒のあいだに値段を競り上げる。勝った1人だけがブロックになる</small></h1>
     <div class="conn">
+      <input id="proxy" placeholder="M5の中継URL（https://…ts.net/relay）" spellcheck="false">
       <button id="btnLive" class="primary">本物の入札で見る</button>
       <button id="btnDemo">デモで見る</button>
       <a href="slots.html">スロットの画面へ</a>
@@ -141,6 +143,7 @@
   const RELAYS = [["ultrasound", "https://relay.ultrasound.money"], ["Flashbots", "https://boost-relay.flashbots.net"], ["Titan", "https://titanrelay.xyz"],
     ["bloXroute max-profit", "https://bloxroute.max-profit.blxrbdn.com"], ["bloXroute regulated", "https://bloxroute.regulated.blxrbdn.com"], ["Aestus", "https://aestus.live"], ["Agnostic", "https://agnostic-relay.net"]];
   if (qs.get("relay")) RELAYS.unshift(["テスト", qs.get("relay")]);
+  let activeRelays = RELAYS; // 中継URLが入っていれば、それだけに聞く（中継が7つのリレーをまとめて返す）
   // ビルダーの色（名前が分かればその色、分からなければ鍵から決める固定色）
   const KNOWN = [["Titan", /titan/i, "#ff6fa3"], ["beaverbuild", /beaver/i, "#ffb020"], ["rsync", /rsync/i, "#3ee0c3"], ["BuilderNet", /buildernet|flashbots/i, "#4da3ff"],
     ["penguinbuild", /penguin/i, "#c4ff5e"], ["Nethermind", /nethermind/i, "#9d7bff"], ["Quasar", /quasar/i, "#ff9f43"], ["Blocksmith", /blocksmith/i, "#ff7f50"], ["Jet", /jet/i, "#7dd3fc"]];
@@ -236,18 +239,19 @@
   }
 
   // ---- 本物: リレーから1つ前のスロットの入札を集める ----
-  async function fetchJson(url, ms = 3500) {
+  async function fetchJson(url, ms = 3500) { return (await fetchJsonH(url, ms))[0]; }
+  async function fetchJsonH(url, ms = 3500) {
     const ac = new AbortController(); const id = setTimeout(() => ac.abort(), ms);
-    try { const r = await fetch(url, { signal: ac.signal, headers: { Accept: "application/json" } }); if (!r.ok) throw new Error(r.status); return await r.json(); }
+    try { const r = await fetch(url, { signal: ac.signal, headers: { Accept: "application/json" } }); if (!r.ok) throw new Error(r.status); return [await r.json(), r.headers]; }
     finally { clearTimeout(id); }
   }
   async function collect(slot) {
     const start = (GENESIS + slot * SLOT) * 1000;
     const seen = new Set(); const bids = []; let delivered = null; const ok = [];
-    await Promise.all(RELAYS.map(async ([name, url]) => {
+    await Promise.all(activeRelays.map(async ([name, url]) => {
       try {
-        const j = await fetchJson(`${url}/relay/v1/data/bidtraces/builder_blocks_received?slot=${slot}`);
-        if (!Array.isArray(j)) return; ok.push(name);
+        const [j, h] = await fetchJsonH(`${url}/relay/v1/data/bidtraces/builder_blocks_received?slot=${slot}`, 6000);
+        if (!Array.isArray(j)) return; const via = h.get("X-Relays"); ok.push(via ? `${name}（${via.split(",").length}リレー: ${via}）` : name);
         for (const b of j) {
           const id = `${b.builder_pubkey}:${b.block_hash}`; if (seen.has(id)) continue; seen.add(id);
           const ts = b.timestamp_ms ? Number(b.timestamp_ms) : Number(b.timestamp) * 1000;
@@ -282,7 +286,7 @@
       $("msg").textContent = `スロット ${s - 1} の入札をリレーに聞いています…`;
       const { bids, delivered } = await collect(s - 1);
       if (mode !== "live" || slotNow() !== s) return setTimeout(liveLoop, 250);
-      $("msg").textContent = liveRelays.length ? "" : "どのリレーもブラウザから読めませんでした。次のスロットでもう一度試します";
+      $("msg").textContent = liveRelays.length ? "" : "どのリレーも読めませんでした。上の欄にM5の中継URLを入れると読めます。次のスロットでもう一度試します";
       startRace(s - 1, bids, delivered);
       learnName(s - 1, bids, delivered).then(() => { if (cur && cur.slot === s - 1) for (const [k, r] of cur.rows) { r.el.querySelector(".name span").textContent = nameOf(k); r.el.style.setProperty("--c", colorOf(k)); } });
     }
@@ -309,11 +313,14 @@
 
   function begin(m) {
     mode = m; lastPlayed = 0; $("hint").style.display = "none"; $("msg").textContent = "";
+    const proxy = $("proxy").value.trim().replace(/\/$/, ""); save("relay_proxy", proxy);
+    activeRelays = proxy ? [["M5の中継", proxy]] : RELAYS;
     $("stRelays").textContent = m === "demo" ? "デモ（本物ではない）" : "…";
     m === "live" ? liveLoop() : demoLoop();
   }
   $("btnLive").onclick = $("go").onclick = () => begin("live");
   $("btnDemo").onclick = $("goDemo").onclick = () => begin("demo");
+  $("proxy").value = load("relay_proxy", "") || "";
   renderWinners(); requestAnimationFrame(tick);
   if (qs.get("demo") === "1") begin("demo");
 })();
