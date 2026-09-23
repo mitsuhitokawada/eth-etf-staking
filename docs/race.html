@@ -68,6 +68,19 @@
   .share div { display: grid; grid-template-columns: 120px 1fr 44px; align-items: center; gap: 8px; font-size: .85rem; }
   .share div b { height: 14px; border-radius: 7px; background: var(--c); min-width: 3px; }
   .share div span:last-child { text-align: right; color: var(--muted); }
+  /* 登場人物の流れ図 */
+  .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; gap: 8px; align-items: stretch; }
+  .who { background: rgba(255,255,255,.05); border: 2px solid var(--c); border-radius: 18px; padding: 12px 12px 10px; text-align: center; }
+  .who .ico { font-size: 1.6rem; line-height: 1; margin-bottom: 4px; }
+  .who b { display: block; color: var(--c); font-size: 1.05rem; font-weight: 800; }
+  .who small { display: block; color: var(--muted); font-size: .72rem; margin-bottom: 6px; }
+  .who p { margin: 0; font-size: .8rem; line-height: 1.6; text-align: left; }
+  .who u { text-decoration: none; color: var(--warn); }
+  .arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); font-size: 1.3rem; padding: 0 2px; }
+  .arrow span { font-size: .68rem; white-space: nowrap; margin-bottom: 2px; }
+  .flowNote { color: var(--muted); font-size: .82rem; line-height: 1.7; margin-top: 10px; }
+  .flowNote a { color: var(--blue); }
+  @media (max-width: 900px) { .flow { grid-template-columns: 1fr; } .arrow { transform: rotate(90deg); padding: 6px 0; } .arrow span { transform: rotate(-90deg); } }
   .howto { color: var(--muted); font-size: .85rem; line-height: 1.8; }
   .howto b { color: #fff; }
   .hint { position: fixed; inset: 0; background: rgba(11,10,31,.86); display: grid; place-items: center; z-index: 10; text-align: center; padding: 20px; }
@@ -125,6 +138,20 @@
       <div class="winners" id="winners"></div>
       <h2 style="margin-top:14px">勝った回数</h2>
       <div class="share" id="share"></div>
+    </section>
+
+    <section class="panel c12">
+      <h2>登場人物は4種類<span>左から右へ、12秒ごとに流れる</span></h2>
+      <div class="flow">
+        <div class="who" style="--c:#3ee0c3"><div class="ico">🔍</div><b>サーチャー</b><small>MEV bot</small><p>裁定や清算など「儲かる取引」を見つけて、束にしてビルダーに送る</p></div>
+        <div class="arrow"><span>取引の束</span>➜</div>
+        <div class="who" style="--c:#ff6fa3"><div class="ico">🏗️</div><b>ビルダー</b><small>Titan、BuilderNet、Quasar…</small><p>取引を組み合わせてブロックを作り、「採用してくれたら◯ETH払う」と入札する。<u>この画面で競っている人たち</u></p></div>
+        <div class="arrow"><span>入札「◯ETH払う」</span>➜</div>
+        <div class="who" style="--c:#4da3ff"><div class="ico">🏟️</div><b>リレー</b><small>ultrasound、Flashbots、Titan Relay…</small><p>競りの会場役。入札を受け付けて、一番高いものだけをバリデータに渡す。自分では作らない</p></div>
+        <div class="arrow"><span>一番高いブロック</span>➜</div>
+        <div class="who" style="--c:#ffd166"><div class="ico">✅</div><b>提案者</b><small>バリデータ（あなたのノードも）</small><p>一番高い入札のブロックに署名して、チェーンにつなぐ。払われたETHはステーキング報酬に上乗せ</p></div>
+      </div>
+      <div class="flowNote">この画面は「ビルダー → リレー」の競りの途中経過、<a href="slots.html">スロットの画面</a>の「誰がブロックを作った？」はその結果（勝ったビルダー）です。Titan はビルダーでありながら自前のリレーも持っています。</div>
     </section>
 
     <section class="panel c12 howto">
