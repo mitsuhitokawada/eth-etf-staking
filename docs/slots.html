@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12秒のスロットをライブで</title>
+<meta name="description" content="自分のノードから、12秒ごとのブロックを「誰が作ったか」「何秒で届いたか」「手数料はいくらか」までライブで見るダッシュボード">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0b0a1f; --panel: #171536; --line: #2c2856; --text: #ffffff; --muted: #a9a3c9; --accent: #9d7bff; --mint: #3ee0c3; --warn: #ffd166; --pink: #ff6fa3; --blue: #4da3ff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: radial-gradient(1200px 600px at 20% -10%, #241f5a 0%, var(--bg) 60%); color: var(--text); min-height: 100vh;
+    font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif; font-weight: 700; }
+  main { max-width: 1240px; margin: 0 auto; padding: 16px 16px 40px; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-bottom: 14px; }
+  header h1 { font-size: 1.4rem; margin: 0; font-weight: 800; }
+  header h1 small { display: block; font-size: .8rem; color: var(--muted); font-weight: 700; }
+  .conn { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: auto; }
+  .conn input { font: inherit; padding: 8px 12px; border-radius: 999px; border: 2px solid var(--line); background: rgba(255,255,255,.06); color: #fff; width: min(46vw, 340px); }
+  .conn button, .conn a { border: 0; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-weight: 800; padding: 8px 16px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+  .conn button.primary { background: var(--accent); }
+  .msg { width: 100%; font-size: .85rem; color: var(--warn); min-height: 1.2em; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+  .panel { background: var(--panel); border-radius: 20px; padding: 14px 16px; box-shadow: 0 8px 24px rgba(0,0,0,.35); min-width: 0; }
+  .panel h2 { font-size: .95rem; margin: 0 0 8px; color: var(--muted); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .panel h2 span { font-size: .78rem; font-weight: 700; }
+  .c12 { grid-column: span 12; } .c6 { grid-column: span 6; } .c4 { grid-column: span 4; } .c8 { grid-column: span 8; } .c3 { grid-column: span 3; }
+  @media (max-width: 900px) { .c6, .c4, .c8, .c3 { grid-column: span 12; } }
+  /* スロット時計 */
+  .clock { display: flex; align-items: center; gap: 18px; }
+  .clock svg { width: 110px; height: 110px; flex: none; }
+  .clock .big { font-size: 1.9rem; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .clock .sub { color: var(--muted); font-size: .9rem; }
+  .clock .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #666; margin-right: 6px; }
+  .clock .dot.on { background: var(--mint); box-shadow: 0 0 10px var(--mint); }
+  /* ブロックの流れ（chainFlyer風のカード） */
+  .flow { display: flex; gap: 10px; overflow-x: auto; padding: 6px 2px 10px; scrollbar-width: thin; }
+  .blk { flex: none; width: 150px; border-radius: 16px; padding: 10px 12px; background: var(--panel); border: 3px solid var(--c, var(--muted)); box-shadow: 0 0 18px color-mix(in srgb, var(--c, #fff) 35%, transparent); animation: slidein .6s cubic-bezier(.2,.8,.2,1); font-variant-numeric: tabular-nums; }
+  .blk.miss { border-style: dashed; opacity: .55; }
+  .blk .n { font-size: .78rem; color: var(--muted); }
+  .blk .h { font-size: 1.05rem; font-weight: 800; }
+  .blk .b { color: var(--c, var(--muted)); font-size: .95rem; font-weight: 800; margin: 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .blk .s { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+  @keyframes slidein { from { transform: translateX(-30px) scale(.9); opacity: 0; } to { transform: none; opacity: 1; } }
+  svg.chart { width: 100%; height: auto; display: block; }
+  .chart text { font-family: inherit; font-size: 11px; fill: var(--muted); font-weight: 700; }
+  .chart .grid line { stroke: var(--line); }
+  .chart .axis line { stroke: var(--line); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: .8rem; color: var(--muted); margin-top: 6px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px; }
+  .bars .row { display: grid; grid-template-columns: 120px 1fr 44px; align-items: center; gap: 8px; font-size: .9rem; margin: 5px 0; }
+  .bars .bar { height: 14px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .bars .bar i { display: block; height: 100%; border-radius: 999px; }
+  .bars .v { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 5px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child, th:nth-child(3), td:nth-child(3) { text-align: left; }
+  th { color: var(--muted); font-weight: 700; }
+  .tbl { overflow-x: auto; }
+  .stat { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+  .stat div { background: rgba(255,255,255,.05); border-radius: 14px; padding: 8px 10px; }
+  .stat .k { font-size: .75rem; color: var(--muted); } .stat .v { font-size: 1.15rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .hint { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(11,10,31,.8); z-index: 5; }
+  .hint > div { background: var(--panel); border-radius: 22px; padding: 22px 26px; max-width: 520px; text-align: center; font-size: 1rem; line-height: 1.7; font-weight: 400; }
+  .hint b { display: block; font-size: 1.3rem; margin-bottom: 6px; font-weight: 800; }
+  .hint button { margin: 6px 4px 0; border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 800; padding: 10px 22px; border-radius: 999px; cursor: pointer; font-size: 1rem; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>⏱️ 12秒のスロットをライブで<small>自分のノードが見ている「今のブロック」を、誰が作って、何秒で届いて、手数料はいくらかまで</small></h1>
+    <div class="conn">
+      <input type="text" id="url" placeholder="ノードのBeacon API（https://…）">
+      <button class="primary" id="connect">つなぐ</button>
+      <a href="live.html">📡 3Dライブ</a>
+      <a href="index.html">📊 解説ページ</a>
+      <div class="msg" id="msg"></div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="panel c4">
+      <h2>スロット時計<span>12秒に1回、誰かがブロックを出します</span></h2>
+      <div class="clock">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="10"/><circle id="ring" cx="50" cy="50" r="42" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)"/><text id="sec" x="50" y="57" text-anchor="middle" style="font-size:26px;font-weight:800;fill:#fff">0</text></svg>
+        <div><div class="big" id="slotNow">—</div><div class="sub" id="slotSub"><span class="dot" id="dot"></span>未接続</div></div>
+      </div>
+    </div>
+    <div class="panel c8">
+      <h2>いまのブロック<span id="nowSub"></span></h2>
+      <div class="stat" id="stat"></div>
+    </div>
+
+    <div class="panel c12">
+      <h2>ブロックの流れ<span>新しいものが左。色はビルダー。点線は「誰も出さなかった」スロット</span></h2>
+      <div class="flow" id="flow"></div>
+    </div>
+
+    <div class="panel c6">
+      <h2>ブロックが届いた秒<span>12秒のうち何秒目に届いたか（直近48スロット）</span></h2>
+      <svg class="chart" id="arrive" viewBox="0 0 600 220"></svg>
+    </div>
+    <div class="panel c6">
+      <h2>誰がブロックを作った？<span>直近48スロット</span></h2>
+      <div class="bars" id="builders"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="panel c6">
+      <h2>基本手数料（gwei）<span>ブロックごと。混むと上がる</span></h2>
+      <svg class="chart" id="fee" viewBox="0 0 600 200"></svg>
+    </div>
+    <div class="panel c6">
+      <h2>取引の数<span>ブロックごと</span></h2>
+      <svg class="chart" id="txs" viewBox="0 0 600 200"></svg>
+    </div>
+
+    <div class="panel c12">
+      <h2>ブロック一覧<span>直近24</span></h2>
+      <div class="tbl"><table id="table"></table></div>
+    </div>
+  </div>
+</main>
+<div class="hint" id="hint"><div>
+  <b>⏱️ 12秒のスロットをライブで</b>
+  イーサリアムは12秒ごとに1つ「スロット」があって、順番が回ってきたバリデータがブロックを出します。実際にブロックを組み立てているのは「ビルダー」と呼ばれる業者で、その名前がブロックに刻まれています。<br>
+  自分のノードにつないで、それをそのまま見ます。
+  <br><button id="go">ノードにつなぐ</button>
+</div></div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const GENESIS = 1606824023, SLOT = 12;
+  const N_KEEP = 48;
+  // ビルダー名（extra_data の文字列から判定）と固定の色
+  const BUILDERS = [
+    ["Titan", /titan/i, "#ff6fa3"], ["beaverbuild", /beaver/i, "#ffb020"], ["rsync", /rsync/i, "#3ee0c3"],
+    ["BuilderNet", /buildernet|flashbots/i, "#4da3ff"], ["penguinbuild", /penguin/i, "#c4ff5e"], ["Nethermind", /nethermind/i, "#9d7bff"],
+    ["Quasar", /quasar/i, "#ff9f43"], ["自作（ローカル）", /geth|reth|besu|erigon|nethermind\/v/i, "#e0e0e0"],
+  ];
+  const OTHER = ["その他", null, "#8e879b"];
+  function builderOf(extra) {
+    if (!extra) return { name: "名前なし", color: "#6e6a8a" };
+    for (const [name, re, color] of BUILDERS) if (re.test(extra)) return { name, color };
+    return { name: extra.slice(0, 18) || OTHER[0], color: OTHER[2] };
+  }
+  const hexToText = h => { try { const b = h.replace(/^0x/, ""); let s = ""; for (let i = 0; i < b.length; i += 2) { const c = parseInt(b.slice(i, i + 2), 16); s += c >= 32 && c < 127 ? String.fromCharCode(c) : ""; } return s.trim(); } catch (_) { return ""; } };
+  const gwei = wei => Number(BigInt(wei) / 1000000n) / 1000; // 小数3桁
+  const fmt = (n, d = 0) => n.toLocaleString("ja-JP", { maximumFractionDigits: d });
+
+  let base = "", blocks = []; // {slot, missed, number, builder, txs, gasUsed, gasLimit, fee, blobs, proposer, dep, wd, arrive}
+  const bySlot = new Map();
+
+  function parseBlock(j, arrive) {
+    const m = j.data.message, body = m.body, ep = body.execution_payload || {};
+    const extra = hexToText(ep.extra_data || "");
+    const dep = [...(body.deposits || []).map(d => Number(d.data.amount) / 1e9), ...(((body.execution_requests || {}).deposits) || []).map(d => Number(d.amount) / 1e9)].reduce((a, v) => a + v, 0);
+    const wd = (ep.withdrawals || []).map(w => Number(w.amount) / 1e9).reduce((a, v) => a + v, 0);
+    return { slot: Number(m.slot), missed: false, number: Number(ep.block_number || 0), builder: builderOf(extra), extraRaw: extra,
+      txs: (ep.transactions || []).length, gasUsed: Number(ep.gas_used || 0), gasLimit: Number(ep.gas_limit || 1), fee: ep.base_fee_per_gas ? gwei(ep.base_fee_per_gas) : null,
+      blobs: (body.blob_kzg_commitments || []).length, proposer: Number(m.proposer_index), dep, wd, arrive, at: new Date() };
+  }
+  async function api(path) { const r = await fetch(base + path, { headers: { Accept: "application/json" } }); if (r.status === 404) return null; if (!r.ok) throw new Error(r.status + " " + path); return r.json(); }
+
+  function put(b) { bySlot.set(b.slot, b); blocks = [...bySlot.values()].sort((a, c) => a.slot - c.slot).slice(-N_KEEP); render(); }
+
+  async function fetchSlot(slot, arrive = null) {
+    const j = await api(`/eth/v2/beacon/blocks/${slot}`);
+    put(j ? parseBlock(j, arrive) : { slot, missed: true });
+  }
+
+  // ---- 接続: まず直近をまとめて読み、その後は新着を追う ----
+  let headSlot = null, es = null, pollT = null;
+  async function connect() {
+    base = $("url").value.trim().replace(/\/+$/, "");
+    if (!base) { $("msg").textContent = "ノードのURLを入れてください"; return; }
+    try { localStorage.setItem("beacon_url", base); } catch (_) {}
+    $("hint").style.display = "none"; $("msg").textContent = "つないでいます…";
+    try {
+      const h = await api("/eth/v1/beacon/headers/head");
+      headSlot = Number(h.data.header.message.slot);
+      $("msg").textContent = "直近のブロックを読み込み中…";
+      const slots = []; for (let s = headSlot - N_KEEP + 1; s <= headSlot; s++) slots.push(s);
+      for (let i = 0; i < slots.length; i += 6) await Promise.all(slots.slice(i, i + 6).map(s => fetchSlot(s).catch(() => {})));
+      $("msg").textContent = "";
+      watch();
+    } catch (e) { $("msg").textContent = "ノードから読めませんでした: " + e.message; }
+  }
+  function onHead(slot) {
+    if (slot <= headSlot) return;
+    // 飛ばされたスロット（誰も出さなかった）も記録
+    for (let s = headSlot + 1; s < slot; s++) put({ slot: s, missed: true });
+    headSlot = slot;
+    const arrive = Date.now() / 1000 - (GENESIS + slot * SLOT);
+    fetchSlot(slot, Math.max(0, arrive)).catch(e => $("msg").textContent = "読めませんでした: " + e.message);
+  }
+  function watch() {
+    // Server-Sent Events が使えればそれで、だめなら1秒ごとに聞く
+    try {
+      es = new EventSource(base + "/eth/v1/events?topics=head");
+      es.addEventListener("head", ev => { try { onHead(Number(JSON.parse(ev.data).slot)); } catch (_) {} });
+      es.onerror = () => { es.close(); es = null; if (!pollT) pollT = setInterval(pollHead, 1000); };
+    } catch (_) { pollT = setInterval(pollHead, 1000); }
+  }
+  async function pollHead() { try { const h = await api("/eth/v1/beacon/headers/head"); onHead(Number(h.data.header.message.slot)); } catch (_) {} }
+
+  // ---- 描画 ----
+  function render() {
+    const real = blocks.filter(b => !b.missed);
+    const last = real[real.length - 1];
+    // いまのブロック
+    if (last) {
+      $("nowSub").textContent = `スロット ${fmt(last.slot)}`;
+      $("stat").innerHTML = [
+        ["ブロック番号", fmt(last.number)], ["作ったビルダー", `<span style="color:${last.builder.color}">${last.builder.name}</span>`],
+        ["取引の数", fmt(last.txs)], ["ガス使用率", fmt(last.gasUsed / last.gasLimit * 100, 0) + "%"],
+        ["基本手数料", last.fee == null ? "—" : fmt(last.fee, 2) + " gwei"], ["ブロブ", fmt(last.blobs) + "個"],
+        ["届いた秒", last.arrive == null ? "—" : fmt(last.arrive, 1) + "秒"], ["提案したバリデータ", "#" + fmt(last.proposer)],
+      ].map(([k, v]) => `<div><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+    }
+    // 流れ
+    $("flow").innerHTML = [...blocks].reverse().map(b => b.missed
+      ? `<div class="blk miss"><div class="n">スロット ${fmt(b.slot)}</div><div class="h">空き</div><div class="s">誰も出さなかった</div></div>`
+      : `<div class="blk" style="--c:${b.builder.color}"><div class="n">スロット ${fmt(b.slot)}</div><div class="h">#${fmt(b.number)}</div><div class="b">${b.builder.name}</div><div class="s">取引 ${fmt(b.txs)}件<br>ガス ${fmt(b.gasUsed / b.gasLimit * 100, 0)}%${b.arrive != null ? `<br>${fmt(b.arrive, 1)}秒で到着` : ""}${b.dep ? `<br>🔒 +${fmt(b.dep)} ETH` : ""}</div></div>`).join("");
+    // 届いた秒（散布図）
+    { const W = 600, H = 220, m = { t: 12, r: 12, b: 28, l: 34 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+      const pts = real.filter(b => b.arrive != null);
+      const x = i => m.l + (i + 0.5) / N_KEEP * iw, y = v => m.t + ih - Math.min(13, v) / 13 * ih;
+      let s = '<g class="grid">' + [0, 4, 8, 12].map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}"/>`).join("") + "</g>";
+      s += [0, 4, 8, 12].map(v => `<text x="${m.l - 6}" y="${y(v) + 4}" text-anchor="end">${v}秒</text>`).join("");
+      s += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(4)}" y2="${y(4)}" stroke="var(--mint)" stroke-dasharray="4 4"/><text x="${W - m.r}" y="${y(4) - 4}" text-anchor="end" style="fill:var(--mint)">4秒（間に合う目安）</text>`;
+      const first = blocks[0] ? blocks[0].slot : 0;
+      s += pts.map(b => `<circle cx="${x(b.slot - first)}" cy="${y(b.arrive)}" r="5" fill="${b.builder.color}"><title>スロット ${b.slot}: ${b.arrive.toFixed(1)}秒 ${b.builder.name}</title></circle>`).join("");
+      s += `<text x="${m.l}" y="${H - 8}">古い</text><text x="${W - m.r}" y="${H - 8}" text-anchor="end">新しい →</text>`;
+      $("arrive").innerHTML = pts.length ? s : `<text x="300" y="110" text-anchor="middle">つないだあとに届いたブロックから記録します</text>`;
+    }
+    // ビルダー別
+    { const cnt = new Map(); real.forEach(b => cnt.set(b.builder.name, (cnt.get(b.builder.name) || 0) + 1));
+      const rows = [...cnt.entries()].sort((a, b) => b[1] - a[1]);
+      const colorOf = n => (real.find(b => b.builder.name === n) || { builder: { color: "#888" } }).builder.color;
+      $("builders").innerHTML = rows.slice(0, 8).map(([n, c]) => `<div class="row"><span style="color:${colorOf(n)}">${n}</span><div class="bar"><i style="width:${c / Math.max(1, real.length) * 100}%;background:${colorOf(n)}"></i></div><span class="v">${c}</span></div>`).join("");
+      $("legend").textContent = real.length ? `${real.length}ブロック中。ビルダーの名前はブロックの extra_data から読んでいます。` : "";
+    }
+    // 手数料・取引数（折れ線）
+    const line = (id, key, unit, d) => { const W = 600, H = 200, m = { t: 12, r: 12, b: 24, l: 46 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+      const vals = blocks.map(b => b.missed ? null : b[key]); const mx = Math.max(1, ...vals.filter(v => v != null));
+      const x = i => m.l + (i + 0.5) / N_KEEP * iw, y = v => m.t + ih - v / mx * ih;
+      let s = '<g class="grid">' + [0, .5, 1].map(f => `<line x1="${m.l}" x2="${W - m.r}" y1="${y(mx * f)}" y2="${y(mx * f)}"/>`).join("") + "</g>";
+      s += [0, .5, 1].map(f => `<text x="${m.l - 6}" y="${y(mx * f) + 4}" text-anchor="end">${fmt(mx * f, d)}</text>`).join("");
+      let p = ""; vals.forEach((v, i) => { if (v == null) { p += " M"; return; } p += (p === "" || p.endsWith("M") ? (p === "" ? "M" : "") : " L") + `${x(i).toFixed(1)},${y(v).toFixed(1)}`; });
+      s += `<path d="${p.replace(/ M(?= M| L|$)/g, "").replace(/M L/g, "M")}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>`;
+      s += vals.map((v, i) => v == null ? "" : `<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="var(--accent)"><title>${fmt(v, d)} ${unit}</title></circle>`).join("");
+      $(id).innerHTML = s; };
+    line("fee", "fee", "gwei", 2); line("txs", "txs", "件", 0);
+    // 表
+    $("table").innerHTML = `<tr><th>スロット</th><th>ブロック</th><th>ビルダー</th><th>取引</th><th>ガス</th><th>手数料 gwei</th><th>ブロブ</th><th>預け入れ</th><th>引き出し</th><th>届いた秒</th><th>バリデータ</th></tr>` +
+      [...blocks].reverse().slice(0, 24).map(b => b.missed ? `<tr><td>${fmt(b.slot)}</td><td colspan="10" style="text-align:left;color:var(--muted)">空きスロット（誰も出さなかった）</td></tr>`
+        : `<tr><td>${fmt(b.slot)}</td><td>${fmt(b.number)}</td><td style="color:${b.builder.color}">${b.builder.name}</td><td>${fmt(b.txs)}</td><td>${fmt(b.gasUsed / b.gasLimit * 100, 0)}%</td><td>${b.fee == null ? "—" : fmt(b.fee, 2)}</td><td>${b.blobs}</td><td>${b.dep ? "+" + fmt(b.dep, 1) : "—"}</td><td>${b.wd ? "−" + fmt(b.wd, 2) : "—"}</td><td>${b.arrive == null ? "—" : fmt(b.arrive, 1)}</td><td>#${fmt(b.proposer)}</td></tr>`).join("");
+  }
+
+  // スロット時計（接続していなくても動く）
+  function tick() {
+    const now = Date.now() / 1000, slot = Math.floor((now - GENESIS) / SLOT), sec = now - (GENESIS + slot * SLOT);
+    $("ring").setAttribute("stroke-dashoffset", (264 * (1 - sec / SLOT)).toFixed(1)); $("sec").textContent = Math.floor(sec);
+    $("slotNow").textContent = "スロット " + fmt(slot);
+    $("slotSub").innerHTML = `<span class="dot ${base && headSlot ? "on" : ""}"></span>` + (base && headSlot ? (headSlot >= slot ? "このスロットのブロックが届きました" : `ブロック待ち（${(SLOT - sec).toFixed(0)}秒で次のスロット）`) : "未接続");
+  }
+  setInterval(tick, 200); tick();
+
+  $("connect").onclick = connect; $("go").onclick = () => { $("hint").style.display = "none"; $("url").focus(); };
+  try { const u = localStorage.getItem("beacon_url"); if (u) $("url").value = u; } catch (_) {}
+  render();
+})();
+</script>
+</body>
+</html>
